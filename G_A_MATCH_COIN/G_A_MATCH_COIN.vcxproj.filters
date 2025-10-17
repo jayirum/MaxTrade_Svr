@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{b486e91e-33ac-4267-8e3c-57879fe1bb99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="List_of_Orders">
+      <UniqueIdentifier>{5e48c561-eed7-4c24-834c-bd8f2e3ce547}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API_MarketData">
+      <UniqueIdentifier>{dbb0460f-8608-4d67-b9cf-431001f73e4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Log.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\LogMsg.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Prop.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\StringUtils.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MaxTradeInc.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Util.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\TimeUtils.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="CServerSock.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\CODBC.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="CGlobals.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="CReturnClientQ.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="COrderProcess.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="CMarketData.cpp">
+      <Filter>API_MarketData</Filter>
+    </ClCompile>
+    <ClCompile Include="CAPIClient.cpp">
+      <Filter>API_MarketData</Filter>
+    </ClCompile>
+    <ClCompile Include="CLimitOrders_bySymbol.cpp">
+      <Filter>List_of_Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="CMarketOrders_bySymbol.cpp">
+      <Filter>List_of_Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="CMatchProcess_bySymbol.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Common\Log.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\LogMsg.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Prop.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\StringUtils.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MaxTradeInc.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Util.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\TimeUtils.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\CODBC.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CAPIClient.h">
+      <Filter>API_MarketData</Filter>
+    </ClInclude>
+    <ClInclude Include="CMarketData.h">
+      <Filter>API_MarketData</Filter>
+    </ClInclude>
+    <ClInclude Include="CGlobals.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="COrderProcess.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="CReturnClientQ.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="CServerSock.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="CLimitOrders_bySymbol.h">
+      <Filter>List_of_Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="CMarketOrders_bySymbol.h">
+      <Filter>List_of_Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="CMatchProcess_bySymbol.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="G_A_MATCH_COIN.ini" />
+    <None Include="..\Test\TestProj\TestProj.vcxproj" />
+  </ItemGroup>
+</Project>

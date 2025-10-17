@@ -1,0 +1,74 @@
+LSAPI_Tr/.vs/
+LSAPI_Tr/Debug/
+LSAPI_Tr/Log/
+
+LSAPI_Tr/LSAPI_Tr.exe
+LSAPI_Tr/LSAPI_Tr.exe
+
+Chart/
+Header/
+Image/
+"IndexView - \353\263\265\354\202\254\353\263\270.cpp"
+"IndexView - \353\263\265\354\202\254\353\263\270.h"
+Login.ini
+SKComdCM.dll
+SKComdEM.dll
+SKComdIF.dll
+SKComdSC.dll
+SKCommCM.dll
+SKCommEM.dll
+SKCommIC.dll
+SKCommIF.dll
+SKCommSC.dll
+Sys/
+XA_Common.dll
+XA_DataSet.dll
+XA_Session.dll
+XecureS.dll
+XingAPI/
+XingAPI_Sample.exe
+inisafenet_v7.2.dll
+mfc100.dll
+mfc110.dll
+mfc42.dll
+msvcp100.dll
+msvcp110.dll
+msvcp60.dll
+msvcr100.dll
+msvcr110.dll
+msvcrt.dll
+nsldap32v11.dll
+reg.bat
+res/ChartExcel.res
+res/ChartIndex.res
+res/o3101.res
+res/o3101_2.res
+res/o3103.res
+res/o3103_2.res
+res/o3105.res
+res/o3105_2.res
+unreg.bat
+xingACE.exe
+xingAPI.dll
+xingAPI.ini
+xingAceRDSender.dll
+"\354\203\230\355\224\214/"
+../TUHON_Real_Setup.exe
+../xingAPI_Program_Debug(2025.06.07)/
+"../xingAPI_Sample_VC2010(\355\225\264\354\231\270\354\243\274\354\213\235\354\266\224\352\260\200)[0].zip"
+"../xingAPI_Sample_VC2010(\355\225\264\354\231\270\354\243\274\354\213\235\354\266\224\352\260\200)[0]/"
+"../\355\224\204\353\241\234\352\267\270\353\236\250\352\260\234\353\260\234\352\260\200\354\235\264\353\223\234.pdf"
+"../\355\225\264\354\231\270\354\204\240\353\254\274\354\230\265\354\205\230\352\264\200\354\213\254\354\242\205\353\252\251(o3127).xlsm"
+"../DLL\352\260\234\353\260\234\352\260\200\354\235\264\353\223\234.pdf"
+        "../DLL\355\225\250\354\210\230\353\240\210\355\215\274\353\237\260\354\212\244.pdf"
+        "../DevCenter\354\202\254\354\232\251\354\236\220\353\251\224\353\211\264\354\226\274.pdf"
+        CSCommError.txt
+        "IndexView - \353\263\265\354\202\254\353\263\270.cpp"
+        "IndexView - \353\263\265\354\202\254\353\263\270.h"
+        "\354\203\230\355\224\214/"
+        ../TUHON_Real_Setup.exe
+        ../xingAPI_Program_Debug(2025.06.07)/
+        "../xingAPI_Sample_VC2010(\355\225\264\354\231\270\354\243\274\354\213\235\354\266\224\352\260\200)[0].zip"
+        "../xingAPI_Sample_VC2010(\355\225\264\354\231\270\354\243\274\354\213\235\354\266\224\352\260\200)[0]/"
+        "../\355\224\204\353\241\234\352\267\270\353\236\250\352\260\234\353\260\234\352\260\200\354\235\264\353\223\234.pdf"
+        "../\355\225\264\354\231\270\354\204\240\353\254\274\354\230\265\354\205\230\352\264\200\354\213\254\354\242\205\353\252\251(o3127).xlsm"

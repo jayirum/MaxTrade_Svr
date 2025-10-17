@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D_KF|Win32">
+      <Configuration>D_KF</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="R_KF|Win32">
+      <Configuration>R_KF</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName />
+    <SccLocalPath />
+    <Keyword>MFCProj</Keyword>
+    <ProjectGuid>{391C3116-C4CE-57FD-AB2F-28AFFC022ECA}</ProjectGuid>
+    <ProjectName>G_A_ETAPI_R</ProjectName>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_KF|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_KF|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='D_KF|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='R_KF|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_KF|Win32'">
+    <OutDir>.</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>G_A_ETAPI_R_KF</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.</OutDir>
+    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_KF|Win32'">
+    <OutDir>.</OutDir>
+    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>G_A_ETAPI_R_KF</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>MaxSpeed</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Release\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\Release\XingAPI_Sample.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <ObjectFileName>.\Release\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\Release\XingAPI_Sample.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release\XingAPI_Sample.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>.\Release\XingAPI_Sample.exe</OutputFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_KF|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);DEF_KF</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Release\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\Release\XingAPI_Sample.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <ObjectFileName>.\Release\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\Release\XingAPI_Sample.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release\XingAPI_Sample.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>.\G_A_ETAPI_R_KF.EXE</OutputFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <MinimalRebuild>true</MinimalRebuild>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Debug\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\Debug\XingAPI_Sample.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <ObjectFileName>.\Debug\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\Debug\XingAPI_Sample.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug\XingAPI_Sample.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>.\Debug\XingAPI_Sample.exe</OutputFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='D_KF|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <MinimalRebuild>true</MinimalRebuild>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions);DEF_KF</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Debug\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\Debug\XingAPI_Sample.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <ObjectFileName>.\Debug\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\Debug\XingAPI_Sample.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug\XingAPI_Sample.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>.\Debug\XingAPI_Sample.exe</OutputFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Common\CCircularQ.cpp" />
+    <ClCompile Include="..\..\Common\CODBC.cpp" />
+    <ClCompile Include="..\..\Common\Log.cpp" />
+    <ClCompile Include="..\..\Common\LogMsg.cpp" />
+    <ClCompile Include="..\..\Common\MaxTradeInc.cpp" />
+    <ClCompile Include="..\..\Common\Prop.cpp" />
+    <ClCompile Include="..\..\Common\StringUtils.cpp" />
+    <ClCompile Include="..\..\Common\Util.cpp" />
+    <ClCompile Include="ChildFrm.cpp" />
+    <ClCompile Include="ChildView.cpp" />
+    <ClCompile Include="Comm.cpp" />
+    <ClCompile Include="CSendPriceSvr.cpp" />
+    <ClCompile Include="DlgExcludeItem.cpp" />
+    <ClCompile Include="DlgTRBar.cpp" />
+    <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="scbarg.cpp" />
+    <ClCompile Include="sizecbar.cpp" />
+    <ClCompile Include="StdAfx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='R_KF|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='R_KF|Win32'">stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='D_KF|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='D_KF|Win32'">stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="TRBar.cpp" />
+    <ClCompile Include="XingAPI_Sample.cpp" />
+    <ClCompile Include="DlgLogin.cpp" />
+    <ClCompile Include="Dlg_CSPAQ02200.cpp" />
+    <ClCompile Include="Dlg_CSPAQ02300.cpp" />
+    <ClCompile Include="Dlg_CSPAQ03700.cpp" />
+    <ClCompile Include="Dlg_CSPAT00600.cpp" />
+    <ClCompile Include="Dlg_CSPAT00700.cpp" />
+    <ClCompile Include="Dlg_CSPAT00800.cpp" />
+    <ClCompile Include="Dlg_CSPBQ00200.cpp" />
+    <ClCompile Include="Dlg_H1_.cpp" />
+    <ClCompile Include="Dlg_H2_.cpp" />
+    <ClCompile Include="Dlg_h2_ELW.cpp" />
+    <ClCompile Include="Dlg_h3_ELW.cpp" />
+    <ClCompile Include="Dlg_SC0.cpp" />
+    <ClCompile Include="Dlg_SC1.cpp" />
+    <ClCompile Include="Dlg_SC2.cpp" />
+    <ClCompile Include="Dlg_SC3.cpp" />
+    <ClCompile Include="Dlg_SC4.cpp" />
+    <ClCompile Include="Dlg_t1101.cpp" />
+    <ClCompile Include="Dlg_t1301.cpp" />
+    <ClCompile Include="Dlg_t1305.cpp" />
+    <ClCompile Include="Dlg_t1452.cpp" />
+    <ClCompile Include="Dlg_t1602.cpp" />
+    <ClCompile Include="Dlg_t8411.cpp" />
+    <ClCompile Include="Dlg_C01.cpp" />
+    <ClCompile Include="Dlg_CFOAQ00600.cpp" />
+    <ClCompile Include="Dlg_CFOAT00100.cpp" />
+    <ClCompile Include="Dlg_CFOAT00200.cpp" />
+    <ClCompile Include="Dlg_CFOAT00300.cpp" />
+    <ClCompile Include="Dlg_CFOFQ02400.cpp" />
+    <ClCompile Include="Dlg_FC0.cpp" />
+    <ClCompile Include="Dlg_H01.cpp" />
+    <ClCompile Include="Dlg_JC0.cpp" />
+    <ClCompile Include="Dlg_t1601.cpp" />
+    <ClCompile Include="Dlg_BM_.cpp" />
+    <ClCompile Include="Dlg_BMT.cpp" />
+    <ClCompile Include="Dlg_t9942.cpp" />
+    <ClCompile Include="Dlg_t9943.cpp" />
+    <ClCompile Include="Dlg_t9944.cpp" />
+    <ClCompile Include="Dlg_CCEAT00100.cpp" />
+    <ClCompile Include="Dlg_CCEAT00200.cpp" />
+    <ClCompile Include="Dlg_CCEAT00300.cpp" />
+    <ClCompile Include="Dlg_CEXAT11100.cpp" />
+    <ClCompile Include="Dlg_CEXAT11200.cpp" />
+    <ClCompile Include="Dlg_CEXAT11300.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="XingAPI_Sample.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Common\CCircularQ.h" />
+    <ClInclude Include="..\..\Common\CODBC.h" />
+    <ClInclude Include="..\..\Common\Log.h" />
+    <ClInclude Include="..\..\Common\LogMsg.h" />
+    <ClInclude Include="..\..\Common\MaxTradeInc.h" />
+    <ClInclude Include="..\..\Common\Prop.h" />
+    <ClInclude Include="..\..\Common\StringUtils.h" />
+    <ClInclude Include="..\..\Common\Util.h" />
+    <ClInclude Include="ChildFrm.h" />
+    <ClInclude Include="ChildView.h" />
+    <ClInclude Include="Comm.h" />
+    <ClInclude Include="CSendPriceSvr.h" />
+    <ClInclude Include="DlgExcludeItem.h" />
+    <ClInclude Include="DlgTRBar.h" />
+    <ClInclude Include="IXingAPI.h" />
+    <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="packet\FH0.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="scbarg.h" />
+    <ClInclude Include="sizecbar.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="TRBar.h" />
+    <ClInclude Include="XingAPI_Sample.h" />
+    <ClInclude Include="DlgLogin.h" />
+    <ClInclude Include="Dlg_CSPAQ02200.h" />
+    <ClInclude Include="Dlg_CSPAQ02300.h" />
+    <ClInclude Include="Dlg_CSPAQ03700.h" />
+    <ClInclude Include="Dlg_CSPAT00600.h" />
+    <ClInclude Include="Dlg_CSPAT00700.h" />
+    <ClInclude Include="Dlg_CSPAT00800.h" />
+    <ClInclude Include="Dlg_CSPBQ00200.h" />
+    <ClInclude Include="Dlg_H1_.h" />
+    <ClInclude Include="Dlg_H2_.h" />
+    <ClInclude Include="Dlg_h2_ELW.h" />
+    <ClInclude Include="Dlg_h3_ELW.h" />
+    <ClInclude Include="Dlg_SC0.h" />
+    <ClInclude Include="Dlg_SC1.h" />
+    <ClInclude Include="Dlg_SC2.h" />
+    <ClInclude Include="Dlg_SC3.h" />
+    <ClInclude Include="Dlg_SC4.h" />
+    <ClInclude Include="Dlg_t1101.h" />
+    <ClInclude Include="Dlg_t1301.h" />
+    <ClInclude Include="Dlg_t1305.h" />
+    <ClInclude Include="Dlg_t1452.h" />
+    <ClInclude Include="Dlg_t1602.h" />
+    <ClInclude Include="Dlg_t8411.h" />
+    <ClInclude Include="Dlg_C01.h" />
+    <ClInclude Include="Dlg_CFOAQ00600.h" />
+    <ClInclude Include="Dlg_CFOAT00100.h" />
+    <ClInclude Include="Dlg_CFOAT00200.h" />
+    <ClInclude Include="Dlg_CFOAT00300.h" />
+    <ClInclude Include="Dlg_CFOFQ02400.h" />
+    <ClInclude Include="Dlg_FC0.h" />
+    <ClInclude Include="Dlg_H01.h" />
+    <ClInclude Include="Dlg_JC0.h" />
+    <ClInclude Include="Dlg_t1601.h" />
+    <ClInclude Include="Dlg_BM_.h" />
+    <ClInclude Include="Dlg_BMT.h" />
+    <ClInclude Include="Dlg_t9942.h" />
+    <ClInclude Include="Dlg_t9943.h" />
+    <ClInclude Include="Dlg_t9944.h" />
+    <ClInclude Include="Dlg_CCEAT00100.h" />
+    <ClInclude Include="Dlg_CCEAT00200.h" />
+    <ClInclude Include="Dlg_CCEAT00300.h" />
+    <ClInclude Include="Dlg_CEXAT11100.h" />
+    <ClInclude Include="Dlg_CEXAT11200.h" />
+    <ClInclude Include="Dlg_CEXAT11300.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="res\XingAPI_Sample.ico" />
+    <CustomBuild Include="res\XingAPI_Sample.rc2">
+      <FileType>RC</FileType>
+    </CustomBuild>
+    <CustomBuild Include="ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

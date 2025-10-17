@@ -1,0 +1,461 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{8f9a878a-1fb2-41e7-bd8d-d7bd9c970714}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{ad2146e7-018e-43e9-887b-c875e4a073e4}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{6cd6bb1b-d47f-44ad-87ee-4e8d0c892169}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Login">
+      <UniqueIdentifier>{085e9727-9874-43bf-9ff1-549560db56b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TR">
+      <UniqueIdentifier>{d4d21808-aafa-4c9c-8e1e-1f464e5ad148}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TR\주식">
+      <UniqueIdentifier>{27d5f79a-f6c2-4fc6-8a7a-7bb205e6b0a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TR\선물옵션">
+      <UniqueIdentifier>{63135b1f-0075-4f2c-ac11-c8c4a798b167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TR\투자자">
+      <UniqueIdentifier>{69f25dac-1cdd-4035-bc7c-fd718d4739bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TR\기타">
+      <UniqueIdentifier>{a3f1acab-2c0b-4eb7-81b7-72b10589a47f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TR\CME 야간선물">
+      <UniqueIdentifier>{c652ff26-6140-4819-9c1d-1cc9abe844ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TR\EUREX 야간옵션">
+      <UniqueIdentifier>{dde93b9a-51be-4ab7-9989-377cdbc2317c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{17c48c13-cd66-45f3-9741-aa33b61a292d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{3790153d-72c4-434f-9ee9-510a0bbcbf47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SiseHoga">
+      <UniqueIdentifier>{18ad6288-a870-4cab-8676-960b89954486}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ChildFrm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ChildView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgExcludeItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgTRBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scbarg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sizecbar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TRBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XingAPI_Sample.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgLogin.cpp">
+      <Filter>Login</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CSPAQ02200.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CSPAQ02300.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CSPAQ03700.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CSPAT00600.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CSPAT00700.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CSPAT00800.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CSPBQ00200.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_H1_.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_H2_.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_h2_ELW.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_h3_ELW.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_SC0.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_SC1.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_SC2.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_SC3.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_SC4.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_t1101.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_t1301.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_t1305.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_t1452.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_t1602.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_t8411.cpp">
+      <Filter>TR\주식</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_C01.cpp">
+      <Filter>TR\선물옵션</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CFOAQ00600.cpp">
+      <Filter>TR\선물옵션</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CFOAT00100.cpp">
+      <Filter>TR\선물옵션</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CFOAT00200.cpp">
+      <Filter>TR\선물옵션</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CFOAT00300.cpp">
+      <Filter>TR\선물옵션</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CFOFQ02400.cpp">
+      <Filter>TR\선물옵션</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_H01.cpp">
+      <Filter>TR\선물옵션</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_JC0.cpp">
+      <Filter>TR\선물옵션</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_t1601.cpp">
+      <Filter>TR\선물옵션</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_BM_.cpp">
+      <Filter>TR\투자자</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_BMT.cpp">
+      <Filter>TR\투자자</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_t9942.cpp">
+      <Filter>TR\기타</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_t9943.cpp">
+      <Filter>TR\기타</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_t9944.cpp">
+      <Filter>TR\기타</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CCEAT00100.cpp">
+      <Filter>TR\CME 야간선물</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CCEAT00200.cpp">
+      <Filter>TR\CME 야간선물</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CCEAT00300.cpp">
+      <Filter>TR\CME 야간선물</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CEXAT11100.cpp">
+      <Filter>TR\EUREX 야간옵션</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CEXAT11200.cpp">
+      <Filter>TR\EUREX 야간옵션</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CEXAT11300.cpp">
+      <Filter>TR\EUREX 야간옵션</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Log.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\LogMsg.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\CODBC.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\MaxTradeInc.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Comm.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Util.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_FC0.cpp">
+      <Filter>SiseHoga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Prop.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\StringUtils.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="CSendPriceSvr.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\CCircularQ.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="XingAPI_Sample.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ChildFrm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ChildView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgExcludeItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgTRBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IXingAPI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scbarg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sizecbar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TRBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XingAPI_Sample.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgLogin.h">
+      <Filter>Login</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CSPAQ02200.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CSPAQ02300.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CSPAQ03700.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CSPAT00600.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CSPAT00700.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CSPAT00800.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CSPBQ00200.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_H1_.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_H2_.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_h2_ELW.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_h3_ELW.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_SC0.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_SC1.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_SC2.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_SC3.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_SC4.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_t1101.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_t1301.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_t1305.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_t1452.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_t1602.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_t8411.h">
+      <Filter>TR\주식</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_C01.h">
+      <Filter>TR\선물옵션</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CFOAQ00600.h">
+      <Filter>TR\선물옵션</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CFOAT00100.h">
+      <Filter>TR\선물옵션</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CFOAT00200.h">
+      <Filter>TR\선물옵션</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CFOAT00300.h">
+      <Filter>TR\선물옵션</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CFOFQ02400.h">
+      <Filter>TR\선물옵션</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_H01.h">
+      <Filter>TR\선물옵션</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_JC0.h">
+      <Filter>TR\선물옵션</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_t1601.h">
+      <Filter>TR\선물옵션</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_BM_.h">
+      <Filter>TR\투자자</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_BMT.h">
+      <Filter>TR\투자자</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_t9942.h">
+      <Filter>TR\기타</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_t9943.h">
+      <Filter>TR\기타</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_t9944.h">
+      <Filter>TR\기타</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CCEAT00100.h">
+      <Filter>TR\CME 야간선물</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CCEAT00200.h">
+      <Filter>TR\CME 야간선물</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CCEAT00300.h">
+      <Filter>TR\CME 야간선물</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CEXAT11100.h">
+      <Filter>TR\EUREX 야간옵션</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CEXAT11200.h">
+      <Filter>TR\EUREX 야간옵션</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CEXAT11300.h">
+      <Filter>TR\EUREX 야간옵션</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Log.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\LogMsg.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\CODBC.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\MaxTradeInc.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Comm.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Util.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_FC0.h">
+      <Filter>SiseHoga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Prop.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\StringUtils.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CSendPriceSvr.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\CCircularQ.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="packet\FH0.h">
+      <Filter>SiseHoga</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="res\XingAPI_Sample.ico">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="res\XingAPI_Sample.rc2">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ReadMe.txt" />
+  </ItemGroup>
+</Project>

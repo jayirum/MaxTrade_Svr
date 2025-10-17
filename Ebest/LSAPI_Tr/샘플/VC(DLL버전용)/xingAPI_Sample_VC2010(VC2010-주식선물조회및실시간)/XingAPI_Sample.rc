@@ -1,0 +1,2804 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Korean resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+#ifdef _WIN32
+LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
+#pragma code_page(949)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 18, 1\r\n"
+    "#pragma code_page(949)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\XingAPI_Sample.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.kor\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\XingAPI_Sample.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "파일(&F)"
+    BEGIN
+        MENUITEM "새 파일(&N)\tCtrl+N",         ID_FILE_NEW
+        MENUITEM SEPARATOR
+        MENUITEM "종료(&X)",                    ID_APP_EXIT
+    END
+    POPUP "도움말(&H)"
+    BEGIN
+        MENUITEM "XingAPI_Sample 정보(&A)...",  ID_APP_ABOUT
+    END
+END
+
+IDR_XINGAPTYPE MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "파일(&F)"
+    BEGIN
+        MENUITEM "새 파일(&N)\tCtrl+N",         ID_FILE_NEW
+        MENUITEM "닫기(&C)",                    ID_FILE_CLOSE
+        MENUITEM SEPARATOR
+        MENUITEM "종료(&X)",                    ID_APP_EXIT
+    END
+    POPUP "편집(&E)"
+    BEGIN
+        MENUITEM "취소(&U)\tCtrl+Z",            ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "잘라내기(&T)\tCtrl+X",        ID_EDIT_CUT
+        MENUITEM "복사(&C)\tCtrl+C",            ID_EDIT_COPY
+        MENUITEM "붙여넣기(&P)\tCtrl+V",        ID_EDIT_PASTE
+    END
+    POPUP "창(&W)"
+    BEGIN
+        MENUITEM "계단식(&C)",                  ID_WINDOW_CASCADE
+        MENUITEM "바둑판식(&T)",                ID_WINDOW_TILE_HORZ
+        MENUITEM "아이콘 정렬(&A)",             ID_WINDOW_ARRANGE
+    END
+    POPUP "도움말(&H)"
+    BEGIN
+        MENUITEM "XingAPI_Sample 정보(&A)...",  ID_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "XingAPI_Sample 정보"
+FONT 9, "굴림"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "XingAPI_Sample 버전 1.0",IDC_STATIC,40,10,119,8,
+                    SS_NOPREFIX
+    LTEXT           "Copyright (C) 2009",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "확인",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_LOGIN DIALOG DISCARDABLE  0, 0, 362, 327
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "X-ing API 로그인"
+FONT 9, "굴림체"
+BEGIN
+    GROUPBOX        "로그인",IDC_STATIC,7,7,183,115
+    LTEXT           "아이디",IDC_STATIC,14,19,36,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_ID,54,19,72,14,ES_AUTOHSCROLL
+    CONTROL         "아이디저장",IDC_CHECK_SAVE_ID,"Button",BS_AUTOCHECKBOX,
+                    130,20,56,10
+    LTEXT           "비밀번호",IDC_STATIC,14,35,36,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_PWD,54,35,72,14,ES_PASSWORD | ES_AUTOHSCROLL
+    LTEXT           "공인인증",IDC_STATIC,14,51,36,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CERT_PWD,54,51,72,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    PUSHBUTTON      "로그인",IDC_BUTTON_LOGIN,54,68,106,25
+    CONTROL         "공인인증 에러시 에러 Dialog 표시",
+                    IDC_CHECK_SHOW_CERT_ERR_DLG,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,14,100,144,10
+    GROUPBOX        "통신설정",IDC_STATIC,195,7,160,115
+    CONTROL         "실서버",IDC_RADIO_REAL,"Button",BS_AUTORADIOBUTTON | 
+                    BS_PUSHLIKE | WS_TABSTOP,241,19,52,13
+    CONTROL         "모의투자",IDC_RADIO_SIMUL,"Button",BS_AUTORADIOBUTTON | 
+                    BS_PUSHLIKE,295,19,52,13
+    LTEXT           "서    버",IDC_STATIC,201,36,36,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_COMBO_SERVER_ADDR_TYPE,241,36,107,276,
+                    CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "서버주소",IDC_STATIC,201,52,36,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_SERVER_IP,241,52,107,14,ES_AUTOHSCROLL
+    LTEXT           "서버포트",IDC_STATIC,201,69,36,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_COMBO_SERVER_PORT,241,69,107,123,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "최대전송크기",IDC_CHECK_SEND_PACKET_SIZE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,201,86,61,14
+    COMBOBOX        IDC_COMBO_SEND_PACKET_SIZE,267,86,52,160,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Bytes",IDC_STATIC,323,86,21,14,SS_CENTERIMAGE
+    CONTROL         "서버접속시간",IDC_CHECK_CONNECT_TIMEOUT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,201,103,64,14
+    EDITTEXT        IDC_EDIT_CONNECT_TIMEOUT,267,103,52,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    LTEXT           "초",IDC_STATIC,323,103,14,14,SS_CENTERIMAGE
+    GROUPBOX        "참조",IDC_STATIC,7,130,348,190
+    LTEXT           "◎ 최대전송크기 ◎\n\n  - 인터넷 공유기등을 사용하는 경우에 몇몇 공유기에서는 최대 전송 데이터 크기가 정해져있습니다.\n 이 경우에 이 크기 이상의 데이터를 전송하는 경우에 전송에러가 발생하게 됩니다.\n 이때 공유기 사용을 체크하고 최대 전송 데이터 크기를 설정하게 되면 그 이상의 데이터를 전송하는 경우에 설정한 데이터 크기 이상을 넘는 데이터는 여러번에 걸쳐서 전송하게 됩니다.",
+                    IDC_STATIC,14,192,333,68
+    LTEXT           "◎ 공인인증 에러시 에러 Dialog 표시 ◎\n\n  - 로그인시에 공인인증 처리과정에서 발생하는 에러에 대한 에러 Dialog를 표시하지 않습니다.",
+                    IDC_STATIC,14,148,333,32
+    LTEXT           "◎ 서버접속시간 ◎\n\n  - 인터넷이 불안하거나 느릴 경우 서버에 접속하는 시간이 오래 걸릴 수 있습니다.\n 이렇게 되면 서버가 접속되기 전에 TimeOut 이 발생하게 되기 때문에 서버접속시간을 기본값보다 더 많이 설정하여 충분한 접속시간을 갖게 합니다.",
+                    IDC_STATIC,14,270,333,40
+END
+
+IDD_TR_BAR DIALOG DISCARDABLE  0, 0, 137, 449
+STYLE WS_CHILD
+FONT 9, "굴림"
+BEGIN
+    CONTROL         "Tree1",IDC_TREE_TR,"SysTreeView32",TVS_HASBUTTONS | 
+                    TVS_HASLINES | TVS_LINESATROOT | WS_BORDER | WS_TABSTOP,
+                    0,18,137,431
+    LTEXT           "TR명",IDC_STATIC,3,4,17,12
+    COMBOBOX        IDC_COMBO_TR,21,2,90,30,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "검색",IDC_BUTTON_SEARCH,112,2,25,13
+END
+
+IDD_t1101 DIALOGEX 0, 0, 282, 255
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 기본입력 - t1101InBlock",IDC_STATIC,0,0,282,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    LTEXT           "단축코드",IDC_STATIC,0,19,33,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_SHCODE,35,19,49,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,199,19,83,14
+    LTEXT           " 출력 - t1101OutBlock",IDC_STATIC,0,38,282,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER | WS_TABSTOP,0,57,282,198
+END
+
+IDD_t1301 DIALOGEX 0, 0, 440, 378
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 기본입력 - t1301InBlock",IDC_STATIC,0,0,439,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    LTEXT           "단축코드",IDC_STATIC,0,19,33,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_SHCODE,47,19,111,14,ES_AUTOHSCROLL
+    LTEXT           "특이거래량",IDC_STATIC,0,35,41,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_CVOLUME,47,35,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    LTEXT           "시작시간",IDC_STATIC,0,51,33,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_STARTTIME,47,51,111,14,ES_AUTOHSCROLL
+    LTEXT           "종료시간",IDC_STATIC,0,67,33,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ENDTIME,47,67,111,14,ES_AUTOHSCROLL
+    LTEXT           "시간CTS",IDC_STATIC,0,83,33,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_CTS_TIME,47,83,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,302,98,67,14
+    PUSHBUTTON      "다음",IDC_BUTTON_REQUEST_NEXT,372,98,67,14
+    LTEXT           " 출력 - t1301OutBlock",IDC_STATIC,0,116,439,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,134,440,50
+    LTEXT           " 출력1 - t1301OutBlock1",IDC_STATIC,0,194,439,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,212,440,166
+    LTEXT           "(09:00 => 0900)",IDC_STATIC,163,51,63,14,SS_CENTERIMAGE
+    LTEXT           "(09:00 => 0900)",IDC_STATIC,163,67,63,14,SS_CENTERIMAGE
+    LTEXT           "(다음 조회시 사용, t1301OutBlock의 cts_time)",
+                    IDC_STATIC,163,83,181,14,SS_CENTERIMAGE
+END
+
+IDD_FC0 DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_t0431 DIALOGEX 0, 0, 558, 378
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 기본입력 - t0431InBlock",-1,0,0,557,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    LTEXT           "계좌번호",-1,0,19,49,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACCNO,52,19,111,241,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "비밀번호",-1,0,35,49,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PASSWD,52,35,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    LTEXT           "CTS_종목번호",-1,0,51,49,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_CTS_EXPCODE,52,51,111,14,ES_AUTOHSCROLL
+    LTEXT           "CTS_매매구분",-1,0,67,49,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_CTS_MEDOCD,52,67,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,302,98,67,14
+    PUSHBUTTON      "다음",IDC_BUTTON_REQUEST_NEXT,372,98,67,14
+    LTEXT           " 출력 - t0431OutBlock",-1,0,116,557,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,134,558,50
+    LTEXT           " 출력1 - t0431OutBlock1",-1,0,194,557,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,212,558,166
+    LTEXT           "(연속조회시 사용, 이전 조회의 t0431OutBlock.cts_expcode를 입력)",
+                    -1,168,51,253,14,SS_CENTERIMAGE
+    LTEXT           "(연속조회시 사용, 이전 조회의 t0431OutBlock.cts_medocd를 입력)",
+                    -1,168,67,253,14,SS_CENTERIMAGE
+END
+
+IDD_t0433 DIALOGEX 0, 0, 555, 378
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 기본입력 - t0433InBlock",-1,0,0,555,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    LTEXT           "계좌번호",-1,0,19,49,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACCNO,52,19,111,241,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "비밀번호",-1,0,35,49,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PASSWD,52,35,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    LTEXT           "CTS_종목번호",-1,0,51,49,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_CTS_EXPCODE,52,51,111,14,ES_AUTOHSCROLL
+    LTEXT           "CTS_매매구분",-1,0,67,49,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_CTS_MEDOCD,52,67,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,302,98,67,14
+    PUSHBUTTON      "다음",IDC_BUTTON_REQUEST_NEXT,372,98,67,14
+    LTEXT           " 출력 - t0433OutBlock",-1,0,116,555,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,134,555,50
+    LTEXT           " 출력1 - t0433OutBlock1",-1,0,194,555,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,212,555,166
+    LTEXT           "(연속조회시 사용, 이전 조회의 t0433OutBlock.cts_expcode를 입력)",
+                    -1,168,51,253,14,SS_CENTERIMAGE
+    LTEXT           "(연속조회시 사용, 이전 조회의 t0433OutBlock.cts_medocd를 입력)",
+                    -1,168,67,253,14,SS_CENTERIMAGE
+END
+
+IDD_SC0 DIALOGEX 0, 0, 240, 296
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 출력 - OutBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,18,240,278
+END
+
+IDD_SC1 DIALOGEX 0, 0, 240, 296
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 출력 - OutBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,18,240,278
+END
+
+IDD_SC2 DIALOGEX 0, 0, 240, 296
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 출력 - OutBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,18,240,278
+END
+
+IDD_SC3 DIALOGEX 0, 0, 240, 296
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 출력 - OutBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,18,240,278
+END
+
+IDD_SC4 DIALOGEX 0, 0, 240, 296
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 출력 - OutBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,18,240,278
+END
+
+IDD_SC_ DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_s2_ELW DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_IJ_ DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_YJ_ DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_PM_ DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_KM_ DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_BM_ DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_BMT DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_NWS DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_S3_ DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_S4_ DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_H1_ DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_H2_ DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_YS3 DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_KS_ DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_K3_ DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_HA_ DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_HB_ DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_YK3 DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_s3_ELW DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_s4_ELW DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_h3_ELW DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_h2_ELW DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_TH_ DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_TS_ DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_FH0 DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_OC0 DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_OH0 DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_NWS1 DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_JIF DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_O01 DIALOGEX 0, 0, 240, 296
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 출력 - OutBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,18,240,278
+END
+
+IDD_H01 DIALOGEX 0, 0, 240, 296
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 출력 - OutBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,18,240,278
+END
+
+IDD_C01 DIALOGEX 0, 0, 240, 296
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 출력 - OutBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,18,240,278
+END
+
+IDD_t9941 DIALOGEX 0, 0, 235, 378
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 기본입력 - t9941InBlock",-1,0,0,235,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    LTEXT           "구분",-1,0,19,17,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_GUBUN,19,19,111,241,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,133,19,67,14
+    LTEXT           " 출력 - t9941OutBlock",-1,0,40,235,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,235,319
+END
+
+IDD_t9942 DIALOGEX 0, 0, 235, 378
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 기본입력 - t9942InBlock",-1,0,0,235,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,164,19,67,14
+    LTEXT           " 출력 - t9942OutBlock",-1,0,40,235,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,235,319
+END
+
+IDD_t9943 DIALOGEX 0, 0, 235, 378
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 기본입력 - t9943InBlock",-1,0,0,235,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,163,19,67,14
+    LTEXT           " 출력 - t9943OutBlock",-1,0,40,235,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,235,319
+END
+
+IDD_t9944 DIALOGEX 0, 0, 235, 378
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 기본입력 - t9944InBlock",-1,0,0,235,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,163,19,67,14
+    LTEXT           " 출력 - t9944OutBlock",-1,0,40,235,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,235,319
+END
+
+IDD_t1601 DIALOGEX 0, 0, 608, 475
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 기본입력 - t1601InBlock",IDC_STATIC,0,0,607,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,294,52,67,14
+    LTEXT           "기본출력1 - t1601OutBlock1",IDC_STATIC,0,74,607,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,92,608,60
+    RTEXT           "금액수량구분1",IDC_STATIC,3,19,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_GUBUN1,61,19,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "금액수량구분2",IDC_STATIC,3,35,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_GUBUN2,61,35,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "금액단위",IDC_STATIC,3,51,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_GUBUN3,61,51,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "(코스피/코스닥)",IDC_STATIC,175,19,62,14,SS_CENTERIMAGE
+    LTEXT           "(옵션)",IDC_STATIC,175,35,62,14,SS_CENTERIMAGE
+    LTEXT           "기본출력1 - t1601OutBlock2",IDC_STATIC,0,155,607,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,173,608,60
+    LTEXT           "기본출력1 - t1601OutBlock3",IDC_STATIC,0,235,607,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK3,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,253,608,60
+    LTEXT           "기본출력1 - t1601OutBlock4",IDC_STATIC,0,317,607,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK4,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,335,608,60
+    LTEXT           "기본출력1 - t1601OutBlock5",IDC_STATIC,0,397,607,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK5,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,415,608,60
+END
+
+IDD_t1305 DIALOGEX 0, 0, 440, 378
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 기본입력 - t1305InBlock",-1,0,0,439,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    LTEXT           "단축코드",-1,0,19,33,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_SHCODE,47,19,111,14,ES_AUTOHSCROLL
+    LTEXT           "일주월구분",-1,0,35,41,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_DWMCODE,47,35,111,110,CBS_DROPDOWN | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "날짜",-1,0,51,33,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_DATE,47,51,111,14,ES_AUTOHSCROLL
+    LTEXT           "IDX",-1,0,67,33,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_IDX,47,67,111,14,ES_AUTOHSCROLL
+    LTEXT           "건수",-1,0,83,33,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_CNT,47,83,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,302,98,67,14
+    PUSHBUTTON      "다음",IDC_BUTTON_REQUEST_NEXT,372,98,67,14
+    LTEXT           " 출력 - t1305OutBlock",-1,0,116,439,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,134,440,50
+    LTEXT           " 출력1 - t1305OutBlock1",-1,0,194,439,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,212,440,166
+END
+
+IDD_t1452 DIALOGEX 0, 0, 440, 348
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 기본입력 - t1452InBlock",-1,0,0,439,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    LTEXT           "구분",-1,0,19,43,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_GUBUN,47,19,111,110,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "전일구분",-1,0,35,43,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_JNILGUBUN,47,35,111,110,CBS_DROPDOWN | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "시작등락율",-1,0,51,43,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_SDIFF,47,51,111,14,ES_AUTOHSCROLL
+    LTEXT           "종료등락율",-1,0,67,43,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_EDIFF,47,67,111,14,ES_AUTOHSCROLL
+    LTEXT           "대상제외",-1,0,83,43,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_JC_NUM,47,83,91,14,ES_AUTOHSCROLL
+    LTEXT           "시작가격",-1,163,20,43,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_SPRICE,211,20,111,14,ES_AUTOHSCROLL
+    LTEXT           "종료가격",-1,163,36,43,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_EPRICE,211,36,111,14,ES_AUTOHSCROLL
+    LTEXT           "거래량",-1,163,53,43,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_VOLUME,211,53,111,14,ES_AUTOHSCROLL
+    LTEXT           "IDX",-1,163,69,43,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_IDX,211,69,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,302,87,67,14
+    PUSHBUTTON      "다음",IDC_BUTTON_REQUEST_NEXT,372,87,67,14
+    LTEXT           " 출력 - t1452OutBlock",-1,0,105,439,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,123,440,37
+    LTEXT           " 출력1 - t1452OutBlock1",-1,0,164,439,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,182,440,166
+    PUSHBUTTON      "...",IDC_BUTTON_EXCLUDE_ITEM,140,84,18,14
+END
+
+IDD_EXCLUDE_ITEM DIALOG DISCARDABLE  0, 0, 132, 125
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "종목제외"
+FONT 9, "굴림체"
+BEGIN
+    CONTROL         "관리종목",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,8,48,10
+    CONTROL         "시장경보",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,22,48,10
+    CONTROL         "거래정지",IDC_CHECK3,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,36,48,10
+    CONTROL         "우선주",IDC_CHECK4,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,50,40,10
+    CONTROL         "증거금50",IDC_CHECK5,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,64,48,10
+    CONTROL         "정리매매",IDC_CHECK6,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,78,48,10
+    CONTROL         "투자유의",IDC_CHECK7,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,92,48,10
+    CONTROL         "불성실공시",IDC_CHECK8,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,106,56,10
+    DEFPUSHBUTTON   "확인",IDOK,78,6,50,14
+    PUSHBUTTON      "취소",IDCANCEL,77,23,50,14
+END
+
+IDD_JC0 DIALOGEX 0, 0, 240, 337
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 입력 - InBlock",-1,0,0,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "단축코드",-1,0,20,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CODE,37,20,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "등록",IDC_BUTTON_REQUEST,173,20,67,14
+    LTEXT           " 출력 - OutBlock",-1,0,41,240,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,59,240,278
+END
+
+IDD_t5512 DIALOGEX 0, 0, 602, 374
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 기본입력 - t5511InBlock",IDC_STATIC,0,0,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    RTEXT           "레코드갯수",IDC_STATIC,0,17,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_RECCNT,87,17,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "(00001)",IDC_STATIC,201,17,57,14,SS_CENTERIMAGE
+    RTEXT           "주문시장코드",IDC_STATIC,0,34,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDMARKETCODE,87,34,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "(40)",IDC_STATIC,201,34,53,14,SS_CENTERIMAGE
+    RTEXT           "계좌번호",IDC_STATIC,0,51,81,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACCNO,87,51,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "입력비밀번호",IDC_STATIC,0,68,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PASSWD,87,68,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "선물옵션종목번호",IDC_STATIC,0,85,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_EXPCODE,87,85,111,14,ES_AUTOHSCROLL
+    LTEXT           "(8자리 종목코드)",IDC_STATIC,201,85,75,14,
+                    SS_CENTERIMAGE
+    RTEXT           "선물옵션주문유형코드",IDC_STATIC,0,101,81,14,
+                    SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_OFFERGB,87,101,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "(00)",IDC_STATIC,201,101,53,14,SS_CENTERIMAGE
+    RTEXT           "선물옵션호가유형코드",IDC_STATIC,0,151,81,14,
+                    SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_HOGAGB,87,151,111,264,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "선물옵션거래유형코드",IDC_STATIC,0,167,81,14,
+                    SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_TRADEGB,87,167,111,264,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "주문가",IDC_STATIC,0,183,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PRICE,87,183,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    RTEXT           "주문수량",IDC_STATIC,0,199,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_QTY,87,199,111,14,ES_RIGHT | ES_AUTOHSCROLL
+    RTEXT           "전략코드",IDC_STATIC,271,34,81,14,SS_CENTERIMAGE
+    RTEXT           "통신매체코드",IDC_STATIC,271,17,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_TONGSINGB,359,17,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "(GetCommMedia()로 취득)",IDC_STATIC,471,17,119,14,
+                    SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_STRAGB,359,34,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(      )",IDC_STATIC,471,34,119,14,SS_CENTERIMAGE
+    RTEXT           "그룹ID",IDC_STATIC,271,51,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_GROUPID,359,51,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(                    )",IDC_STATIC,471,51,119,14,
+                    SS_CENTERIMAGE
+    RTEXT           "주문회차",IDC_STATIC,271,68,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDERNUM,359,68,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(0000000000)",IDC_STATIC,471,68,119,14,SS_CENTERIMAGE
+    RTEXT           "포트폴리오번호",IDC_STATIC,271,85,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PORTNUM,359,85,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(0000000000)",IDC_STATIC,471,85,119,14,SS_CENTERIMAGE
+    RTEXT           "바스켓번호",IDC_STATIC,271,101,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_BASKETNUM,359,101,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(0000000000)",IDC_STATIC,471,101,119,14,SS_CENTERIMAGE
+    RTEXT           "트렌치번호",IDC_STATIC,271,117,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_TRANCHNUM,359,117,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(0000000000)",IDC_STATIC,471,117,119,14,SS_CENTERIMAGE
+    RTEXT           "아이템번호",IDC_STATIC,271,134,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ITEMNUM,359,134,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(0000000000)",IDC_STATIC,471,134,119,14,SS_CENTERIMAGE
+    RTEXT           "운용지시번호",IDC_STATIC,271,150,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_OPERORDNUM,359,150,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(000000000000)",IDC_STATIC,471,150,119,14,
+                    SS_CENTERIMAGE
+    RTEXT           "관리사원번호",IDC_STATIC,271,166,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_MGEMPNO,359,166,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(         )",IDC_STATIC,471,166,119,14,SS_CENTERIMAGE
+    RTEXT           "펀드ID",IDC_STATIC,271,182,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_FUNDID,359,182,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(            )",IDC_STATIC,471,182,119,14,
+                    SS_CENTERIMAGE
+    RTEXT           "dummy펀드원주문번호",IDC_STATIC,271,198,81,14,
+                    SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_DUMMYFUNDORGORDNO,359,198,111,14,
+                    ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "(000)",IDC_STATIC,471,198,119,14,SS_CENTERIMAGE
+    RTEXT           "펀드원주문번호",IDC_STATIC,271,215,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_FUNDORGORDNO,359,215,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(0000000)",IDC_STATIC,471,215,119,14,SS_CENTERIMAGE
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,358,233,112,20
+    LTEXT           " 출력 - t5511OutBlock",IDC_STATIC,0,257,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,274,602,38
+    LTEXT           " 출력1 - t5511OutBlock1",IDC_STATIC,0,317,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,335,602,38
+    RTEXT           "dummy원주문번호",IDC_STATIC,0,118,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_DUMMYORGORDNO,87,118,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "(000)",IDC_STATIC,201,118,53,14,SS_CENTERIMAGE
+    RTEXT           "원주문번호",IDC_STATIC,0,134,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_OFFERGB3,88,134,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+END
+
+IDD_t5513 DIALOGEX 0, 0, 602, 395
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 기본입력 - t5513InBlock",IDC_STATIC,0,0,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    RTEXT           "레코드갯수",IDC_STATIC,0,17,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_RECCNT,87,17,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "(00001)",IDC_STATIC,201,17,57,14,SS_CENTERIMAGE
+    RTEXT           "주문시장코드",IDC_STATIC,0,34,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDMARKETCODE,87,34,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "(40)",IDC_STATIC,201,34,53,14,SS_CENTERIMAGE
+    RTEXT           "계좌번호",IDC_STATIC,0,51,81,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACCNO,87,51,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "입력비밀번호",IDC_STATIC,0,68,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PASSWD,87,68,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "선물옵션종목번호",IDC_STATIC,0,85,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_EXPCODE,87,85,111,14,ES_AUTOHSCROLL
+    LTEXT           "(8자리 종목코드)",IDC_STATIC,201,85,75,14,
+                    SS_CENTERIMAGE
+    RTEXT           "선물옵션주문유형코드",IDC_STATIC,0,102,81,14,
+                    SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_FNOORDPTNCODE,87,102,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "(00)",IDC_STATIC,201,102,53,14,SS_CENTERIMAGE
+    RTEXT           "dummy원주문번호",IDC_STATIC,0,118,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_DUMMYORGORDNO,87,118,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "(000)",IDC_STATIC,201,118,53,14,SS_CENTERIMAGE
+    RTEXT           "원주문번호",IDC_STATIC,0,135,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORGORDNO,87,135,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    RTEXT           "주문수량",IDC_STATIC,0,151,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_QTY,87,151,111,14,ES_RIGHT | ES_AUTOHSCROLL
+    RTEXT           "통신매체코드",IDC_STATIC,271,17,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_TONGSINGB,359,17,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "(GetCommMedia()로 취득)",IDC_STATIC,471,17,119,14,
+                    SS_CENTERIMAGE
+    RTEXT           "전략코드",IDC_STATIC,271,34,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_STRAGB,359,34,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(      )",IDC_STATIC,471,34,119,14,SS_CENTERIMAGE
+    RTEXT           "그룹ID",IDC_STATIC,271,51,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_GROUPID,359,51,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(                    )",IDC_STATIC,471,51,119,14,
+                    SS_CENTERIMAGE
+    RTEXT           "주문회차",IDC_STATIC,271,68,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDERNUM,359,68,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(0000000000)",IDC_STATIC,471,68,119,14,SS_CENTERIMAGE
+    RTEXT           "포트폴리오번호",IDC_STATIC,271,85,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PORTNUM,359,85,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(0000000000)",IDC_STATIC,471,85,119,14,SS_CENTERIMAGE
+    RTEXT           "바스켓번호",IDC_STATIC,271,101,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_BASKETNUM,359,101,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(0000000000)",IDC_STATIC,471,101,119,14,SS_CENTERIMAGE
+    RTEXT           "트렌치번호",IDC_STATIC,271,117,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_TRANCHNUM,359,117,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(0000000000)",IDC_STATIC,471,117,119,14,SS_CENTERIMAGE
+    RTEXT           "아이템번호",IDC_STATIC,271,134,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ITEMNUM,359,134,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(0000000000)",IDC_STATIC,471,134,119,14,SS_CENTERIMAGE
+    RTEXT           "관리사번",IDC_STATIC,271,150,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_MGEMPNO,359,150,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(         )",IDC_STATIC,471,150,119,14,SS_CENTERIMAGE
+    RTEXT           "펀드ID",IDC_STATIC,271,166,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_FUNDID,359,166,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(            )",IDC_STATIC,471,166,119,14,
+                    SS_CENTERIMAGE
+    RTEXT           "dummy펀드원주문번호",IDC_STATIC,271,182,81,14,
+                    SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_DUMMYFUNDORGORDNO,359,182,111,14,
+                    ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "(000)",IDC_STATIC,471,182,119,14,SS_CENTERIMAGE
+    RTEXT           "펀드원주문번호",IDC_STATIC,271,199,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_FUNDORGORDNO,359,199,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(0000000)",IDC_STATIC,471,199,119,14,SS_CENTERIMAGE
+    RTEXT           "dummy펀드주문번호",IDC_STATIC,271,215,81,14,
+                    SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_DUMMYFUNDORDNO,359,215,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(000)",IDC_STATIC,471,215,119,14,SS_CENTERIMAGE
+    RTEXT           "펀드주문번호",IDC_STATIC,271,233,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_FUNDORDNO,359,233,111,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "(0000000)",IDC_STATIC,471,233,119,14,SS_CENTERIMAGE
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,359,254,112,20
+    LTEXT           " 출력 - t5513OutBlock",IDC_STATIC,0,279,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,296,602,38
+    LTEXT           " 출력1 - t5513OutBlock1",IDC_STATIC,0,339,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,357,602,38
+END
+
+IDD_CSPAT00800 DIALOGEX 0, 0, 602, 221
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           "CSPAT00800InBlock1",IDC_STATIC,0,0,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    RTEXT           "원주문번호",IDC_STATIC,3,19,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORGORDNO,61,19,111,14,ES_AUTOHSCROLL
+    RTEXT           "계좌번호",IDC_STATIC,4,35,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,62,35,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "입력비밀번호",IDC_STATIC,4,51,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_INPTPWD,62,51,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "종목번호",IDC_STATIC,4,67,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ISUNO,62,67,111,14,ES_AUTOHSCROLL
+    RTEXT           "주문수량",IDC_STATIC,4,84,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDQTY,62,84,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    LTEXT           "(ELW는 J+단축코드)",IDC_STATIC,178,67,75,14,
+                    SS_CENTERIMAGE
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,269,59,98,37
+    LTEXT           "CSPAT00800OutBlock1",IDC_STATIC,0,103,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,122,602,38
+    LTEXT           "CSPAT00800OutBlock2",IDC_STATIC,0,165,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,183,602,38
+END
+
+IDD_CSPAT00600 DIALOGEX 0, 0, 602, 304
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           "CSPAT00600InBlock1",IDC_STATIC,0,0,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    RTEXT           "계좌번호",IDC_STATIC,3,19,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,61,19,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "입력비밀번호",IDC_STATIC,3,35,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_INPTPWD,61,35,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "종목번호",IDC_STATIC,3,51,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ISUNO,61,51,111,14,ES_AUTOHSCROLL
+    RTEXT           "주문수량",IDC_STATIC,3,68,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDQTY,61,68,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    RTEXT           "주문가",IDC_STATIC,3,85,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDPRC,61,85,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    RTEXT           "매매구분",IDC_STATIC,3,102,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_BNSTPCODE,61,102,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "호가유형코드",IDC_STATIC,3,118,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ORDPRCPTNCODE,61,118,111,264,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "주문조건구분",IDC_STATIC,3,134,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ORDCNDITPCODE,61,134,111,264,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "신용거래코드",IDC_STATIC,3,150,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_MGNTRNCODE,61,150,111,264,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "대출일",IDC_STATIC,3,167,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_LOANDT,61,167,111,14,ES_AUTOHSCROLL
+    LTEXT           "(ELW는 J+단축코드)",IDC_STATIC,177,51,75,14,
+                    SS_CENTERIMAGE
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,183,144,98,37
+    LTEXT           "CSPAT00600OutBlock1",IDC_STATIC,0,186,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,204,602,38
+    LTEXT           "CSPAT00600OutBlock2",IDC_STATIC,0,247,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,266,602,38
+END
+
+IDD_CSPAT00700 DIALOGEX 0, 0, 602, 271
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           "CSPAT00700InBlock1",IDC_STATIC,0,0,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    RTEXT           "원주문번호",IDC_STATIC,3,19,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORGORDNO,61,19,111,14,ES_AUTOHSCROLL
+    RTEXT           "계좌번호",IDC_STATIC,4,35,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,62,35,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "입력비밀번호",IDC_STATIC,4,51,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_INPTPWD,62,51,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "종목번호",IDC_STATIC,4,67,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ISUNO,62,67,111,14,ES_AUTOHSCROLL
+    RTEXT           "주문수량",IDC_STATIC,4,84,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDQTY,62,84,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    RTEXT           "주문가",IDC_STATIC,4,101,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDPRC,62,101,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    RTEXT           "호가유형코드",IDC_STATIC,4,118,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ORDPRCPTNCODE,62,118,111,264,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "주문조건구분",IDC_STATIC,4,134,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ORDCNDITPCODE,62,134,111,264,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "(ELW는 J+단축코드)",IDC_STATIC,178,67,75,14,
+                    SS_CENTERIMAGE
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,247,110,98,37
+    LTEXT           "CSPAT00700OutBlock1",IDC_STATIC,0,153,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,172,602,38
+    LTEXT           "CSPAT00700OutBlock2",IDC_STATIC,0,215,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,233,602,38
+END
+
+IDD_CSPAQ03700 DIALOGEX 0, 0, 602, 372
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           "CSPAT00800InBlock1",IDC_STATIC,0,0,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    RTEXT           "계좌번호",IDC_STATIC,2,17,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,61,17,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "입력비밀번호",IDC_STATIC,2,33,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_INPTPWD,61,33,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "주문시장코드",IDC_STATIC,2,50,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ORDMKTCODE,61,50,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "매매구분",IDC_STATIC,2,66,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_BNSTPCODE,61,66,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "종목번호",IDC_STATIC,2,82,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ISUNO,61,82,111,14,ES_AUTOHSCROLL
+    RTEXT           "체결여부",IDC_STATIC,178,17,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_EXECYN,236,17,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "주문일",IDC_STATIC,178,33,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDDT,236,33,111,14,ES_AUTOHSCROLL
+    RTEXT           "시작주문번호2",IDC_STATIC,178,50,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_SRTORDNO2,236,50,111,14,ES_AUTOHSCROLL
+    RTEXT           "역순구분",IDC_STATIC,178,66,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_BKSEQTPCODE,236,66,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "주문유형코드",IDC_STATIC,178,82,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ORDPTNCODE,236,82,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,483,18,55,17
+    PUSHBUTTON      "다음",IDC_BUTTON_REQUEST_NEXT,541,18,55,17
+    LTEXT           "CSPAT00800OutBlock1",IDC_STATIC,0,103,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,122,602,38
+    LTEXT           "CSPAT00800OutBlock2",IDC_STATIC,0,165,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,182,602,38
+    LTEXT           "CSPAT00800OutBlock2",IDC_STATIC,0,223,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK3,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,240,602,131
+END
+
+IDD_CSPAQ02300 DIALOGEX 0, 0, 602, 314
+STYLE WS_CHILD
+FONT 9, "굴림체"
+BEGIN
+    LTEXT           "CSPAQ02300InBlock1",IDC_STATIC,0,0,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    RTEXT           "계좌번호",IDC_STATIC,4,19,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,62,19,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "비밀번호",IDC_STATIC,4,36,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PWD,62,36,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "잔고생성구분",IDC_STATIC,4,53,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_BALCRETP,61,53,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "수수료적용구분",IDC_STATIC,197,19,59,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_CMSNAPPTPCODE,264,19,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "D2잔고기준조회구분",IDC_STATIC,176,36,80,14,
+                    SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_D2BALBASEQRYTP,264,36,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "수수료적용구분",IDC_STATIC,197,53,59,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_UPRCTPCODE,264,53,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,471,17,64,25
+    LTEXT           "CSPAQ02300OutBlock1",IDC_STATIC,0,72,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,89,602,35
+    LTEXT           "CSPAQ02300OutBlock2",IDC_STATIC,0,127,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,145,602,36
+    PUSHBUTTON      "다음",IDC_BUTTON_REQUEST_NEXT,538,17,64,25
+    LTEXT           "CSPAQ02300OutBlock3",IDC_STATIC,0,184,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK3,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,202,602,111
+END
+
+IDD_CSPAQ02200 DIALOGEX 0, 0, 602, 171
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           "CSPAQ02200InBlock1",-1,0,0,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "계좌번호",-1,2,19,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,60,19,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "비밀번호",-1,2,35,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PWD,60,35,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,504,17,98,27
+    LTEXT           "CSPAQ02200OutBlock1",-1,0,53,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,72,602,38
+    LTEXT           "CSPAQ02200OutBlock2",-1,0,115,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,133,602,38
+END
+
+IDD_CSPBQ00200 DIALOGEX 0, 0, 602, 221
+STYLE WS_CHILD
+FONT 9, "굴림체"
+BEGIN
+    LTEXT           "CSPBQ00200InBlock1",IDC_STATIC,0,0,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    RTEXT           "매매구분",IDC_STATIC,4,20,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_BNSTPCODE,62,20,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "계좌번호",IDC_STATIC,4,35,51,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,62,35,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "입력비밀번호",IDC_STATIC,4,51,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_INPTPWD,62,51,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "종목번호",IDC_STATIC,4,67,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ISUNO,62,67,111,14,ES_AUTOHSCROLL
+    RTEXT           "주문가격",IDC_STATIC,4,84,51,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDPRC,62,84,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,501,19,98,37
+    LTEXT           "CSPBQ00200OutBlock1",IDC_STATIC,0,103,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,122,602,38
+    LTEXT           "CSPBQ00200OutBlock2",IDC_STATIC,0,165,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,183,602,38
+END
+
+IDD_CFOAT00100 DIALOGEX 0, 0, 602, 253
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           "CFOAT00100InBlock1",IDC_STATIC,0,0,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    RTEXT           "계좌번호",IDC_STATIC,0,20,81,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,87,20,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "비밀번호",IDC_STATIC,0,37,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PWD,87,37,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "선물옵션종목번호",IDC_STATIC,0,54,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_FNOISUNO,87,54,111,14,ES_AUTOHSCROLL
+    LTEXT           "(8자리 종목코드)",IDC_STATIC,201,54,75,14,
+                    SS_CENTERIMAGE
+    RTEXT           "매매구분",IDC_STATIC,0,70,81,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_BNSTPCODE,87,70,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "선물옵션호가유형코드",IDC_STATIC,0,87,81,14,
+                    SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_FNOORDPRCPTNCODE,87,87,111,264,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "주문가격",IDC_STATIC,0,103,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDPRC,87,103,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    RTEXT           "주문수량",IDC_STATIC,0,119,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDQTY,87,119,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,485,113,112,20
+    LTEXT           "CFOAT00100OutBlock1",IDC_STATIC,0,137,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,154,602,38
+    LTEXT           "CFOAT00100OutBlock2",IDC_STATIC,0,197,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,215,602,38
+END
+
+IDD_CFOAT00200 DIALOGEX 0, 0, 602, 253
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           "CFOAT00200InBlock1",IDC_STATIC,0,0,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    RTEXT           "계좌번호",IDC_STATIC,0,20,81,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,87,20,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "비밀번호",IDC_STATIC,0,37,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PWD,87,37,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "선물옵션종목번호",IDC_STATIC,0,54,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_FNOISUNO,87,54,111,14,ES_AUTOHSCROLL
+    LTEXT           "(8자리 종목코드)",IDC_STATIC,201,54,75,14,
+                    SS_CENTERIMAGE
+    RTEXT           "원주문번호",IDC_STATIC,0,70,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORGORDNO,87,70,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    RTEXT           "선물옵션호가유형코드",IDC_STATIC,0,87,81,14,
+                    SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_FNOORDPRCPTNCODE,87,87,111,264,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "주문가격",IDC_STATIC,0,103,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDPRC,87,103,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    RTEXT           "정정수량",IDC_STATIC,0,119,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_MDFYQTY,87,119,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,485,113,112,20
+    LTEXT           "CFOAT00200OutBlock1",IDC_STATIC,0,137,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,154,602,38
+    LTEXT           "CFOAT00200OutBlock2",IDC_STATIC,0,197,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,215,602,38
+END
+
+IDD_CFOAT00300 DIALOGEX 0, 0, 602, 221
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           "CFOAT00300InBlock1",-1,0,0,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "계좌번호",-1,0,20,81,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,87,20,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "비밀번호",-1,0,37,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PWD,87,37,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "선물옵션종목번호",-1,0,54,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_FNOISUNO,87,54,111,14,ES_AUTOHSCROLL
+    LTEXT           "(8자리 종목코드)",-1,201,54,75,14,SS_CENTERIMAGE
+    RTEXT           "원주문번호",-1,0,70,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORGORDNO,87,70,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    RTEXT           "취소수량",-1,0,86,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_CANCQTY,87,86,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,483,79,112,20
+    LTEXT           "CFOAT00300OutBlock1",-1,0,105,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,122,602,38
+    LTEXT           "CFOAT00300OutBlock2",-1,0,165,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,183,602,38
+END
+
+IDD_CFOAQ00600 DIALOGEX 0, 0, 602, 351
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           "CFOAQ00600InBlock1",-1,0,0,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "계좌번호",-1,5,17,52,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,60,17,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "입력비밀번호",-1,5,33,52,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_INPTPWD,60,33,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "조회시작일",-1,5,50,52,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_QRYSRTDT,60,50,111,14,ES_AUTOHSCROLL
+    RTEXT           "조회종료일",-1,5,66,52,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_QRYENDDT,60,66,111,14,ES_AUTOHSCROLL
+    RTEXT           "상품군코드",-1,176,18,64,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_PRDGRPCODE,244,18,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "체결구분",-1,176,35,64,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_PRDTEXECTPCODE,244,35,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "정렬구분",-1,176,51,64,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_STNLNSEQTP,244,51,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,482,62,55,17
+    PUSHBUTTON      "다음",IDC_BUTTON_REQUEST_NEXT,540,62,55,17
+    LTEXT           "CFOAQ00600OutBlock1",-1,0,83,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,102,602,38
+    LTEXT           "CFOAQ00600OutBlock2",-1,0,145,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,162,602,38
+    LTEXT           "CFOAQ00600OutBlock2",-1,0,203,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK3,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,220,602,131
+END
+
+IDD_CFOFQ02400 DIALOGEX 0, 0, 602, 463
+STYLE WS_CHILD
+FONT 9, "굴림체"
+BEGIN
+    LTEXT           "CFOAQ00600InBlock1",IDC_STATIC,0,0,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    RTEXT           "계좌번호",IDC_STATIC,5,17,52,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,60,17,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "비밀번호",IDC_STATIC,5,33,52,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PWD,60,33,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "등록시장코드",IDC_STATIC,176,17,64,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_REGMKTCODE,244,17,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "매수일자",IDC_STATIC,189,33,52,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_BUYDT,244,33,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,484,19,55,17
+    PUSHBUTTON      "다음",IDC_BUTTON_REQUEST_NEXT,542,19,55,17
+    LTEXT           "CFOAQ00600OutBlock1",IDC_STATIC,0,49,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,68,602,35
+    LTEXT           "CFOAQ00600OutBlock2",IDC_STATIC,0,105,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,122,602,36
+    LTEXT           "CFOAQ00600OutBlock4",IDC_STATIC,1,314,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK4,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,332,602,131
+    LTEXT           "CFOAQ00600OutBlock3",IDC_STATIC,1,161,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK3,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,178,602,131
+END
+
+IDD_CCEAT00100 DIALOGEX 0, 0, 602, 253
+STYLE WS_CHILD
+FONT 9, "굴림체"
+BEGIN
+    LTEXT           "CCEAT00100InBlock1",IDC_STATIC,0,0,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    RTEXT           "계좌번호",IDC_STATIC,0,20,81,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,87,20,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "비밀번호",IDC_STATIC,0,37,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PWD,87,37,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "선물옵션종목번호",IDC_STATIC,0,54,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_FNOISUNO,87,54,111,14,ES_AUTOHSCROLL
+    LTEXT           "(8자리 종목코드)",IDC_STATIC,201,54,75,14,
+                    SS_CENTERIMAGE
+    RTEXT           "매매구분",IDC_STATIC,0,70,81,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_BNSTPCODE,87,70,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "선물옵션호가유형코드",IDC_STATIC,0,87,81,14,
+                    SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_FNOORDPRCPTNCODE,87,87,111,264,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "주문가격",IDC_STATIC,0,103,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDPRC,87,103,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    RTEXT           "주문수량",IDC_STATIC,0,119,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDQTY,87,119,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,485,113,112,20
+    LTEXT           "CCEAT00100OutBlock1",IDC_STATIC,0,137,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,154,602,38
+    LTEXT           "CCEAT00100OutBlock2",IDC_STATIC,0,197,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,215,602,38
+END
+
+IDD_CCEAT00200 DIALOGEX 0, 0, 602, 253
+STYLE WS_CHILD
+FONT 9, "굴림체"
+BEGIN
+    LTEXT           "CCEAT00200InBlock1",IDC_STATIC,0,0,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    RTEXT           "계좌번호",IDC_STATIC,0,20,81,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,87,20,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "비밀번호",IDC_STATIC,0,37,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PWD,87,37,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "선물옵션종목번호",IDC_STATIC,0,54,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_FNOISUNO,87,54,111,14,ES_AUTOHSCROLL
+    LTEXT           "(8자리 종목코드)",IDC_STATIC,201,54,75,14,
+                    SS_CENTERIMAGE
+    RTEXT           "원주문번호",IDC_STATIC,0,70,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORGORDNO,87,70,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    RTEXT           "선물옵션호가유형코드",IDC_STATIC,0,87,81,14,
+                    SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_FNOORDPRCPTNCODE,87,87,111,264,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "주문가격",IDC_STATIC,0,103,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDPRC,87,103,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    RTEXT           "정정수량",IDC_STATIC,0,119,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_MDFYQTY,87,119,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,485,113,112,20
+    LTEXT           "CCEAT00200OutBlock1",IDC_STATIC,0,137,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,154,602,38
+    LTEXT           "CCEAT00200OutBlock2",IDC_STATIC,0,197,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,215,602,38
+END
+
+IDD_CCEAT00300 DIALOGEX 0, 0, 602, 203
+STYLE WS_CHILD
+FONT 9, "굴림체"
+BEGIN
+    LTEXT           "CCEAT00300InBlock1",-1,0,0,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "계좌번호",-1,0,20,81,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,87,20,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "비밀번호",-1,0,37,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PWD,87,37,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "선물옵션종목번호",-1,0,54,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_FNOISUNO,87,54,111,14,ES_AUTOHSCROLL
+    LTEXT           "(8자리 종목코드)",-1,201,54,75,14,SS_CENTERIMAGE
+    RTEXT           "원주문번호",-1,0,70,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORGORDNO,87,70,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,484,63,112,20
+    LTEXT           "CCEAT00300OutBlock1",-1,0,87,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,104,602,38
+    LTEXT           "CCEAT00300OutBlock2",-1,0,147,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,165,602,38
+END
+
+IDD_t1602 DIALOGEX 0, 0, 608, 331
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           "t1602InBlock",IDC_STATIC,0,0,607,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "시장구분",IDC_STATIC,0,21,36,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_MARKET,43,21,70,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "업종코드",IDC_STATIC,0,38,36,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_UPCODE,43,38,70,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "수량구분",IDC_STATIC,119,21,45,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_GUBUN1,169,21,57,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "전일분구분",IDC_STATIC,119,38,45,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_GUBUN2,169,38,57,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "CTSTIME",IDC_STATIC,233,21,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_CTS_TIME,273,21,52,14,ES_AUTOHSCROLL
+    RTEXT           "CTSIDX",IDC_STATIC,233,38,34,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_CTS_IDX,273,38,52,14,ES_AUTOHSCROLL
+    RTEXT           "조회건수",IDC_STATIC,330,21,50,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_CNT,385,21,52,14,ES_AUTOHSCROLL
+    RTEXT           "직전대비구분",IDC_STATIC,330,38,50,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_GUBUN3,385,38,52,14,ES_AUTOHSCROLL
+    RTEXT           "(C:직전대비)",IDC_STATIC,439,38,50,14,SS_CENTERIMAGE
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,463,21,67,14
+    PUSHBUTTON      "다음",IDC_BUTTON_REQUEST_NEXT,535,21,67,14
+    LTEXT           "t1602OutBlock",IDC_STATIC,0,57,607,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,75,608,80
+    LTEXT           "t1601OutBlock1",IDC_STATIC,1,158,607,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,176,608,155
+END
+
+IDD_CEXAT11100 DIALOGEX 0, 0, 602, 253
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           "CEXAT11100InBlock1",IDC_STATIC,0,0,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    RTEXT           "계좌번호",IDC_STATIC,0,20,92,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,95,20,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "비밀번호",IDC_STATIC,0,37,92,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PWD,95,37,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "선물옵션종목번호",IDC_STATIC,0,54,92,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_FNOISUNO,95,54,111,14,ES_AUTOHSCROLL
+    LTEXT           "(8자리 종목코드)",IDC_STATIC,209,54,75,14,
+                    SS_CENTERIMAGE
+    RTEXT           "매매구분",IDC_STATIC,0,70,92,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_BNSTPCODE,95,70,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "유렉스가격조건구분코드",IDC_STATIC,0,87,92,14,
+                    SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ERXPRCCNDITPCODE,95,87,111,264,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "주문가격",IDC_STATIC,0,103,92,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDPRC,95,103,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    RTEXT           "주문수량",IDC_STATIC,0,119,92,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDQTY,95,119,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,485,113,112,20
+    LTEXT           "CEXAT11100OutBlock1",IDC_STATIC,0,137,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,154,602,38
+    LTEXT           "CEXAT11100OutBlock2",IDC_STATIC,0,197,601,15,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,215,602,38
+END
+
+IDD_CEXAT11200 DIALOGEX 0, 0, 602, 222
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           "CEXAT11200InBlock1",-1,0,0,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "원주문번호",-1,0,22,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORGORDNO,87,22,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    RTEXT           "계좌번호",-1,0,38,81,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,87,38,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "비밀번호",-1,0,55,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PWD,87,55,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "선물옵션종목번호",-1,0,72,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_FNOISUNO,87,72,111,14,ES_AUTOHSCROLL
+    LTEXT           "(8자리 종목코드)",-1,201,72,75,14,SS_CENTERIMAGE
+    RTEXT           "주문가격",-1,0,89,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORDPRC,87,89,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,485,79,112,20
+    LTEXT           "CEXAT11200OutBlock1",-1,0,106,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,123,602,38
+    LTEXT           "CEXAT11200OutBlock2",-1,0,166,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,184,602,38
+END
+
+IDD_CEXAT11300 DIALOGEX 0, 0, 602, 203
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           "CEXAT11300InBlock1",-1,0,0,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    RTEXT           "원주문번호",-1,0,19,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_ORGORDNO,87,19,111,14,ES_RIGHT | 
+                    ES_AUTOHSCROLL
+    RTEXT           "계좌번호",-1,0,36,81,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_INBLOCK_ACNTNO,87,36,111,175,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "비밀번호",-1,0,53,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_PWD,87,53,111,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "선물옵션종목번호",-1,0,70,81,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_FNOISUNO,87,70,111,14,ES_AUTOHSCROLL
+    LTEXT           "(8자리 종목코드)",-1,201,70,75,14,SS_CENTERIMAGE
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,484,63,112,20
+    LTEXT           "CEXAT11300OutBlock1",-1,0,87,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,104,602,38
+    LTEXT           "CEXAT11300OutBlock2",-1,0,147,601,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK2,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,165,602,38
+END
+
+IDD_t8411 DIALOGEX 0, 0, 558, 378
+STYLE WS_CHILD
+FONT 9, "굴림체", 0, 0, 0x1
+BEGIN
+    LTEXT           " 기본입력 - t8411InBlock",-1,0,0,557,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    LTEXT           "단축코드",-1,2,21,49,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_SHCODE,129,21,102,14,ES_AUTOHSCROLL
+    LTEXT           "단위(n틱) - 4자리",-1,2,39,72,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_NCNT,129,39,102,14,ES_AUTOHSCROLL
+    LTEXT           "요청건수(비압축:500,압축:2000)",-1,2,57,126,12,
+                    SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_QRYCNT,129,57,102,14,ES_AUTOHSCROLL
+    LTEXT           "조회영업일수(0:미사용,1>=사용)",-1,1,76,124,12,
+                    SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_NDAY,129,76,102,14,ES_AUTOHSCROLL
+    LTEXT           "연속일자",-1,1,95,49,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_CTS_DATE,129,95,102,14,ES_AUTOHSCROLL
+    LTEXT           "연속시간",-1,1,111,49,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_CTS_TIME,129,112,102,14,ES_AUTOHSCROLL
+    LTEXT           "시작일자",-1,265,21,42,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_SDATE,308,21,111,14,ES_AUTOHSCROLL
+    LTEXT           "종료일자",-1,265,39,42,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_INBLOCK_EDATE,308,39,111,14,ES_AUTOHSCROLL
+    LTEXT           "압축여부",-1,265,64,42,12,SS_CENTERIMAGE
+    CONTROL         "비압축(""N"") 500건",IDC_RD_DECOMPRESS,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,307,64,85,10
+    CONTROL         "압축(""Y"") 2000건",IDC_RD_COMPRESS,"Button",
+                    BS_AUTORADIOBUTTON,399,64,80,10
+    PUSHBUTTON      "조회",IDC_BUTTON_REQUEST,413,133,67,14,WS_GROUP
+    PUSHBUTTON      "다음",IDC_BUTTON_REQUEST_NEXT,483,133,67,14
+    LTEXT           " 출력 - t8411OutBlock",-1,0,153,557,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,171,558,50
+    LTEXT           " 출력1 - t8411OutBlock1",-1,0,231,557,15,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    CONTROL         "List1",IDC_OUTBLOCK1,"SysListView32",LVS_REPORT | 
+                    WS_BORDER,0,250,558,128
+    LTEXT           "(연속조회시 사용, 이전 조회의 t8441OutBlock.cts_date를 입력)",
+                    -1,234,96,253,14,SS_CENTERIMAGE
+    LTEXT           "(연속조회시 사용, 이전 조회의 t8411OutBlock.cts_time를 입력)",
+                    -1,234,113,253,14,SS_CENTERIMAGE
+END
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041204B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "XingAPI_Sample MFC 응용 프로그램\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "XingAPI_Sample\0"
+            VALUE "LegalCopyright", "Copyright (C) 2009\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "XingAPI_Sample.EXE\0"
+            VALUE "ProductName", "XingAPI_Sample 응용 프로그램\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x412, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_LOGIN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 355
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 320
+    END
+
+    IDD_t1301, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 366
+    END
+
+    IDD_t0431, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 366
+    END
+
+    IDD_t0433, DIALOG
+    BEGIN
+        RIGHTMARGIN, 440
+        BOTTOMMARGIN, 366
+    END
+
+    IDD_t1601, DIALOG
+    BEGIN
+        RIGHTMARGIN, 440
+        BOTTOMMARGIN, 378
+    END
+
+    IDD_t1305, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 366
+    END
+
+    IDD_EXCLUDE_ITEM, DIALOG
+    BEGIN
+        RIGHTMARGIN, 76
+    END
+
+    IDD_t5512, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 337
+    END
+
+    IDD_t8411, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 366
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_LOGIN DLGINIT
+BEGIN
+    IDC_COMBO_SERVER_ADDR_TYPE, 0x403, 7, 0
+0xc7bd, 0xadbc, 0xf6b9, "\000" 
+    IDC_COMBO_SERVER_ADDR_TYPE, 0x403, 9, 0
+0xf0b8, 0xc7c0, 0xf5c5, 0xdac0, "\000" 
+    IDC_COMBO_SERVER_PORT, 0x403, 6, 0
+0x3032, 0x3030, 0x0031, 
+    IDC_COMBO_SERVER_PORT, 0x403, 6, 0
+0x3032, 0x3230, 0x0030, 
+    IDC_COMBO_SERVER_PORT, 0x403, 3, 0
+0x3038, "\000" 
+    IDC_COMBO_SERVER_PORT, 0x403, 5, 0
+0x3038, 0x3038, "\000" 
+    IDC_COMBO_SEND_PACKET_SIZE, 0x403, 4, 0
+0x3231, 0x0038, 
+    IDC_COMBO_SEND_PACKET_SIZE, 0x403, 4, 0
+0x3532, 0x0036, 
+    IDC_COMBO_SEND_PACKET_SIZE, 0x403, 4, 0
+0x3135, 0x0032, 
+    IDC_COMBO_SEND_PACKET_SIZE, 0x403, 5, 0
+0x3031, 0x3432, "\000" 
+    0
+END
+
+IDD_t9941 DLGINIT
+BEGIN
+    IDC_INBLOCK_GUBUN, 0x403, 9, 0
+0x3a31, 0xdac4, 0xbabd, 0xc7c7, "\000" 
+    IDC_INBLOCK_GUBUN, 0x403, 9, 0
+0x3a32, 0xdac4, 0xbabd, 0xdab4, "\000" 
+    0
+END
+
+IDD_t1601 DLGINIT
+BEGIN
+    IDC_INBLOCK_GUBUN1, 0x403, 7, 0
+0x3a31, 0xf6bc, 0xaeb7, "\000" 
+    IDC_INBLOCK_GUBUN1, 0x403, 7, 0
+0x3a32, 0xddb1, 0xd7be, "\000" 
+    IDC_INBLOCK_GUBUN2, 0x403, 7, 0
+0x3a31, 0xf6bc, 0xaeb7, "\000" 
+    IDC_INBLOCK_GUBUN2, 0x403, 7, 0
+0x3a32, 0xddb1, 0xd7be, "\000" 
+    IDC_INBLOCK_GUBUN3, 0x403, 9, 0
+0x3a31, 0xe9b9, 0xb8b8, 0xf8bf, "\000" 
+    IDC_INBLOCK_GUBUN3, 0x403, 7, 0
+0x3a32, 0xefbe, 0xf8bf, "\000" 
+    0
+END
+
+IDD_t1305 DLGINIT
+BEGIN
+    IDC_INBLOCK_DWMCODE, 0x403, 5, 0
+0x3a31, 0xcfc0, "\000" 
+    IDC_INBLOCK_DWMCODE, 0x403, 5, 0
+0x3a32, 0xd6c1, "\000" 
+    IDC_INBLOCK_DWMCODE, 0x403, 5, 0
+0x3a33, 0xf9bf, "\000" 
+    0
+END
+
+IDD_t1452 DLGINIT
+BEGIN
+    IDC_INBLOCK_GUBUN, 0x403, 7, 0
+0x3a30, 0xfcc0, 0xbcc3, "\000" 
+    IDC_INBLOCK_GUBUN, 0x403, 9, 0
+0x3a31, 0xdac4, 0xbabd, 0xc7c7, "\000" 
+    IDC_INBLOCK_GUBUN, 0x403, 9, 0
+0x3a32, 0xdac4, 0xbabd, 0xdab4, "\000" 
+    IDC_INBLOCK_JNILGUBUN, 0x403, 7, 0
+0x3a31, 0xe7b4, 0xcfc0, "\000" 
+    IDC_INBLOCK_JNILGUBUN, 0x403, 7, 0
+0x3a32, 0xfcc0, 0xcfc0, "\000" 
+    0
+END
+
+IDD_t5512 DLGINIT
+BEGIN
+    IDC_INBLOCK_HOGAGB, 0x403, 10, 0
+0x3030, 0xc13a, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_HOGAGB, 0x403, 10, 0
+0x3330, 0xbd3a, 0xc0c3, 0xb0e5, 0x00a1, 
+    IDC_INBLOCK_HOGAGB, 0x403, 16, 0
+0x3530, 0xc13a, 0xb0b6, 0xbac7, 0xc1ce, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_HOGAGB, 0x403, 16, 0
+0x3630, 0xc33a, 0xc0d6, 0xb8af, 0xc1ae, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_HOGAGB, 0x403, 15, 0
+0x3031, 0xc13a, 0xc1f6, 0xb0a4, 0x28a1, 0x4f49, 0x2943, "\000" 
+    IDC_INBLOCK_HOGAGB, 0x403, 15, 0
+0x3032, 0xc13a, 0xc1f6, 0xb0a4, 0x28a1, 0x4f46, 0x294b, "\000" 
+    IDC_INBLOCK_TRADEGB, 0x403, 8, 0
+0x3130, 0xc23a, 0xc0f7, 0x00cd, 
+    IDC_INBLOCK_TRADEGB, 0x403, 8, 0
+0x3230, 0xc73a, 0xc1ec, 0x00f6, 
+    IDC_INBLOCK_TRADEGB, 0x403, 8, 0
+0x3330, 0xb13a, 0xc5e2, 0x00b8, 
+    0
+END
+
+IDD_CSPAT00600 DLGINIT
+BEGIN
+    IDC_INBLOCK_BNSTPCODE, 0x403, 7, 0
+0x3a31, 0xc5b8, 0xb5b5, "\000" 
+    IDC_INBLOCK_BNSTPCODE, 0x403, 7, 0
+0x3a32, 0xc5b8, 0xf6bc, "\000" 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 10, 0
+0x3030, 0xc13a, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 10, 0
+0x3330, 0xbd3a, 0xc0c3, 0xb0e5, 0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 16, 0
+0x3530, 0xc13a, 0xb0b6, 0xbac7, 0xc1ce, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 16, 0
+0x3630, 0xc33a, 0xc0d6, 0xb8af, 0xc1ae, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 16, 0
+0x3730, 0xc33a, 0xbfd6, 0xbcec, 0xc1b1, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 10, 0
+0x3930, 0xc03a, 0xbbda, 0xc1e7, 0x00d6, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 22, 0
+0x3134, 0xba3a, 0xbace, 0xc3d0, 0xc1e6, 0x28b7, 0xc1c7, 0xaeb8, 0xb8ba, 
+0xe5b5, 0x0029, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 22, 0
+0x3234, 0xc03a, 0xb7fc, 0xc3ae, 0xc1e6, 0x28b7, 0xc1c7, 0xaeb8, 0xb8ba, 
+0xe5b5, 0x0029, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 18, 0
+0x3136, 0xc03a, 0xb0e5, 0xbdb3, 0xc0c3, 0xbdfc, 0xb0c3, 0xbfa3, 0x00dc, 
+
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 22, 0
+0x3736, 0xc03a, 0xb0e5, 0xbdb3, 0xc0c3, 0xbdfc, 0xb0c3, 0xbfa3, 0xb4dc, 
+0xb7eb, 0x00ae, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 24, 0
+0x3836, 0xc03a, 0xb0e5, 0xbdb3, 0xc0c3, 0xbdfc, 0xb0c3, 0xbfa3, 0xb9dc, 
+0xbdd9, 0xc4ba, 0x00cf, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 20, 0
+0x3137, 0xbd3a, 0xb0c5, 0xb4ed, 0xb7eb, 0xc0ae, 0xc0fc, 0xbde5, 0xb0c3, 
+0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 16, 0
+0x3337, 0xbd3a, 0xb0c5, 0xb4ed, 0xb7eb, 0xc1ae, 0xb0be, 0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 12, 0
+0x3737, 0xc03a, 0xc1e5, 0xb4df, 0xb7eb, 0x00ae, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 14, 0
+0x3837, 0xc03a, 0xc1e5, 0xb9df, 0xbdd9, 0xc4ba, 0x00cf, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 14, 0
+0x3138, 0xbd3a, 0xb0c3, 0xbfa3, 0xc1dc, 0xb0be, 0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 16, 0
+0x3238, 0xbd3a, 0xb0c3, 0xbfa3, 0xb4dc, 0xc0dc, 0xb0cf, 0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 14, 0
+0x3738, 0xbd3a, 0xb0c3, 0xbfa3, 0xb4dc, 0xb7eb, 0x00ae, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 14, 0
+0x3838, 0xb93a, 0xbdd9, 0xc4ba, 0xc1cf, 0xb9d6, 0x00ae, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 16, 0
+0x3938, 0xbd3a, 0xb0c3, 0xbfa3, 0xc0dc, 0xbbda, 0xc1e7, 0x00d6, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 18, 0
+0x3139, 0xc03a, 0xbbda, 0xc1e7, 0xbdd6, 0xc5ba, 0xbfe5, 0xbcc9, 0x00c7, 
+
+    IDC_INBLOCK_ORDCNDITPCODE, 0x403, 7, 0
+0x3a30, 0xf8be, 0xbdc0, "\000" 
+    IDC_INBLOCK_ORDCNDITPCODE, 0x403, 6, 0
+0x3a31, 0x4f49, 0x0043, 
+    IDC_INBLOCK_ORDCNDITPCODE, 0x403, 6, 0
+0x3a32, 0x4f46, 0x004b, 
+    IDC_INBLOCK_MGNTRNCODE, 0x403, 25, 0
+0x3030, 0x3a30, 0xb8ba, 0xebc5, 0x2020, 0x2020, 0x2020, 0x2020, 0x2020, 
+0x2020, 0x2020, 0x2020, "\000" 
+    IDC_INBLOCK_MGNTRNCODE, 0x403, 25, 0
+0x3030, 0x3a31, 0xafc0, 0xebc5, 0xb6c0, 0xdac0, 0xc5bd, 0xd4b1, 0x2020, 
+0x2020, 0x2020, 0x2020, "\000" 
+    IDC_INBLOCK_MGNTRNCODE, 0x403, 33, 0
+0x3030, 0x3a33, 0xdac0, 0xe2b1, 0xb6c0, 0xdac0, 0xc5bd, 0xd4b1, 0x2020, 
+0x2020, 0x2020, 0x2020, 0x2020, 0x2020, 0x2020, 0x2020, "\000" 
+    IDC_INBLOCK_MGNTRNCODE, 0x403, 17, 0
+0x3030, 0x3a37, 0xdac0, 0xe2b1, 0xebb4, 0xd6c1, 0xc5bd, 0xd4b1, "\000" 
+    IDC_INBLOCK_MGNTRNCODE, 0x403, 25, 0
+0x3031, 0x3a31, 0xafc0, 0xebc5, 0xb6c0, 0xdac0, 0xf3bb, 0xafc8, 0x2020, 
+0x2020, 0x2020, 0x2020, "\000" 
+    IDC_INBLOCK_MGNTRNCODE, 0x403, 17, 0
+0x3031, 0x3a33, 0xdac0, 0xe2b1, 0xb6c0, 0xdac0, 0xf3bb, 0xafc8, "\000" 
+    IDC_INBLOCK_MGNTRNCODE, 0x403, 17, 0
+0x3031, 0x3a37, 0xdac0, 0xe2b1, 0xebb4, 0xd6c1, 0xf3bb, 0xafc8, "\000" 
+    IDC_INBLOCK_MGNTRNCODE, 0x403, 27, 0
+0x3831, 0x3a30, 0xb9bf, 0xb9c5, 0xe3b4, 0xb8ba, 0xebb4, 0xe2c3, 0xf3bb, 
+0xafc8, 0xbd28, 0xbfc5, 0x29eb, "\000" 
+    0
+END
+
+IDD_CSPAT00700 DLGINIT
+BEGIN
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 10, 0
+0x3030, 0xc13a, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 10, 0
+0x3330, 0xbd3a, 0xc0c3, 0xb0e5, 0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 16, 0
+0x3530, 0xc13a, 0xb0b6, 0xbac7, 0xc1ce, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 16, 0
+0x3630, 0xc33a, 0xc0d6, 0xb8af, 0xc1ae, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 16, 0
+0x3730, 0xc33a, 0xbfd6, 0xbcec, 0xc1b1, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 10, 0
+0x3930, 0xc03a, 0xbbda, 0xc1e7, 0x00d6, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 22, 0
+0x3134, 0xba3a, 0xbace, 0xc3d0, 0xc1e6, 0x28b7, 0xc1c7, 0xaeb8, 0xb8ba, 
+0xe5b5, 0x0029, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 22, 0
+0x3234, 0xc03a, 0xb7fc, 0xc3ae, 0xc1e6, 0x28b7, 0xc1c7, 0xaeb8, 0xb8ba, 
+0xe5b5, 0x0029, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 18, 0
+0x3136, 0xc03a, 0xb0e5, 0xbdb3, 0xc0c3, 0xbdfc, 0xb0c3, 0xbfa3, 0x00dc, 
+
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 22, 0
+0x3736, 0xc03a, 0xb0e5, 0xbdb3, 0xc0c3, 0xbdfc, 0xb0c3, 0xbfa3, 0xb4dc, 
+0xb7eb, 0x00ae, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 24, 0
+0x3836, 0xc03a, 0xb0e5, 0xbdb3, 0xc0c3, 0xbdfc, 0xb0c3, 0xbfa3, 0xb9dc, 
+0xbdd9, 0xc4ba, 0x00cf, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 20, 0
+0x3137, 0xbd3a, 0xb0c5, 0xb4ed, 0xb7eb, 0xc0ae, 0xc0fc, 0xbde5, 0xb0c3, 
+0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 16, 0
+0x3337, 0xbd3a, 0xb0c5, 0xb4ed, 0xb7eb, 0xc1ae, 0xb0be, 0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 12, 0
+0x3737, 0xc03a, 0xc1e5, 0xb4df, 0xb7eb, 0x00ae, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 14, 0
+0x3837, 0xc03a, 0xc1e5, 0xb9df, 0xbdd9, 0xc4ba, 0x00cf, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 14, 0
+0x3138, 0xbd3a, 0xb0c3, 0xbfa3, 0xc1dc, 0xb0be, 0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 16, 0
+0x3238, 0xbd3a, 0xb0c3, 0xbfa3, 0xb4dc, 0xc0dc, 0xb0cf, 0x00a1, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 14, 0
+0x3738, 0xbd3a, 0xb0c3, 0xbfa3, 0xb4dc, 0xb7eb, 0x00ae, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 14, 0
+0x3838, 0xb93a, 0xbdd9, 0xc4ba, 0xc1cf, 0xb9d6, 0x00ae, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 16, 0
+0x3938, 0xbd3a, 0xb0c3, 0xbfa3, 0xc0dc, 0xbbda, 0xc1e7, 0x00d6, 
+    IDC_INBLOCK_ORDPRCPTNCODE, 0x403, 18, 0
+0x3139, 0xc03a, 0xbbda, 0xc1e7, 0xbdd6, 0xc5ba, 0xbfe5, 0xbcc9, 0x00c7, 
+
+    IDC_INBLOCK_ORDCNDITPCODE, 0x403, 7, 0
+0x3a30, 0xf8be, 0xbdc0, "\000" 
+    IDC_INBLOCK_ORDCNDITPCODE, 0x403, 6, 0
+0x3a31, 0x4f49, 0x0043, 
+    IDC_INBLOCK_ORDCNDITPCODE, 0x403, 6, 0
+0x3a32, 0x4f46, 0x004b, 
+    0
+END
+
+IDD_CSPAQ02300 DLGINIT
+BEGIN
+    IDC_INBLOCK_BALCRETP, 0x403, 7, 0
+0x3a30, 0xfcc0, 0xbcc3, "\000" 
+    IDC_INBLOCK_BALCRETP, 0x403, 7, 0
+0x3a31, 0xf6c7, 0xb0b9, "\000" 
+    IDC_INBLOCK_BALCRETP, 0x403, 11, 0
+0x3a39, 0xb1bc, 0xb0b9, 0xebb4, 0xebbf, "\000" 
+    IDC_INBLOCK_CMSNAPPTPCODE, 0x403, 23, 0
+0x3a30, 0xf2c6, 0xa1b0, 0xc3bd, 0xbc20, 0xbcf6, 0xb7f6, 0x20e1, 0xccb9, 
+0xfbc0, 0xebbf, "\000" 
+    IDC_INBLOCK_CMSNAPPTPCODE, 0x403, 21, 0
+0x3a31, 0xf2c6, 0xa1b0, 0xc3bd, 0xbc20, 0xbcf6, 0xb7f6, 0x20e1, 0xfbc0, 
+0xebbf, "\000" 
+    IDC_INBLOCK_D2BALBASEQRYTP, 0x403, 11, 0
+0x3a30, 0xfcc0, 0xceba, 0xb6c1, 0xb8c8, "\000" 
+    IDC_INBLOCK_D2BALBASEQRYTP, 0x403, 23, 0
+0x3a31, 0x2b44, 0xc032, 0xb0dc, 0x20ed, 0xc030, 0xbbcc, 0xb8f3, 0x20b8, 
+0xb6c1, 0xb8c8, "\000" 
+    IDC_INBLOCK_UPRCTPCODE, 0x403, 11, 0
+0x3a30, 0xf2c6, 0xd5b1, 0xdcb4, 0xa1b0, "\000" 
+    IDC_INBLOCK_UPRCTPCODE, 0x403, 10, 0
+0x3a31, 0x4542, 0xb450, 0xb0dc, 0x00a1, 
+    0
+END
+
+IDD_CSPAQ03700 DLGINIT
+BEGIN
+    IDC_INBLOCK_ORDMKTCODE, 0x403, 8, 0
+0x3030, 0xc03a, 0xc3fc, 0x00bc, 
+    IDC_INBLOCK_ORDMKTCODE, 0x403, 10, 0
+0x3031, 0xc43a, 0xbdda, 0xc7ba, 0x00c7, 
+    IDC_INBLOCK_ORDMKTCODE, 0x403, 10, 0
+0x3032, 0xc43a, 0xbdda, 0xb4ba, 0x00da, 
+    IDC_INBLOCK_ORDMKTCODE, 0x403, 12, 0
+0x3033, 0xc73a, 0xb8c1, 0xbaae, 0xb5b8, 0x00e5, 
+    IDC_INBLOCK_BNSTPCODE, 0x403, 7, 0
+0x3a30, 0xfcc0, 0xbcc3, "\000" 
+    IDC_INBLOCK_BNSTPCODE, 0x403, 7, 0
+0x3a31, 0xc5b8, 0xb5b5, "\000" 
+    IDC_INBLOCK_BNSTPCODE, 0x403, 7, 0
+0x3a32, 0xc5b8, 0xf6bc, "\000" 
+    IDC_INBLOCK_EXECYN, 0x403, 7, 0
+0x3a30, 0xfcc0, 0xbcc3, "\000" 
+    IDC_INBLOCK_EXECYN, 0x403, 7, 0
+0x3a31, 0xbcc3, 0xe1b0, "\000" 
+    IDC_INBLOCK_EXECYN, 0x403, 9, 0
+0x3a32, 0xccb9, 0xbcc3, 0xe1b0, "\000" 
+    IDC_INBLOCK_EXECYN, 0x403, 15, 0
+0x3a33, 0xa4c1, 0xa4c1, 0xebc3, 0xd2bc, 0xa1b0, 0xc9b4, "\000" 
+    IDC_INBLOCK_BKSEQTPCODE, 0x403, 7, 0
+0x3a30, 0xaabf, 0xf8bc, "\000" 
+    IDC_INBLOCK_BKSEQTPCODE, 0x403, 7, 0
+0x3a31, 0xa4c1, 0xf8bc, "\000" 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 8, 0
+0x3030, 0xc03a, 0xc3fc, 0x00bc, 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 12, 0
+0x3839, 0xb83a, 0xb5c5, 0xc0b5, 0xc3fc, 0x00bc, 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 12, 0
+0x3939, 0xb83a, 0xbcc5, 0xc0f6, 0xc3fc, 0x00bc, 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 12, 0
+0x3130, 0xc73a, 0xb1f6, 0xb8dd, 0xb5c5, 0x00b5, 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 12, 0
+0x3230, 0xc73a, 0xb1f6, 0xb8dd, 0xbcc5, 0x00f6, 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 12, 0
+0x3530, 0xc03a, 0xc3fa, 0xb8e0, 0xb5c5, 0x00b5, 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 12, 0
+0x3630, 0xc03a, 0xc3fa, 0xb8e0, 0xbcc5, 0x00f6, 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 12, 0
+0x3930, 0xbb3a, 0xc7f3, 0xb8b0, 0xb5c5, 0x00b5, 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 12, 0
+0x3031, 0xbb3a, 0xc7f3, 0xb8b0, 0xbcc5, 0x00f6, 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 12, 0
+0x3330, 0xc03a, 0xc0b6, 0xb8da, 0xb5c5, 0x00b5, 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 12, 0
+0x3430, 0xc03a, 0xc0b6, 0xb8da, 0xbcc5, 0x00f6, 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 12, 0
+0x3730, 0xb43a, 0xc1eb, 0xb8d6, 0xb5c5, 0x00b5, 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 12, 0
+0x3830, 0xb43a, 0xc1eb, 0xb8d6, 0xbcc5, 0x00f6, 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 16, 0
+0x3131, 0xbc3a, 0xb9b1, 0xb4b0, 0xbfeb, 0xb8eb, 0xb5c5, 0x00b5, 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 16, 0
+0x3331, 0xc73a, 0xb1f6, 0xb8dd, 0xb5c5, 0x28b5, 0xc1c7, 0x0029, 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 16, 0
+0x3431, 0xc73a, 0xb1f6, 0xb8dd, 0xbcc5, 0x28f6, 0xc1c7, 0x0029, 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 8, 0
+0x3731, 0xb43a, 0xc3eb, 0x00e2, 
+    IDC_INBLOCK_ORDPTNCODE, 0x403, 12, 0
+0x3831, 0xb43a, 0xc3eb, 0xbbe2, 0xc8f3, 0x00af, 
+    0
+END
+
+IDD_CSPBQ00200 DLGINIT
+BEGIN
+    IDC_INBLOCK_BNSTPCODE, 0x403, 7, 0
+0x3a31, 0xc5b8, 0xb5b5, "\000" 
+    IDC_INBLOCK_BNSTPCODE, 0x403, 7, 0
+0x3a32, 0xc5b8, 0xf6bc, "\000" 
+    0
+END
+
+IDD_CFOAT00100 DLGINIT
+BEGIN
+    IDC_INBLOCK_BNSTPCODE, 0x403, 7, 0
+0x3a31, 0xc5b8, 0xb5b5, "\000" 
+    IDC_INBLOCK_BNSTPCODE, 0x403, 7, 0
+0x3a32, 0xc5b8, 0xf6bc, "\000" 
+    IDC_INBLOCK_FNOORDPRCPTNCODE, 0x403, 10, 0
+0x3030, 0xc13a, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_FNOORDPRCPTNCODE, 0x403, 10, 0
+0x3330, 0xbd3a, 0xc0c3, 0xb0e5, 0x00a1, 
+    IDC_INBLOCK_FNOORDPRCPTNCODE, 0x403, 16, 0
+0x3530, 0xc13a, 0xb0b6, 0xbac7, 0xc1ce, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_FNOORDPRCPTNCODE, 0x403, 16, 0
+0x3630, 0xc33a, 0xc0d6, 0xb8af, 0xc1ae, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_FNOORDPRCPTNCODE, 0x403, 15, 0
+0x3031, 0xc13a, 0xc1f6, 0xb0a4, 0x28a1, 0x4f49, 0x2943, "\000" 
+    IDC_INBLOCK_FNOORDPRCPTNCODE, 0x403, 15, 0
+0x3032, 0xc13a, 0xc1f6, 0xb0a4, 0x28a1, 0x4f46, 0x294b, "\000" 
+    0
+END
+
+IDD_CFOAT00200 DLGINIT
+BEGIN
+    IDC_INBLOCK_FNOORDPRCPTNCODE, 0x403, 10, 0
+0x3030, 0xc13a, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_FNOORDPRCPTNCODE, 0x403, 10, 0
+0x3330, 0xbd3a, 0xc0c3, 0xb0e5, 0x00a1, 
+    IDC_INBLOCK_FNOORDPRCPTNCODE, 0x403, 16, 0
+0x3530, 0xc13a, 0xb0b6, 0xbac7, 0xc1ce, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_FNOORDPRCPTNCODE, 0x403, 16, 0
+0x3630, 0xc33a, 0xc0d6, 0xb8af, 0xc1ae, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_FNOORDPRCPTNCODE, 0x403, 15, 0
+0x3031, 0xc13a, 0xc1f6, 0xb0a4, 0x28a1, 0x4f49, 0x2943, "\000" 
+    IDC_INBLOCK_FNOORDPRCPTNCODE, 0x403, 15, 0
+0x3032, 0xc13a, 0xc1f6, 0xb0a4, 0x28a1, 0x4f46, 0x294b, "\000" 
+    0
+END
+
+IDD_CFOAQ00600 DLGINIT
+BEGIN
+    IDC_INBLOCK_PRDGRPCODE, 0x403, 8, 0
+0x3030, 0xc03a, 0xc3fc, 0x00bc, 
+    IDC_INBLOCK_PRDGRPCODE, 0x403, 12, 0
+0x3130, 0xc13a, 0xb0d6, 0xc1a1, 0xbcf6, 0x00f6, 
+    IDC_INBLOCK_PRDGRPCODE, 0x403, 12, 0
+0x3230, 0xb03a, 0xbab3, 0xc1b0, 0xbdd6, 0x00c4, 
+    IDC_INBLOCK_PRDGRPCODE, 0x403, 12, 0
+0x3330, 0xb03a, 0xb0a1, 0xc3f8, 0xb1a4, 0x00c7, 
+    IDC_INBLOCK_PRDGRPCODE, 0x403, 8, 0
+0x3430, 0xc53a, 0xc8eb, 0x00ad, 
+    IDC_INBLOCK_PRDGRPCODE, 0x403, 8, 0
+0x3530, 0xbb3a, 0xc7f3, 0x00b0, 
+    IDC_INBLOCK_PRDGRPCODE, 0x403, 8, 0
+0x3630, 0xb13a, 0xb8dd, 0x00ae, 
+    IDC_INBLOCK_PRDTEXECTPCODE, 0x403, 7, 0
+0x3a30, 0xfcc0, 0xbcc3, "\000" 
+    IDC_INBLOCK_PRDTEXECTPCODE, 0x403, 7, 0
+0x3a31, 0xbcc3, 0xe1b0, "\000" 
+    IDC_INBLOCK_PRDTEXECTPCODE, 0x403, 9, 0
+0x3a32, 0xccb9, 0xbcc3, 0xe1b0, "\000" 
+    IDC_INBLOCK_STNLNSEQTP, 0x403, 7, 0
+0x3a33, 0xaabf, 0xf8bc, "\000" 
+    IDC_INBLOCK_STNLNSEQTP, 0x403, 7, 0
+0x3a34, 0xa4c1, 0xf8bc, "\000" 
+    0
+END
+
+IDD_CFOFQ02400 DLGINIT
+BEGIN
+    IDC_INBLOCK_REGMKTCODE, 0x403, 8, 0
+0x3939, 0xc03a, 0xc3fc, 0x00bc, 
+    IDC_INBLOCK_REGMKTCODE, 0x403, 9, 0
+0x3034, 0x4b3a, 0x534f, 0x4950, "\000" 
+    IDC_INBLOCK_REGMKTCODE, 0x403, 10, 0
+0x3032, 0x4b3a, 0x534f, 0x4144, 0x0051, 
+    IDC_INBLOCK_REGMKTCODE, 0x403, 7, 0
+0x3031, 0x4b3a, 0x4553, "\000" 
+    IDC_INBLOCK_REGMKTCODE, 0x403, 9, 0
+0x3035, 0x4b3a, 0x464f, 0x5845, "\000" 
+    0
+END
+
+IDD_CCEAT00100 DLGINIT
+BEGIN
+    IDC_INBLOCK_BNSTPCODE, 0x403, 7, 0
+0x3a31, 0xc5b8, 0xb5b5, "\000" 
+    IDC_INBLOCK_BNSTPCODE, 0x403, 7, 0
+0x3a32, 0xc5b8, 0xf6bc, "\000" 
+    IDC_INBLOCK_FNOORDPRCPTNCODE, 0x403, 10, 0
+0x3030, 0xc13a, 0xc1f6, 0xb0a4, 0x00a1, 
+    IDC_INBLOCK_FNOORDPRCPTNCODE, 0x403, 15, 0
+0x3031, 0xc13a, 0xc1f6, 0xb0a4, 0x28a1, 0x4f49, 0x2943, "\000" 
+    IDC_INBLOCK_FNOORDPRCPTNCODE, 0x403, 15, 0
+0x3032, 0xc13a, 0xc1f6, 0xb0a4, 0x28a1, 0x4f46, 0x294b, "\000" 
+    0
+END
+
+IDD_CCEAT00200 DLGINIT
+BEGIN
+    IDC_INBLOCK_FNOORDPRCPTNCODE, 0x403, 10, 0
+0x3030, 0xc13a, 0xc1f6, 0xb0a4, 0x00a1, 
+    0
+END
+
+IDD_t1602 DLGINIT
+BEGIN
+    IDC_INBLOCK_MARKET, 0x403, 9, 0
+0x3a31, 0xdac4, 0xbabd, 0xc7c7, "\000" 
+    IDC_INBLOCK_MARKET, 0x403, 8, 0
+0x3a32, 0x504b, 0x3032, 0x0030, 
+    IDC_INBLOCK_MARKET, 0x403, 9, 0
+0x3a33, 0xdac4, 0xbabd, 0xdab4, "\000" 
+    IDC_INBLOCK_MARKET, 0x403, 7, 0
+0x3a34, 0xb1bc, 0xb0b9, "\000" 
+    IDC_INBLOCK_MARKET, 0x403, 9, 0
+0x3a35, 0xddc4, 0xc9bf, 0xc7bc, "\000" 
+    IDC_INBLOCK_MARKET, 0x403, 9, 0
+0x3a36, 0xb2c7, 0xc9bf, 0xc7bc, "\000" 
+    IDC_INBLOCK_UPCODE, 0x403, 11, 0
+0x3030, 0x3a31, 0xdac4, 0xbabd, 0xc7c7, "\000" 
+    IDC_INBLOCK_UPCODE, 0x403, 10, 0
+0x3031, 0x3a31, 0x504b, 0x3032, 0x0030, 
+    IDC_INBLOCK_UPCODE, 0x403, 11, 0
+0x3033, 0x3a31, 0xdac4, 0xbabd, 0xdab4, "\000" 
+    IDC_INBLOCK_UPCODE, 0x403, 11, 0
+0x3039, 0x3a30, 0xb1bc, 0x2020, 0xb0b9, "\000" 
+    IDC_INBLOCK_UPCODE, 0x403, 11, 0
+0x3037, 0x3a30, 0xddc4, 0xc9bf, 0xc7bc, "\000" 
+    IDC_INBLOCK_UPCODE, 0x403, 11, 0
+0x3038, 0x3a30, 0xb2c7, 0xc9bf, 0xc7bc, "\000" 
+    IDC_INBLOCK_GUBUN1, 0x403, 7, 0
+0x3a31, 0xf6bc, 0xaeb7, "\000" 
+    IDC_INBLOCK_GUBUN1, 0x403, 7, 0
+0x3a32, 0xddb1, 0xd7be, "\000" 
+    IDC_INBLOCK_GUBUN2, 0x403, 7, 0
+0x3a30, 0xddb1, 0xcfc0, "\000" 
+    IDC_INBLOCK_GUBUN2, 0x403, 7, 0
+0x3a31, 0xfcc0, 0xcfc0, "\000" 
+    0
+END
+
+IDD_CEXAT11100 DLGINIT
+BEGIN
+    IDC_INBLOCK_BNSTPCODE, 0x403, 7, 0
+0x3a31, 0xc5b8, 0xb5b5, "\000" 
+    IDC_INBLOCK_BNSTPCODE, 0x403, 7, 0
+0x3a32, 0xc5b8, 0xf6bc, "\000" 
+    IDC_INBLOCK_ERXPRCCNDITPCODE, 0x403, 9, 0
+0x3a31, 0xc3bd, 0xe5c0, 0xa1b0, "\000" 
+    IDC_INBLOCK_ERXPRCCNDITPCODE, 0x403, 9, 0
+0x3a32, 0xf6c1, 0xa4c1, 0xa1b0, "\000" 
+    0
+END
+
+IDD_CFOEQ82600 DLGINIT
+BEGIN
+    IDC_INBLOCK_REGMKTCODE, 0x403, 8, 0
+0x3939, 0xc03a, 0xc3fc, 0x00bc, 
+    IDC_INBLOCK_REGMKTCODE, 0x403, 9, 0
+0x3034, 0x4b3a, 0x534f, 0x4950, "\000" 
+    IDC_INBLOCK_REGMKTCODE, 0x403, 10, 0
+0x3032, 0x4b3a, 0x534f, 0x4144, 0x0051, 
+    IDC_INBLOCK_REGMKTCODE, 0x403, 7, 0
+0x3031, 0x4b3a, 0x4553, "\000" 
+    IDC_INBLOCK_REGMKTCODE, 0x403, 9, 0
+0x3035, 0x4b3a, 0x464f, 0x5845, "\000" 
+    0
+END
+
+IDD_t0424 DLGINIT
+BEGIN
+    IDC_INBLOCK_PRCGB, 0x403, 11, 0
+0x3a31, 0xf2c6, 0xd5b1, 0xdcb4, 0xa1b0, "\000" 
+    IDC_INBLOCK_PRCGB, 0x403, 10, 0
+0x3a32, 0x4542, 0xb450, 0xb0dc, 0x00a1, 
+    IDC_INBLOCK_CHEGB, 0x403, 15, 0
+0x3a30, 0xe1b0, 0xa6c1, 0xe2b1, 0xd8c1, 0xdcc0, 0xedb0, "\000" 
+    IDC_INBLOCK_CHEGB, 0x403, 15, 0
+0x3a32, 0xbcc3, 0xe1b0, 0xe2b1, 0xd8c1, 0xdcc0, 0xedb0, "\000" 
+    IDC_INBLOCK_DANGB, 0x403, 9, 0
+0x3a30, 0xa4c1, 0xd4b1, 0xe5c0, "\000" 
+    IDC_INBLOCK_DANGB, 0x403, 15, 0
+0x3a31, 0xc3bd, 0xa3b0, 0xdcbf, 0xdcb4, 0xcfc0, 0xa1b0, "\000" 
+    IDC_INBLOCK_CHARGE, 0x403, 15, 0
+0x3a30, 0xa6c1, 0xf1ba, 0xebbf, 0xccb9, 0xf7c6, 0xd4c7, "\000" 
+    IDC_INBLOCK_CHARGE, 0x403, 13, 0
+0x3a31, 0xa6c1, 0xf1ba, 0xebbf, 0xf7c6, 0xd4c7, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    IDR_MAINFRAME           "XingAPI_Sample"
+    IDR_XINGAPTYPE          "\nXingAP\nXingAP"
+END
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    AFX_IDS_APP_TITLE       "XingAPI_Sample"
+    AFX_IDS_IDLEMESSAGE     "준비"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_NEW             "새 문서를 작성합니다\n새 파일"
+    ID_FILE_CLOSE           "현재 열린 문서를 닫습니다\n닫기"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_APP_ABOUT            "프로그램 정보와 버전 정보, 저작권 정보를 표시합니다\n정보"
+    ID_APP_EXIT             "응용 프로그램을 종료하기 위해 문서를 저장할 것인지 묻습니다\n종료"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_NEXT_PANE            "다음 창으로 전환합니다\n다음 창"
+    ID_PREV_PANE            "이전 창으로 전환합니다\n이전 창"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_WINDOW_ARRANGE       "창 아래쪽에 아이콘을 정렬합니다\n아이콘 정렬"
+    ID_WINDOW_CASCADE       "서로 겹쳐지도록 창을 정렬합니다\n계단식 창"
+    ID_WINDOW_TILE_HORZ     "서로 겹치지 않는 바둑판 모양으로 창을 정렬합니다\n바둑판식 창"
+    ID_WINDOW_TILE_VERT     "서로 겹치지 않는 바둑판 모양으로 창을 정렬합니다\n바둑판식 창"
+    ID_WINDOW_SPLIT         "현재 열린 창을 나눕니다\n나누기"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_CLEAR           "선택 부분을 지웁니다\n지우기"
+    ID_EDIT_CLEAR_ALL       "모든 것을 지웁니다\n모두 지우기"
+    ID_EDIT_COPY            "선택 부분을 복사하여 클립보드에 넣습니다\n복사"
+    ID_EDIT_CUT             "선택 부분을 잘라내어 클립보드에 넣습니다\n잘라내기"
+    ID_EDIT_FIND            "지정한 문자열을 찾습니다\n찾기"
+    ID_EDIT_PASTE           "클립보드의 내용을 붙여 넣습니다\n붙여넣기"
+    ID_EDIT_REPEAT          "마지막으로 실행한 동작을 반복합니다\n반복"
+    ID_EDIT_REPLACE         "지정한 문자열을 다른 문자열로 바꿉니다\n바꾸기"
+    ID_EDIT_SELECT_ALL      "문서 전체를 선택합니다\n전체 선택"
+    ID_EDIT_UNDO            "마지막으로 한 동작을 취소합니다\n실행 취소"
+    ID_EDIT_REDO            "이전에 취소한 동작을 다시 수행합니다\n다시 실행"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "창의 크기를 변경합니다"
+    AFX_IDS_SCMOVE          "창의 위치를 변경합니다"
+    AFX_IDS_SCMINIMIZE      "창을 아이콘으로 줄여서 표시합니다"
+    AFX_IDS_SCMAXIMIZE      "창을 최대 크기로 확장합니다"
+    AFX_IDS_SCNEXTWINDOW    "다음 문서 창으로 전환합니다"
+    AFX_IDS_SCPREVWINDOW    "이전 문서 창으로 전환합니다"
+    AFX_IDS_SCCLOSE         "현재 열린 창을 닫고 문서를 저장할 것인지를 묻습니다"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "창을 원래 크기로 복원합니다"
+    AFX_IDS_SCTASKLIST      "작업 목록을 활성화합니다"
+    AFX_IDS_MDICHILD        "이 창을 활성화합니다"
+END
+
+#endif    // Korean resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+#ifdef _WIN32
+LANGUAGE 18, 1
+#pragma code_page(949)
+#endif //_WIN32
+#include "res\XingAPI_Sample.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.kor\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

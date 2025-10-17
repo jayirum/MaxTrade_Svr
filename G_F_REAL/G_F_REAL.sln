@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35828.75
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "G_F_REAL", "G_F_REAL.vcxproj", "{590E9029-B558-4B40-9C5F-88DB20D9A92D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		G_F_REAL_GF|x64 = G_F_REAL_GF|x64
+		G_F_REAL_GF|x86 = G_F_REAL_GF|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{590E9029-B558-4B40-9C5F-88DB20D9A92D}.Debug|x64.ActiveCfg = Debug|x64
+		{590E9029-B558-4B40-9C5F-88DB20D9A92D}.Debug|x64.Build.0 = Debug|x64
+		{590E9029-B558-4B40-9C5F-88DB20D9A92D}.Debug|x86.ActiveCfg = Debug|Win32
+		{590E9029-B558-4B40-9C5F-88DB20D9A92D}.Debug|x86.Build.0 = Debug|Win32
+		{590E9029-B558-4B40-9C5F-88DB20D9A92D}.G_F_REAL_GF|x64.ActiveCfg = G_F_REAL_GF|x64
+		{590E9029-B558-4B40-9C5F-88DB20D9A92D}.G_F_REAL_GF|x64.Build.0 = G_F_REAL_GF|x64
+		{590E9029-B558-4B40-9C5F-88DB20D9A92D}.G_F_REAL_GF|x86.ActiveCfg = G_F_REAL_GF|Win32
+		{590E9029-B558-4B40-9C5F-88DB20D9A92D}.G_F_REAL_GF|x86.Build.0 = G_F_REAL_GF|Win32
+		{590E9029-B558-4B40-9C5F-88DB20D9A92D}.Release|x64.ActiveCfg = Release|x64
+		{590E9029-B558-4B40-9C5F-88DB20D9A92D}.Release|x64.Build.0 = Release|x64
+		{590E9029-B558-4B40-9C5F-88DB20D9A92D}.Release|x86.ActiveCfg = Release|Win32
+		{590E9029-B558-4B40-9C5F-88DB20D9A92D}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {55ADBEF3-B14B-4041-B00F-90F198C0936B}
+	EndGlobalSection
+EndGlobal
