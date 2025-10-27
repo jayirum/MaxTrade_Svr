@@ -19,7 +19,7 @@
     <Filter Include="Common">
       <UniqueIdentifier>{16952a91-a9f2-49a0-9c6a-8139bcd14af7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ChartAPI">
+    <Filter Include="API_Sources">
       <UniqueIdentifier>{d3ec7906-a108-4ef5-b002-6f607d7c33be}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -61,19 +61,19 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="ChartAPIView.cpp">
-      <Filter>ChartAPI</Filter>
+      <Filter>API_Sources</Filter>
     </ClCompile>
     <ClCompile Include="CSymbols.cpp">
-      <Filter>ChartAPI</Filter>
+      <Filter>API_Sources</Filter>
     </ClCompile>
     <ClCompile Include="CDBConnector.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="CSaveCandle.cpp">
-      <Filter>ChartAPI</Filter>
-    </ClCompile>
     <ClCompile Include="CQueryTime.cpp">
-      <Filter>ChartAPI</Filter>
+      <Filter>API_Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="CSaveSymbols.cpp">
+      <Filter>API_Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -123,22 +123,28 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ChartAPIView.h">
-      <Filter>ChartAPI</Filter>
+      <Filter>API_Sources</Filter>
     </ClInclude>
     <ClInclude Include="CSymbols.h">
-      <Filter>ChartAPI</Filter>
+      <Filter>API_Sources</Filter>
     </ClInclude>
     <ClInclude Include="CDBConnector.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="CSaveCandle.h">
-      <Filter>ChartAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="o3103.h">
-      <Filter>ChartAPI</Filter>
-    </ClInclude>
     <ClInclude Include="CQueryTime.h">
-      <Filter>ChartAPI</Filter>
+      <Filter>API_Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="CSaveSymbols.h">
+      <Filter>API_Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="o3101.h">
+      <Filter>API_Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="o3105.h">
+      <Filter>API_Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="t9943.h">
+      <Filter>API_Sources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -158,7 +164,7 @@
     <None Include="res\ChartAPISample.rc2">
       <Filter>리소스 파일</Filter>
     </None>
-    <None Include="LSAPI_Tr.ini" />
+    <None Include="LSAPI_Symbols.ini" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

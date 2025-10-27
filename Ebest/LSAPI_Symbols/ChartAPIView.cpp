@@ -51,6 +51,10 @@ BEGIN_MESSAGE_MAP(CChartAPIView, CFormView)
     ON_BN_CLICKED(IDC_QUERY,							&CChartAPIView::OnBtnQuery)
     ON_MESSAGE(WM_USER + XM_RECEIVE_DATA,				OnXMReceiveData)
     ON_MESSAGE(WM_USER + XM_TIMEOUT_DATA,				OnXMTimeoutData)   
+	ON_BN_CLICKED(IDC_BUTTON_OF, &CChartAPIView::OnBnClickedButtonOf)
+	ON_BN_CLICKED(IDC_BUTTON_OF_DATE, &CChartAPIView::OnBnClickedButtonOfDate)
+	ON_BN_CLICKED(IDC_BUTTON_OV, &CChartAPIView::OnBnClickedButtonOv)
+	ON_BN_CLICKED(IDC_BUTTON_OV_DATE, &CChartAPIView::OnBnClickedButtonOvDate)
 END_MESSAGE_MAP()
 
 
@@ -235,14 +239,14 @@ void CChartAPIView::OnSize(UINT nType, int cx, int cy)
 //	long timeframe = 0;
 //	int idx = gSymbol.get_timeframe_short(timeframe, -1);
 //	while (idx > -1) {
-//		fetch_api_data(timeframe);
+//		fetch_api_data_wrapper(timeframe);
 //		idx = gSymbol.get_timeframe_short(timeframe, idx);
 //		cnt++;
 //	}
 //
 //	idx = gSymbol.get_timeframe_long(timeframe, -1);
 //	while (idx > -1) {
-//		fetch_api_data(timeframe);
+//		fetch_api_data_wrapper(timeframe);
 //		idx = gSymbol.get_timeframe_long(timeframe, idx);
 //		cnt++;
 //	}
@@ -288,7 +292,7 @@ void CChartAPIView::threadFunc_Query()
 		{
 			const std::deque<int>& often = gSymbol.get_timeframe_often();
 			for( int tf : often){
-				fetch_api_data(tf);
+				fetch_api_data_wrapper(tf);
 			}
 		}
 
@@ -296,7 +300,7 @@ void CChartAPIView::threadFunc_Query()
 		{
 			const std::deque<int>& seldom = gSymbol.get_timeframe_seldom();
 			for (int tf : seldom) {
-				fetch_api_data(tf);
+				fetch_api_data_wrapper(tf);
 			}
 		}
 
@@ -308,13 +312,13 @@ void CChartAPIView::threadFunc_Query()
 }
 
 
-void CChartAPIView::fetch_api_data(int timeframe)
+void CChartAPIView::fetch_api_data_wrapper(int timeframe)
 {
 	std::deque<std::string> deq_symbols = gSymbol.get_symbol();
 
 	int inteval = gCommon.apiqry_trinterval_sec();
 	for (std::string symbol : deq_symbols) {
-		requestData(symbol, timeframe);
+		fetch_api_data(symbol, timeframe);
 		Sleep(inteval);
 	}
 }
@@ -329,7 +333,7 @@ void CChartAPIView::OnBtnQuery()
 }
 
 
-bool	CChartAPIView::requestData(std::string symbol, int timeframe)
+bool	CChartAPIView::fetch_api_data(std::string symbol, int timeframe)
 {
 	o3103InBlock	inBlock;
 	char			t[256];
@@ -452,7 +456,7 @@ LRESULT CChartAPIView::OnXMReceiveData( WPARAM wParam, LPARAM lParam )
     else if (wParam == RELEASE_DATA)
     {
 		gCommon.log(INFO, "[OnXMReceiveData](RELEASE_DATA)(%d)", (int)lParam);
-		g_iXingAPI.ReleaseRequestData( (int)lParam);
+		g_iXingAPI.Releasefetch_api_data( (int)lParam);
 	}
 
     return 1L;
@@ -556,7 +560,7 @@ bool	CChartAPIView::save_candle_data(std::string sSymbol, std::string sTimeframe
 LRESULT CChartAPIView::OnXMTimeoutData( WPARAM wParam, LPARAM lParam )
 {
 	gCommon.log(INFO, "[OnXMTimeoutData]¼ö½Å");
-    g_iXingAPI.ReleaseRequestData( ( int )lParam );
+    g_iXingAPI.Releasefetch_api_data( ( int )lParam );
 
     return 1L;
 }
@@ -644,3 +648,23 @@ LRESULT CChartAPIView::OnXMTimeoutData( WPARAM wParam, LPARAM lParam )
 //}
 
 
+
+void CChartAPIView::OnBnClickedButtonOf()
+{
+	// TODO: Add your control notification handler code here
+}
+
+void CChartAPIView::OnBnClickedButtonOfDate()
+{
+	// TODO: Add your control notification handler code here
+}
+
+void CChartAPIView::OnBnClickedButtonOv()
+{
+	// TODO: Add your control notification handler code here
+}
+
+void CChartAPIView::OnBnClickedButtonOvDate()
+{
+	// TODO: Add your control notification handler code here
+}

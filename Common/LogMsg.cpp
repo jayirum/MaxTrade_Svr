@@ -161,7 +161,7 @@ VOID CLogMsg::Log(LOGMSG_TP tp, const char* pMsg, BOOL bPrintConsole)
 			if (p == NULL)
 				__leave;
 
-			sprintf_s(p->msg, pMsg);
+			sprintf_s(p->msg, "%s", pMsg);
 
 			p->tp = tp;
 			p->bPrintConsole = bPrintConsole;

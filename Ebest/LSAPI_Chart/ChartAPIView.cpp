@@ -4,12 +4,14 @@
 #include "stdafx.h"
 #include "LSAPIApp.h"
 #include "ChartAPIView.h"
-#include "CSymbols.h"
-#include "CSaveCandle.h"
 #include "CGlobals.h"
 #include "o3103.h"
 #include <iostream>
 #include <chrono>
+#include "CTimeframeOfSymbols.h"
+#include "CDBWorks.h"
+#include "../../Common/StringUtils.h"
+
 
 #define COMSTR(st) CString(st, sizeof(st))
 
@@ -71,10 +73,15 @@ void CChartAPIView::Dump(CDumpContext& dc) const
 #endif //_DEBUG
 
 
+
 // CChartAPIView 메시지 처리기입니다.
 
 void CChartAPIView::OnInitialUpdate()
 {
+	bool	connect_db();
+	bool	load_symbols_timeframes();
+
+
 	// trcnt_per_sec:1, trcnt_base_sec:1, trcnt_rqst:-1, trcnt_limit:200
 	api_get_limitation_for_logging();
 
@@ -82,12 +89,12 @@ void CChartAPIView::OnInitialUpdate()
     CFormView::OnInitialUpdate();
 
 	// 시장구분 콤보 초기화
-	InitSymbolCombo();
-	gCommon.debug("[CChartAPIView::OnInitialUpdate]InitSymbolCombo()");
+	//InitSymbolCombo();
+	//__common.debug("[CChartAPIView::OnInitialUpdate]InitSymbolCombo()");
 
 	// Timeframe 콤보 초기화
 	InitTimeframeCombo();
-	gCommon.debug("[CChartAPIView::OnInitialUpdate]InitTimeframeCombo()");
+	__common.debug("[CChartAPIView::OnInitialUpdate]InitTimeframeCombo()");
 		
 	m_thrdQuery = std::thread(&CChartAPIView::threadFunc_Query, this);
 	m_thrdFlag.set_run();
@@ -97,67 +104,27 @@ void CChartAPIView::OnInitialUpdate()
 
 }
 
-//bool CChartAPIView::get_time_config()
-//{
-//	char start_tm[32], end_tm[32], apiqry_often_sec[32], apiqry_seldom_min[32];
-//
-//	if (!gCommon.getConfig((char*)"API_TR", (char*)"TM_START", start_tm)) {
-//		gCommon.log(LOGTP_ERR, "CChartAPIView::get_time_config]ini 파일에 [API_TR]TM_START 이 있는지 확인하세요");
-//		return false;
-//	}
-//
-//	if (!gCommon.getConfig((char*)"API_TR", (char*)"TM_END", end_tm)) {
-//		gCommon.log(LOGTP_ERR, "CChartAPIView::get_time_config]ini 파일에 [API_TR]TM_END 이 있는지 확인하세요");
-//		return false;
-//	}
-//
-//	if (!gCommon.getConfig((char*)"API_TR", (char*)"APIQRY_OFTEN_SEC", end_tm)) {
-//		gCommon.log(LOGTP_ERR, "CChartAPIView::get_time_config]ini 파일에 [API_TR]APIQRY_OFTEN_SEC 이 있는지 확인하세요");
-//		return false;
-//	}
-//
-//	if (!gCommon.getConfig((char*)"API_TR", (char*)"APIQRY_SELDOM_MIN", end_tm)) {
-//		gCommon.log(LOGTP_ERR, "CChartAPIView::get_time_config]ini 파일에 [API_TR]APIQRY_SELDOM_MIN 이 있는지 확인하세요");
-//		return false;
-//	}
-//
-//	m_check_tm = new CCheckTime(start_tm, end_tm, apiqry_often_sec, apiqry_seldom_min);
-//
-//	return true;
-//}
-//
-//
-//bool	CChartAPIView::get_trcode()
-//{
-//	char code[32] = { 0 };
-//	if (!gCommon.getConfig((char*)"API_TR", (char*)"TRCODE", code)) {
-//		gCommon.log(LOGTP_ERR, "CChartAPIView::get_trcode]ini 파일에 [API_TR]TRCODE 이 있는지 확인하세요");
-//		return false;
-//	}
-//	m_sTrCode = code;
-//	return true;
-//}
 
 void	CChartAPIView::api_get_limitation_for_logging()
 {
-	int trcnt_per_sec = g_iXingAPI.GetTRCountPerSec(m_sTrCode.c_str());
-	int trcnt_base_sec = g_iXingAPI.GetTRCountBaseSec(m_sTrCode.c_str());
-	int trcnt_rqst = g_iXingAPI.GetTRCountRequest(m_sTrCode.c_str());
-	int trcnt_limit = g_iXingAPI.GetTRCountLimit(m_sTrCode.c_str());
+	int trcnt_per_sec = g_iXingAPI.GetTRCountPerSec(__common.get_api_tr());
+	int trcnt_base_sec = g_iXingAPI.GetTRCountBaseSec(__common.get_api_tr());
+	int trcnt_rqst = g_iXingAPI.GetTRCountRequest(__common.get_api_tr());
+	int trcnt_limit = g_iXingAPI.GetTRCountLimit(__common.get_api_tr());
 
-	gCommon.log(INFO, "TRCountPerSec:%d, TRCountBaseSec:%d, TRCountRequest:%d, TRCountRequest:%d",
-		trcnt_per_sec, trcnt_base_sec, trcnt_rqst, trcnt_limit);
+	__common.log_fmt(INFO, "[%s]TRCountPerSec:%d, TRCountBaseSec:%d, TRCountRequest:%d, TRCountRequest:%d",
+		__common.get_api_tr(), trcnt_per_sec, trcnt_base_sec, trcnt_rqst, trcnt_limit);
 }
 
 void CChartAPIView::InitSymbolCombo()
 {
 	m_cmbSymbols.ResetContent();
 	
-	std::deque<std::string> deq_symbols = gSymbol.get_symbol();
+	//TODO std::deque<std::string> deq_symbols = gSymbol.get_symbol();
 
-	for (std::string symbol : deq_symbols) {
-		m_cmbSymbols.AddString(symbol.c_str());
-	}
+	//TODO for (std::string symbol : deq_symbols) {
+	//TODO 	m_cmbSymbols.AddString(symbol.c_str());
+	//TODO }
 
 	
 	m_cmbSymbols.SetCurSel( 0 );
@@ -168,11 +135,9 @@ void CChartAPIView::InitTimeframeCombo()
 {
 	m_cmbTimeframe.ResetContent();
 
-	std::deque<int> deq_tf;
-	gSymbol.get_timeframe(deq_tf);
-	for (int tf : deq_tf) {
+	for (auto& kv : __map_tfs_symbols) {
 		char z[32];
-		sprintf(z, "%ld", tf);
+		sprintf(z, "%ld", kv.first);
 		m_cmbTimeframe.AddString(z);
 	}
 
@@ -218,118 +183,71 @@ void CChartAPIView::OnSize(UINT nType, int cx, int cy)
 }
 
 
-//void CChartAPIView::OnLvnItemchangedList(NMHDR *pNMHDR, LRESULT *pResult)
-//{
-//    LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-//    // TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-//    *pResult = 0;
-//}
-
-//void CChartAPIView::first_query()
-//{
-//	if (!is_query_time())
-//		return;
-//
-//	int cnt = 0;
-//
-//	long timeframe = 0;
-//	int idx = gSymbol.get_timeframe_short(timeframe, -1);
-//	while (idx > -1) {
-//		fetch_api_data(timeframe);
-//		idx = gSymbol.get_timeframe_short(timeframe, idx);
-//		cnt++;
-//	}
-//
-//	idx = gSymbol.get_timeframe_long(timeframe, -1);
-//	while (idx > -1) {
-//		fetch_api_data(timeframe);
-//		idx = gSymbol.get_timeframe_long(timeframe, idx);
-//		cnt++;
-//	}
-//
-//	char z[256]; sprintf(z, "[%d]개의 Request 를 최초로 전송했습니다.", cnt);
-//	gCommon.log(INFO, z);
-//}
-
-
-
-
-//bool CChartAPIView::is_query_time()
-//{
-//	SYSTEMTIME st; char zNow[128]; GetLocalTime(&st);
-//	sprintf(zNow, "%02d:%02d", st.wHour, st.wMinute);
-//
-//	bool b_market_time = true;
-//	if (strcmp(m_tm_end, zNow) <= 0 && strcmp(zNow, m_tm_start) < 0)
-//		b_market_time = false;
-//
-//	return b_market_time;
-//}
 
 
 void CChartAPIView::threadFunc_Query()
 {
 	std::this_thread::sleep_for(std::chrono::seconds(3));
 
+	//#
+	first_api_qry();
+
 	while (!m_thrdFlag.is_stopped())
 	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
 		if (m_thrdFlag.is_idle()) continue;
+				
+		int fired_num = check_qrytime_all();
 
-		//
-		bool is_often_sec = false, is_seldom_min = false;
-		bool b_go = m_check_tm.check_time(_Out_ is_often_sec, _Out_ is_seldom_min);
-		//
-
-		if (!b_go) continue;
-
-		if (is_often_sec)
-		{
-			const std::deque<int>& often = gSymbol.get_timeframe_often();
-			for( int tf : often){
-				fetch_api_data(tf);
-			}
+		if(fired_num>0){
+			__common.log_fmt(INFO, "[APIQRY시간체크]총 [%d] 개의 차트를 요청해야 한다.(Timeframe X Symbol 조합)", fired_num);
+			fetch_candles_apidata();
 		}
-
-		if (is_seldom_min)
-		{
-			const std::deque<int>& seldom = gSymbol.get_timeframe_seldom();
-			for (int tf : seldom) {
-				fetch_api_data(tf);
-			}
-		}
-
-		if (is_often_sec || is_seldom_min)
-			m_check_tm.set_exec_time();
 
 	} // while (!m_thrdFlag.is_stopped())
 
 }
 
-
-void CChartAPIView::fetch_api_data(int timeframe)
+void	CChartAPIView::fetch_candles_apidata()
 {
-	std::deque<std::string> deq_symbols = gSymbol.get_symbol();
+	std::lock_guard<std::mutex> lock(__mtx_tfs_symbols);
 
-	int inteval = gCommon.apiqry_trinterval_sec();
-	for (std::string symbol : deq_symbols) {
-		requestData(symbol, timeframe);
-		Sleep(inteval);
+	for (auto& [tf, tfclass] : __map_tfs_symbols)
+	{
+		for (auto& [symbol, symbolclass] : tfclass->m_map_symbols)
+		{
+			if (symbolclass->is_time_to_apiqry())
+			{
+				//__common.debug_fmt("[API REQUEST](timeframe:%d)(symbol:%s)", tf, symbol.c_str());
+				fetch_apidata(symbol, tf, false);
+				std::this_thread::sleep_for(std::chrono::milliseconds(__common.apiqry_interval_ms()));
+
+			}
+		}
 	}
 }
 
-//----------------------------------------------------------------------------------------------------
-// 차트 지표데이터 조회를 요청합니다
-//----------------------------------------------------------------------------------------------------
-void CChartAPIView::OnBtnQuery()
+void	CChartAPIView::first_api_qry()
 {
-	UpdateData();
+	std::lock_guard<std::mutex> lock(__mtx_tfs_symbols);
 
+	for (auto& [tf, tfclass] : __map_tfs_symbols)					//std::map<int, std::unique_ptr<CTimeframeOfSymbols>>
+	{
+		for (auto& [symbol, symbolclass] : tfclass->m_map_symbols)	//std::map<SYMBOL_STR, std::unique_ptr<CSymbol>>
+		{
+			if (!fetch_apidata(symbol, tf, true))
+			{
+				//TODO
+			}
+			std::this_thread::sleep_for(std::chrono::milliseconds(__common.apiqry_interval_ms()));
+		}
+	}
 }
 
 
-bool	CChartAPIView::requestData(std::string symbol, int timeframe)
+
+bool	CChartAPIView::fetch_apidata(std::string symbol, int timeframe, bool is_first)
 {
 	o3103InBlock	inBlock;
 	char			t[256];
@@ -341,76 +259,105 @@ bool	CChartAPIView::requestData(std::string symbol, int timeframe)
 
 	sprintf(t, "%d", timeframe);
 	SetPacketData(inBlock.ncnt, sizeof(inBlock.ncnt), t, DATA_TYPE_LONG);
-		
-	SetPacketData(inBlock.readcnt, sizeof(inBlock.readcnt), gCommon.apiqry_read_cnt(), DATA_TYPE_LONG);
+	
+	if(is_first)
+		SetPacketData(inBlock.readcnt, sizeof(inBlock.readcnt), __common.apiqry_qry_cnt_first(), DATA_TYPE_LONG);
+	else
+		SetPacketData(inBlock.readcnt, sizeof(inBlock.readcnt), __common.apiqry_qry_cnt(), DATA_TYPE_LONG);
 
 	//JAY SetPacketData(inBlock.cts_date, sizeof(inBlock.cts_date), m_tm.get_dt(), DATA_TYPE_STRING);
 	//JAY SetPacketData(inBlock.cts_time, sizeof(inBlock.cts_time), m_tm.get_tm(), DATA_TYPE_STRING);
 	
 
-	//gCommon.debug("[inBlock](%.*s)", sizeof(inBlock),(char*)&inBlock);
+	//__common.log_fmt(INFO, "[fetch_apidata](%.*s)", sizeof(inBlock),(char*)&inBlock);
+	
+	
+	
 	//-----------------------------------------------------------
 	// 데이터 전송
-	int nRqID = g_iXingAPI.Request(
-		GetSafeHwnd(),				// 데이터를 받을 윈도우, XM_RECEIVE_DATA 으로 온다.
-		NAME_o3103,						// TR 번호
-		(LPVOID)&inBlock,
-		sizeof(inBlock)
-	);
-	gCommon.log(INFO, "Request(TR:%s)(symbol:%.*s)(timeframe:%.*s)(readcnt:%.*s)(dt:%.*s)(tm:%.*s)",
-		NAME_o3103,
-		sizeof(inBlock.shcode), inBlock.shcode, 
-		sizeof(inBlock.ncnt),inBlock.ncnt, 
-		sizeof(inBlock.readcnt), inBlock.readcnt, 
-		sizeof(inBlock.cts_date), inBlock.cts_date, 
-		sizeof(inBlock.cts_time), inBlock.cts_time
-	);
-
+	int nRqID = 0;
 	bool ret = true;
-	//-----------------------------------------------------------
-	// Request ID가 0보다 작을 경우에는 에러이다.
-	if (nRqID < 0)
+
+	for( int i=0; i<3; i++)
 	{
-		gCommon.log(ERR, "g_iXingAPI.Request 실패.API 조회 신청 에러");
-		ret = false;
+		nRqID = g_iXingAPI.Request(
+			GetSafeHwnd(),				// 데이터를 받을 윈도우, XM_RECEIVE_DATA 으로 온다.
+			NAME_o3103,						// TR 번호
+			(LPVOID)&inBlock,
+			sizeof(inBlock)
+		);
+	
+		//-----------------------------------------------------------
+		// Request ID가 0보다 작을 경우에는 에러이다.
+		if (nRqID < 0)
+		{
+			__common.log_fmt(ERR, "g_iXingAPI.Request 실패.API 조회 신청 에러(REQID:%d)(%s)", nRqID, g_iXingAPI.GetErrorMessage(nRqID));
+			__common.log_fmt(ERR, "Request실패(TR:%s)(symbol:%.*s)(timeframe:%.*s)(qry_cnt:%.*s)(dt:%.*s)(tm:%.*s)",
+				NAME_o3103,
+				sizeof(inBlock.shcode), inBlock.shcode,
+				sizeof(inBlock.ncnt), inBlock.ncnt,
+				sizeof(inBlock.readcnt), inBlock.readcnt,
+				sizeof(inBlock.cts_date), inBlock.cts_date,
+				sizeof(inBlock.cts_time), inBlock.cts_time
+			);
+			ret = false;
+			Sleep(2000);
+		}
+		else{
+			ret = true;
+			break;
+		}
 	}
-	else
+	if (nRqID > 0)
 	{
-		gCommon.log(INFO, "Request 성공(REQ ID:%d)", nRqID);
+		__common.log_fmt(INFO, "[Request성공](TR:%s)(symbol:%.*s)(timeframe:%.*s)(qry_cnt:%.*s)(dt:%.*s)(tm:%.*s)",
+			NAME_o3103,
+			sizeof(inBlock.shcode), inBlock.shcode,
+			sizeof(inBlock.ncnt), inBlock.ncnt,
+			sizeof(inBlock.readcnt), inBlock.readcnt,
+			sizeof(inBlock.cts_date), inBlock.cts_date,
+			sizeof(inBlock.cts_time), inBlock.cts_time
+		);
 
 		char code[32], ncnt[32];
 		sprintf(code, "%.*s", sizeof(inBlock.shcode), inBlock.shcode);
+		CStringUtils util; util.trim_all(code);
+
 		sprintf(ncnt, "%.*s", sizeof(inBlock.ncnt), inBlock.ncnt);
 
-		//
+		//#
 		requestID_add(nRqID, code, ncnt);
-		//
 	}
-
+	
 	return ret;
 }
 
-void	CChartAPIView::requestID_add(int nReqId, std::string symbol, std::string timeframe)
+int	CChartAPIView::check_qrytime_all()
 {
-	auto p = std::make_unique< TReqInfo>();
-	p->sSymbol = symbol;
-	p->sTimeframe = timeframe;
-	std::lock_guard<std::mutex> lock(m_mtxReqNo);
-	m_mapReqNo[nReqId] = std::move(p);
+	char now[15 + 1];	//yyyymmdd_hhmmss
+	CTimeUtils time_util;
+	strcpy(now, time_util.DateTime_yyyymmddhhmmss());
+
+	int num = 0;
+	std::lock_guard<std::mutex> lock(__mtx_tfs_symbols);
+	for (auto& [tf, tfclass] : __map_tfs_symbols)					//std::map<int, std::unique_ptr<CTimeframeOfSymbols>>
+	{
+		num += tfclass->check_time_to_apiqry_symbols(now);
+	}
+	return num;
 }
 
-//LRESULT CChartAPIView::OnAddLog(WPARAM wParam, LPARAM lParam)
-//{
-//	std::unique_ptr<CString> pMsg(reinterpret_cast<CString*>(lParam));
-//	m_lstLog.InsertString(0, *pMsg);
-//
-//	// 너무 많아지면 오래된 항목 삭제 (예: 1000줄 제한)
-//	const int maxLines = 100;
-//	if (m_lstLog.GetCount() > maxLines)
-//		m_lstLog.DeleteString(m_lstLog.GetCount() - 1);
-//
-//	return 0;
-//}
+
+void	CChartAPIView::requestID_add(int nReqId, const char* symbol, const char* timeframe)
+{
+	auto p = std::make_shared< TReqInfo>();
+	p->sSymbol		= symbol;
+	p->sTimeframe	= timeframe;
+
+	std::lock_guard<std::mutex> lock(m_mtxReqNo);
+	m_mapReqNo[nReqId] = p;
+}
+
 
 //----------------------------------------------------------------------------------------------------
 // 차트 지표데이터 조회 결과를 수신받습니다
@@ -422,8 +369,8 @@ LRESULT CChartAPIView::OnXMReceiveData( WPARAM wParam, LPARAM lParam )
     if (wParam == REQUEST_DATA)
     {
 		LPMSG_PACKET pMsg = (LPMSG_PACKET)lParam;
-		gCommon.log(INFO, "[OnXMReceiveData](REQUEST_DATA)");
-		receive_candle((LPRECV_PACKET)lParam);
+		//__common.log(INFO, "[OnXMReceiveData](REQUEST_DATA)");
+		recv_apidata_proc((LPRECV_PACKET)lParam);
     }
 
 	//------------------------------------------------------------
@@ -431,7 +378,7 @@ LRESULT CChartAPIView::OnXMReceiveData( WPARAM wParam, LPARAM lParam )
     else if (wParam == MESSAGE_DATA)
     {
         LPMSG_PACKET pMsg = (LPMSG_PACKET)lParam;
-		//gCommon.log(INFO, "[OnXMReceiveData](MESSAGE_DATA)(%.512s)", (char*)pMsg->lpszMessageData);
+		//__common.log(INFO, "[OnXMReceiveData](MESSAGE_DATA)(%.512s)", (char*)pMsg->lpszMessageData);
 
         g_iXingAPI.ReleaseMessageData(lParam);
 	}
@@ -442,7 +389,7 @@ LRESULT CChartAPIView::OnXMReceiveData( WPARAM wParam, LPARAM lParam )
     {
         LPMSG_PACKET pMsg = (LPMSG_PACKET)lParam;
         CString strMsg((char *)pMsg->lpszMessageData, pMsg->nMsgLength);
-		//gCommon.log(ERR, "[OnXMReceiveData](SYSTEM_ERROR_DATA)(%.*s)",pMsg->nMsgLength, (char*)pMsg->lpszMessageData);
+		//__common.log(ERR, "[OnXMReceiveData](SYSTEM_ERROR_DATA)(%.*s)",pMsg->nMsgLength, (char*)pMsg->lpszMessageData);
 
         g_iXingAPI.ReleaseMessageData(lParam);
 	}
@@ -451,8 +398,8 @@ LRESULT CChartAPIView::OnXMReceiveData( WPARAM wParam, LPARAM lParam )
 	// Release Data를 받음
     else if (wParam == RELEASE_DATA)
     {
-		gCommon.log(INFO, "[OnXMReceiveData](RELEASE_DATA)(%d)", (int)lParam);
-		g_iXingAPI.ReleaseRequestData( (int)lParam);
+		//__common.log_fmt(INFO, "[OnXMReceiveData](RELEASE_DATA)(%d)", (int)lParam);
+		g_iXingAPI.ReleaseMessageData( (int)lParam);
 	}
 
     return 1L;
@@ -462,7 +409,7 @@ LRESULT CChartAPIView::OnXMReceiveData( WPARAM wParam, LPARAM lParam )
 //----------------------------------------------------------------------------------------------------
 // 조회 결과를 표시합니다
 //----------------------------------------------------------------------------------------------------
-bool CChartAPIView::receive_candle(LPRECV_PACKET pPKData)
+bool CChartAPIView::recv_apidata_proc(LPRECV_PACKET pPKData)
 {
 	int reqId				= pPKData->nRqID;
 	int	nDataLength			= pPKData->nDataLength;
@@ -470,8 +417,8 @@ bool CChartAPIView::receive_candle(LPRECV_PACKET pPKData)
 	std::string sBlockName	= pPKData->szBlockName;
 	char cCont				= pPKData->cCont[0];
 
-	gCommon.debug("[receive_candle]reqid:%d, DataLen:%d, DataMode:%d, BlockName:%s, cCont:%c",
-		reqId, nDataLength, pPKData->nDataMode, pPKData->szBlockName, cCont);
+	//__common.debug_fmt("[recv_apidata_proc]reqid:%d, DataLen:%d, DataMode:%d, BlockName:%s, cCont:%c",
+	//	reqId, nDataLength, pPKData->nDataMode, pPKData->szBlockName, cCont);
 
 	if (nDataLength < 0)
 		return true;
@@ -483,7 +430,7 @@ bool CChartAPIView::receive_candle(LPRECV_PACKET pPKData)
 	{
 		if (cCont == '0')	// 다음조회 없음
 		{
-			gCommon.log(ERR, "[receive_candle] o3103OutBlock 인데 다음조회가 없다.");
+			__common.log(ERR, "[recv_apidata_proc] o3103OutBlock 인데 다음조회가 없다.");
 			return false;
 		}
 		
@@ -494,42 +441,50 @@ bool CChartAPIView::receive_candle(LPRECV_PACKET pPKData)
 			std::lock_guard<std::mutex> lock(m_mtxReqNo);
 			auto itReq = m_mapReqNo.find(reqId);
 			if (itReq == m_mapReqNo.end()) {
-				gCommon.log(ERR, "[receive_candle]수신한 데이터의 REQ ID(%d) 가 map 에 없다.", reqId);
+				__common.log_fmt(ERR, "[recv_apidata_proc]수신한 데이터의 REQ ID(%d) 가 map 에 없다.", reqId);
 				return false;
 			}
 			itReq->second->sTimeDiff = zTimeDiff;
-		}		
+		}
 	}
 	else if (sBlockName.compare(NAME_o3103OutBlock1) == 0)
 	{
-		int nLoop = nDataLength / sizeof(o3103OutBlock1);
+		int block_cnt = nDataLength / sizeof(o3103OutBlock1);
 		o3103OutBlock1* pOut = (o3103OutBlock1*)pPKData->lpData;
 
-		std::string sSymbol, sTimeframe, sTimeDiff;
+		std::string symbol, timeframe, timediff;
+
 		{
 			std::lock_guard<std::mutex> lock(m_mtxReqNo);
 			auto itReq = m_mapReqNo.find(reqId);
 			if (itReq == m_mapReqNo.end()) {
-				gCommon.log(ERR, "[receive_candle]수신한 데이터의 REQ ID(%d) 가 map 에 없다.", reqId);
+				__common.log_fmt(ERR, "[recv_apidata_proc]수신한 데이터의 REQ ID(%d) 가 map 에 없다.", reqId);
 				return false;
 			}
-			sSymbol = itReq->second->sSymbol;
-			sTimeframe = itReq->second->sTimeframe;
-			sTimeDiff = itReq->second->sTimeDiff;
+			CStringUtils utils;
+			symbol		= utils.trim_str(itReq->second->sSymbol);
+			timeframe	= itReq->second->sTimeframe;
+			timediff	= itReq->second->sTimeDiff;
 
 			m_mapReqNo.erase(itReq);
+			//__common.debug_fmt("[MAP REQ 삭제](REQ ID:%d)(Timeframe:%s)(Symbol:%s)", reqId, timeframe.c_str(), symbol.c_str());
 		}
 
-		for (int i = 0; i < nLoop; i++)
-		{
-			save_candle_data(sSymbol, sTimeframe, sTimeDiff, pOut);
+		
+		for(int i=0; i< block_cnt; i++){
+			if (!save_candle_data(symbol, timeframe, timediff, pOut, (i==0)))
+			{
+				//TODO
+			}
 			pOut++;
 		}
 	}
 	return true;
 }
 
-bool	CChartAPIView::save_candle_data(std::string sSymbol, std::string sTimeframe, std::string sTimeDiff, o3103OutBlock1* pBlock)
+
+
+bool	CChartAPIView::save_candle_data(std::string sSymbol, std::string sTimeframe, std::string sTimeDiff, o3103OutBlock1* pBlock, bool b_update_candle_tm)
 {
 	char dt[32], tm[32], o[32], h[32], l[32], c[32], v[32];
 	sprintf(dt, "%.*s", sizeof(pBlock->date), pBlock->date);
@@ -540,12 +495,35 @@ bool	CChartAPIView::save_candle_data(std::string sSymbol, std::string sTimeframe
 	sprintf(c, "%.*s", sizeof(pBlock->close), pBlock->close);
 	sprintf(v, "%.*s", sizeof(pBlock->volume), pBlock->volume);
 
-	gCommon.debug("[save_candle_data](symbol:%s)(timeframe:%s)(timediff:%s)(dt:%s)(tm:%s)(o:%s)(h:%s)(l:%s)(c:%s)(v:%s)",
+	__common.debug_fmt("\t<save_candle_data>(symbol:%s)(timeframe:%s)(timediff:%s)(dt:%s)(tm:%s)(o:%s)(h:%s)(l:%s)(c:%s)(v:%s)",
 		sSymbol.c_str(), sTimeframe.c_str(), sTimeDiff.c_str(),
 		dt, tm, o, h, l, c, v)
 		;
 
-	gSaveCandle.save(std::stol(sTimeframe), sSymbol, dt, tm, std::stoi(sTimeDiff), atof(o), atof(h), atof(l), atof(c), atoi(v));
+	int tf = std::stol(sTimeframe);
+	bool ret = __dbworks.save_chartdata(
+				tf, 
+				sSymbol, 
+				dt, 
+				tm, 
+				std::stoi(sTimeDiff), 
+				atof(o), atof(h), atof(l), atof(c), atoi(v)
+				);
+	if (!ret) {
+		return false;
+	}
+
+	// map 에 저장
+	if(b_update_candle_tm){
+		std::lock_guard<std::mutex> lock(__mtx_tfs_symbols);
+		auto it = __map_tfs_symbols.find(tf);
+		if (it == __map_tfs_symbols.end()) {
+			__common.log_fmt(ERR, "[save_candle_data] map 에 데이터가 없음(timeframe:%d)", tf);
+			return false;
+		}
+		it->second->update_candle_tm(sSymbol.c_str(), (const char*)dt, (const char*)tm, sTimeDiff.c_str());
+	}
+
 	return true;
 }
 
@@ -555,11 +533,24 @@ bool	CChartAPIView::save_candle_data(std::string sSymbol, std::string sTimeframe
 //----------------------------------------------------------------------------------------------------
 LRESULT CChartAPIView::OnXMTimeoutData( WPARAM wParam, LPARAM lParam )
 {
-	gCommon.log(INFO, "[OnXMTimeoutData]수신");
-    g_iXingAPI.ReleaseRequestData( ( int )lParam );
+	__common.log(INFO, "[OnXMTimeoutData]수신");
+    g_iXingAPI.ReleaseMessageData( ( int )lParam );
 
     return 1L;
 }
+
+
+
+
+//----------------------------------------------------------------------------------------------------
+// 차트 지표데이터 조회를 요청합니다
+//----------------------------------------------------------------------------------------------------
+void CChartAPIView::OnBtnQuery()
+{
+	UpdateData();
+
+}
+
 
 //
 //

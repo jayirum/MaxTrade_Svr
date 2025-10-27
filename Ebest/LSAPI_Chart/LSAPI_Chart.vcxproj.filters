@@ -63,17 +63,23 @@
     <ClCompile Include="ChartAPIView.cpp">
       <Filter>ChartAPI</Filter>
     </ClCompile>
-    <ClCompile Include="CSymbols.cpp">
-      <Filter>ChartAPI</Filter>
-    </ClCompile>
     <ClCompile Include="CDBConnector.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="CSaveCandle.cpp">
-      <Filter>ChartAPI</Filter>
-    </ClCompile>
     <ClCompile Include="CQueryTime.cpp">
       <Filter>ChartAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimeframeOfSymbols.cpp">
+      <Filter>ChartAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="CDBWorks.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\TimeUtils.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\StringUtils.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,20 +131,26 @@
     <ClInclude Include="ChartAPIView.h">
       <Filter>ChartAPI</Filter>
     </ClInclude>
-    <ClInclude Include="CSymbols.h">
-      <Filter>ChartAPI</Filter>
-    </ClInclude>
     <ClInclude Include="CDBConnector.h">
       <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CSaveCandle.h">
-      <Filter>ChartAPI</Filter>
     </ClInclude>
     <ClInclude Include="o3103.h">
       <Filter>ChartAPI</Filter>
     </ClInclude>
     <ClInclude Include="CQueryTime.h">
       <Filter>ChartAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="CTimeframeOfSymbols.h">
+      <Filter>ChartAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="CDBWorks.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\TimeUtils.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\StringUtils.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -158,7 +170,7 @@
     <None Include="res\ChartAPISample.rc2">
       <Filter>리소스 파일</Filter>
     </None>
-    <None Include="LSAPI_Tr.ini" />
+    <None Include="LSAPI_Chart.ini" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

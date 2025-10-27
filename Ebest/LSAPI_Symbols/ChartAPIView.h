@@ -6,7 +6,6 @@
 #include <deque>
 #include <map>
 #include "CQueryTime.h"
-#include "o3103.h"
 #include "CGlobals.h"
 
 
@@ -14,8 +13,6 @@ typedef int REQ_ID;
 struct TReqInfo
 {
 	std::string sSymbol;
-	std::string sTimeframe;
-	std::string sTimeDiff;
 };
 
 //#define INTERVAL_FOR_EACH_QUERY	1500	//1.5SEC
@@ -48,15 +45,6 @@ public:
 		if ( bigger_end && smaller_start )
 			return false;
 
-		is_often_sec = (strncmp(&m_now[6], gCommon.apiqry_often_sec(), 2) == 0);	// 12:07:01 에서 01초
-
-		char z[32]; sprintf(z, "%.02s", &m_now[3]);	// 12:07:02 에서 07분
-		int n = atoi(z);
-		if (gCommon.is_seldom_min_odd())
-			is_seldom_min = (n % 2 != 0);
-		else
-			is_seldom_min = (n % 2 == 0);
-
 		return true;
 	}
 
@@ -69,11 +57,6 @@ private:
 	void	now_time() { GetLocalTime(&m_st); sprintf(m_now, "%02d:%02d:%02d", m_st.wHour, m_st.wMinute, m_st.wSecond); }
 	
 private:
-	//char	m_start_tm[32];
-	//char	m_end_tm[32];
-	//char	m_apiqry_often_sec[32];
-	//bool	m_is_seldom_min_odd;
-
 	char	m_last_exec[8+1];	// hh:mm:ss
 
 	SYSTEMTIME	m_st;
@@ -110,22 +93,30 @@ private:
 
 private:
 
-	bool	receive_candle(LPRECV_PACKET pPKData);	// 조회 결과 표시
-	bool	save_candle_data(std::string sSymbol, std::string sTimeframe, std::string sTimeDiff, o3103OutBlock1* pBlock);
+	//bool	receive_candle(LPRECV_PACKET pPKData);	// 조회 결과 표시
+	//bool	save_candle_data(std::string sSymbol, std::string sTimeframe, std::string sTimeDiff, o3103OutBlock1* pBlock);
 
-	void	InitSymbolCombo();
-	void	InitTimeframeCombo();
+	//void	InitSymbolCombo();
+	//void	InitTimeframeCombo();
 	//bool	get_trcode();
-	void	api_get_limitation_for_logging();
+	//void	api_get_limitation_for_logging();
 	
-	bool	requestData(std::string symbol, int timeframe);
-	void	requestID_add(int nReqId, std::string symbol, std::string timeframe);
 
-	void	threadFunc_Query();
-	void	fetch_api_data(int timeframe);
-	//void	first_query();
-	//bool	get_time_config();
-	//bool	is_query_time();
+	void	set_apipack_kf_master();
+	void	set_apipack_ov_master();
+	void	set_apipack_ov_info();
+
+	void	recvproc_apidata_kf();
+	void	recvproc_apidata_ovmaster();
+	void	recvproc_apidata_ovinfo();
+
+	void	fetch_api_data_ovinfo();
+	bool	fetch_api_data();
+	void	requestID_add(int nReqId, std::string symbol);
+
+	//void	threadFunc_Query();
+	
+
 protected:
 	CChartAPIView();           // 동적 만들기에 사용되는 protected 생성자입니다.
 	virtual ~CChartAPIView();
@@ -149,7 +140,9 @@ public:
     afx_msg void	OnSize(UINT nType, int cx, int cy);
     //afx_msg void	OnLvnItemchangedList(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void	OnBtnQuery();
-    afx_msg	LRESULT	OnXMReceiveData(WPARAM wParam, LPARAM lParam);
+	afx_msg void	OnBnClickedButtonOv();
+	afx_msg void	OnBnClickedButtonOvDate();
+	afx_msg	LRESULT	OnXMReceiveData(WPARAM wParam, LPARAM lParam);
     afx_msg	LRESULT	OnXMTimeoutData(WPARAM wParam, LPARAM lParam);
 	//afx_msg LRESULT OnAddLog(WPARAM wParam, LPARAM lParam);
 
@@ -171,4 +164,5 @@ public:
 	//char 					m_tm_start[6], m_tm_end[6];
 	
 	CCheckTime				m_check_tm;
+	
 };

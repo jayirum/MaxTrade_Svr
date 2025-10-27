@@ -44,28 +44,24 @@ bool CGlobals::read_config_all()
 			m_cfg_app.listen_ip, m_cfg_app.listen_port, m_cfg_app.log_debug);
 
 		msg = "API_TR";
-		CHECK_BOOL(gCommon.getConfig((char*)"API_TR", (char*)"TRCODE",				m_cfg_apitr.tr_code),			msg);
+		CHECK_BOOL(gCommon.getConfig((char*)"API_TR", (char*)"TRCODE_KF",			m_cfg_apitr.trcode_kf),			msg);
+		CHECK_BOOL(gCommon.getConfig((char*)"API_TR", (char*)"TRCODE_OV_MASTER",	m_cfg_apitr.trcode_ov_master),	msg);
+		CHECK_BOOL(gCommon.getConfig((char*)"API_TR", (char*)"TRCODE_OV_INFO",		m_cfg_apitr.trcode_ov_info),	msg);
 		CHECK_BOOL(gCommon.getConfig((char*)"API_TR", (char*)"READ_CNT",			m_cfg_apitr.read_cnt),			msg);
 		CHECK_BOOL(gCommon.getConfig((char*)"API_TR", (char*)"TM_START",			m_cfg_apitr.tm_start),			msg);
 		CHECK_BOOL(gCommon.getConfig((char*)"API_TR", (char*)"TM_END",				m_cfg_apitr.tm_end),			msg);
-		CHECK_BOOL(gCommon.getConfig((char*)"API_TR", (char*)"APIQRY_OFTEN_SEC",	m_cfg_apitr.apiqry_often_sec),	msg);
-		CHECK_BOOL(gCommon.getConfig((char*)"API_TR", (char*)"APIQRY_SELDOM_MIN",	m_cfg_apitr.apiqry_seldom_min), msg);
-		CHECK_BOOL(gCommon.getConfig((char*)"API_TR", (char*)"APIQRY_TRINTERVAL_SEC", m_cfg_apitr.apiqry_trinterval_sec), msg);
-		CHECK_BOOL(gCommon.getConfig((char*)"API_TR", (char*)"MAX_SYMBOL_CNT",		m_cfg_apitr.max_symbol_cnt),	msg);
+		//CHECK_BOOL(gCommon.getConfig((char*)"API_TR", (char*)"APIQRY_OFTEN_SEC",	m_cfg_apitr.apiqry_often_sec),	msg);
+		//CHECK_BOOL(gCommon.getConfig((char*)"API_TR", (char*)"APIQRY_SELDOM_MIN",	m_cfg_apitr.apiqry_seldom_min), msg);
+		//CHECK_BOOL(gCommon.getConfig((char*)"API_TR", (char*)"APIQRY_TRINTERVAL_SEC", m_cfg_apitr.apiqry_trinterval_sec), msg);
+		//CHECK_BOOL(gCommon.getConfig((char*)"API_TR", (char*)"MAX_SYMBOL_CNT",		m_cfg_apitr.max_symbol_cnt),	msg);
 		
-		m_is_seldom_min_odd = (strncmp(m_cfg_apitr.apiqry_seldom_min, "ODD", 3) == 0);
-
-		gCommon.log(INFO, "[API_TR] TRCODE(%s) READ_CNT(%s) TM_START(%s) TM_END(%s)"
-			"APIQRY_OFTEN_SEC(%s) APIQRY_SELDOM_MIN(%s) APIQRY_TRINTERVAL_SEC(%s) "
-			"APIQRY_SELDOM_MIN(%s)"
-			, m_cfg_apitr.tr_code
+		gCommon.log(INFO, "[API_TR] TRCODE_KF(%s) TRCODE_OV_MASTER(%s) TRCODE_OV_INFO(%s) TM_START(%s) TM_END(%s)"
+			, m_cfg_apitr.trcode_kf
+			, m_cfg_apitr.trcode_ov_master
+			, m_cfg_apitr.trcode_ov_info
 			, m_cfg_apitr.read_cnt
 			, m_cfg_apitr.tm_start
 			, m_cfg_apitr.tm_end
-			, m_cfg_apitr.apiqry_often_sec
-			, m_cfg_apitr.apiqry_seldom_min
-			, m_cfg_apitr.apiqry_trinterval_sec
-			, m_cfg_apitr.max_symbol_cnt
 		);
 
 		msg = "DB_INFO";
@@ -90,17 +86,6 @@ bool CGlobals::read_config_all()
 		CHECK_BOOL(gCommon.getConfig((char*)"API_INFO", (char*)"USERID",		m_cfg_api.userid),		msg);
 		CHECK_BOOL(gCommon.getConfig((char*)"API_INFO", (char*)"USERPWD",		m_cfg_api.userpwd),		msg);
 		CHECK_BOOL(gCommon.getConfig((char*)"API_INFO", (char*)"CERTPWD",		m_cfg_api.certpwd),		msg);
-		gCommon.log(INFO, "[API_INFO] SERVER_IP(%s) SERVER_PORT(%s) USERID(%s) USERPWD(%s) CERTPWD(%s)"
-			, m_cfg_api.svr_ip
-			, m_cfg_api.svr_port
-			, m_cfg_api.userid
-			, m_cfg_api.userpwd
-			, m_cfg_api.certpwd
-		);
-
-		msg = "QUERY";
-		CHECK_BOOL(gCommon.getConfig((char*)"QUERY", (char*)"GET_SYMBOL",		m_cfg_qry.load_symbol),		msg);
-		CHECK_BOOL(gCommon.getConfig((char*)"QUERY", (char*)"GET_TIMEFRAME",	m_cfg_qry.load_timeframe),	msg);
 		gCommon.log(INFO, "[API_INFO] SERVER_IP(%s) SERVER_PORT(%s) USERID(%s) USERPWD(%s) CERTPWD(%s)"
 			, m_cfg_api.svr_ip
 			, m_cfg_api.svr_port

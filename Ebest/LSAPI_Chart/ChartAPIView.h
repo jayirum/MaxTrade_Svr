@@ -8,6 +8,7 @@
 #include "CQueryTime.h"
 #include "o3103.h"
 #include "CGlobals.h"
+#include "CDBWorks.h"
 
 
 typedef int REQ_ID;
@@ -42,20 +43,20 @@ public:
 			return false;
 	
 		// compare hh:mm ==> end(05:00) ~ start(09:00)
-		bool bigger_end		= (strncmp(gCommon.end_tm(), m_now, 5)	<=0);
-		bool smaller_start	= (strncmp(m_now, gCommon.start_tm(),5)< 0);
+		bool bigger_end		= (strncmp(__common.end_tm(), m_now, 5)	<=0);
+		bool smaller_start	= (strncmp(m_now, __common.start_tm(),5)< 0);
 
 		if ( bigger_end && smaller_start )
 			return false;
 
-		is_often_sec = (strncmp(&m_now[6], gCommon.apiqry_often_sec(), 2) == 0);	// 12:07:01 에서 01초
+		is_often_sec = 0;	//TODO (strncmp(&m_now[6], __common.apiqry_often_sec(), 2) == 0);	// 12:07:01 에서 01초
 
 		char z[32]; sprintf(z, "%.02s", &m_now[3]);	// 12:07:02 에서 07분
 		int n = atoi(z);
-		if (gCommon.is_seldom_min_odd())
-			is_seldom_min = (n % 2 != 0);
-		else
-			is_seldom_min = (n % 2 == 0);
+		//if (__common.is_seldom_min_odd())
+		//	is_seldom_min = (n % 2 != 0);
+		//else
+		//	is_seldom_min = (n % 2 == 0);
 
 		return true;
 	}
@@ -110,22 +111,31 @@ private:
 
 private:
 
-	bool	receive_candle(LPRECV_PACKET pPKData);	// 조회 결과 표시
-	bool	save_candle_data(std::string sSymbol, std::string sTimeframe, std::string sTimeDiff, o3103OutBlock1* pBlock);
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//	Jay's Codes
+
+	bool	recv_apidata_proc(LPRECV_PACKET pPKData);	// 조회 결과 표시
+	bool	save_candle_data(std::string sSymbol, std::string sTimeframe, std::string sTimeDiff, o3103OutBlock1* pBlock, bool b_update_candle_tm);
 
 	void	InitSymbolCombo();
 	void	InitTimeframeCombo();
-	//bool	get_trcode();
+	
 	void	api_get_limitation_for_logging();
 	
-	bool	requestData(std::string symbol, int timeframe);
-	void	requestID_add(int nReqId, std::string symbol, std::string timeframe);
-
 	void	threadFunc_Query();
-	void	fetch_api_data(int timeframe);
-	//void	first_query();
-	//bool	get_time_config();
-	//bool	is_query_time();
+	void	first_api_qry();
+	int		check_qrytime_all();
+	void	fetch_candles_apidata();
+	bool	fetch_apidata(std::string symbol, int timeframe, bool is_first);
+	void	requestID_add(int nReqId, const char* symbol, const char* timeframe);
+	
+
+private:
+	CDBConnector* m_dbConnector;
+
+	//
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 protected:
 	CChartAPIView();           // 동적 만들기에 사용되는 protected 생성자입니다.
 	virtual ~CChartAPIView();
@@ -162,7 +172,7 @@ public:
 	CStatic			m_stMsg;
 	std::string		m_sTrCode;
 
-	std::map<REQ_ID, std::unique_ptr<TReqInfo>>		m_mapReqNo;	//  
+	std::map<REQ_ID, std::shared_ptr<TReqInfo>>		m_mapReqNo;	//  
 	std::mutex										m_mtxReqNo;
 	
 	CQueryTime				m_tm;

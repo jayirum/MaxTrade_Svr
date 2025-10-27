@@ -45,6 +45,11 @@ public:
 	char*	RTrim(char* pBuf, int nScope);
 	char*	RTrim_SZ(char* pszBuf);
 	char*	LTrim(char* pBuf);
+
+	char*	trim_all(char* str);
+	std::string trim_copy(const char* str);
+	std::string trim_str(const std::string& s);
+
 	
 	void	RemoveChar(char* pData, int nLen, char i_cTarget);
 	void	ReplaceChar(char* pData, char cOldChar, char cNewChar, int posStart=0, int nCnt=0 );

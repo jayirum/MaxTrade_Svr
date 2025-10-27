@@ -43,9 +43,9 @@ BOOL CLoginDlg::OnInitDialog()
 {
     CDialog::OnInitDialog();
 
-    m_edtID.SetWindowText((LPCSTR)gCommon.get_userid());
-    m_edtPwd.SetWindowText((LPCSTR)gCommon.get_userpwd());
-    m_edtCert.SetWindowText((LPCSTR)gCommon.get_certpwd());
+    m_edtID.SetWindowText((LPCSTR)__common.get_userid());
+    m_edtPwd.SetWindowText((LPCSTR)__common.get_userpwd());
+    m_edtCert.SetWindowText((LPCSTR)__common.get_certpwd());
 
     m_edtID.SetReadOnly();
     m_edtPwd.SetReadOnly();
@@ -116,7 +116,7 @@ BOOL CLoginDlg::Login()
         int nErrorCode = g_iXingAPI.GetLastError();
         CString strMsg = g_iXingAPI.GetErrorMessage(nErrorCode);
         
-        gCommon.log(ERR, FALSE, "Failed to connect(%s). Server IP(%s), Server Port(%s)",(LPCSTR)strMsg, g_zSvrIp, g_zSvrPort);
+        __common.log_fmt(ERR, FALSE, "Failed to connect(%s). Server IP(%s), Server Port(%s)",(LPCSTR)strMsg, g_zSvrIp, g_zSvrPort);
 
 		MessageBox(strMsg, "서버접속실패", MB_ICONSTOP);
 
@@ -130,22 +130,22 @@ BOOL CLoginDlg::Login()
     g_bLogin = FALSE;
     BOOL bRet = g_iXingAPI.Login(
                                 m_hWnd, 
-                                gCommon.get_userid(),
-                                gCommon.get_userpwd(),
-                                gCommon.get_certpwd(),
+                                __common.get_userid(),
+                                __common.get_userpwd(),
+                                __common.get_certpwd(),
                                 0, 
                                 TRUE);
 
-    gCommon.log(INFO, "Request Login. ID(%s), UserPwd(%s), CertPwd(%s)",
-        gCommon.get_userid(), gCommon.get_userpwd(),gCommon.get_certpwd());
+    __common.log_fmt(INFO, "Request Login. ID(%s), UserPwd(%s), CertPwd(%s)",
+        __common.get_userid(), __common.get_userpwd(),__common.get_certpwd());
 
     if (!bRet)
     {
         int nErrorCode = g_iXingAPI.GetLastError();
         CString strMsg = g_iXingAPI.GetErrorMessage(nErrorCode);
         
-        gCommon.log(ERR, "Failed to Login Request(%s). ID(%s), UserPwd(%s), CertPwd(%s)", 
-            (LPCSTR)strMsg, gCommon.get_userid(), gCommon.get_userpwd(), gCommon.get_certpwd());
+        __common.log_fmt(ERR, "Failed to Login Request(%s). ID(%s), UserPwd(%s), CertPwd(%s)",
+            (LPCSTR)strMsg, __common.get_userid(), __common.get_userpwd(), __common.get_certpwd());
 
 		MessageBox(strMsg, "로그인 실패", MB_ICONSTOP);
 
@@ -170,13 +170,13 @@ LRESULT CLoginDlg::OnLogin( WPARAM wParam, LPARAM lParam )
         // 로그인 성공
         g_bLogin = TRUE;
         OnOK();
-        gCommon.log(INFO, "[CLoginDlg::OnLogin]Login OK(%s)", (LPCSTR)strMsg);
+        __common.log_fmt(INFO, "[CLoginDlg::OnLogin]Login OK(%s)", (LPCSTR)strMsg);
     }
     else
     {
         // 로그인 실패
         g_bLogin = FALSE;
-        gCommon.log(ERR, "[CLoginDlg::OnLogin] Login Error(%s)", (LPCSTR)strMsg);
+        __common.log_fmt(ERR, "[CLoginDlg::OnLogin] Login Error(%s)", (LPCSTR)strMsg);
 		AfxMessageBox(strMsg);
         //OnCancel();
     }

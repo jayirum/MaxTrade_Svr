@@ -7,6 +7,53 @@ CStringUtils::CStringUtils()
 CStringUtils::~CStringUtils()
 {}
 
+
+char* CStringUtils::trim_all(char* str)
+{
+	if (str == nullptr) return nullptr;
+
+	// 1. 왼쪽 공백 제거
+	while (std::isspace(static_cast<unsigned char>(*str))) str++;
+
+	// 2. 오른쪽 공백 제거
+	char* end = str + std::strlen(str) - 1;
+	while (end > str && std::isspace(static_cast<unsigned char>(*end))) end--;
+
+	// 3. 문자열 끝에 null terminator 삽입
+	*(end + 1) = '\0';
+
+	return str;
+}
+
+std::string CStringUtils::trim_copy(const char* str)
+{
+	if (str == nullptr) return "";
+
+	const char* start = str;
+	while (std::isspace(static_cast<unsigned char>(*start))) start++;
+
+	const char* end = start + std::strlen(start);
+	while (end > start && std::isspace(static_cast<unsigned char>(*(end - 1)))) end--;
+
+	return std::string(start, end - start);
+}
+
+std::string CStringUtils::trim_str(const std::string& s)
+{
+	if (s.empty()) return s;
+
+	// 왼쪽 공백 제거 위치
+	size_t start = 0;
+	while (start < s.size() && std::isspace(static_cast<unsigned char>(s[start]))) start++;
+
+	// 오른쪽 공백 제거 위치
+	size_t end = s.size();
+	while (end > start && std::isspace(static_cast<unsigned char>(s[end - 1]))) end--;
+
+	// [start, end) 구간을 새 문자열로 반환
+	return s.substr(start, end - start);
+}
+
 char* CStringUtils::RTrim_SZ(char* pszBuf)
 {
 	int len = strlen(pszBuf);

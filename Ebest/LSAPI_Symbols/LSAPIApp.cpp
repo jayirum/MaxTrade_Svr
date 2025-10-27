@@ -7,7 +7,7 @@
 #include "ChartFrame.h"
 #include "CGlobals.h"
 #include "CSymbols.h"
-#include "CSaveCandle.h"
+#include "CSaveSymbols.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -82,11 +82,8 @@ BOOL CLSAPIApp::InitInstance()
 
 	if (!connect_db())
 		return FALSE;
-
-	if (!load_symbols_timeframes())
-		return FALSE;
-
-	if(!gSaveCandle.set_db_connection(m_dbConnector))
+			
+	if(!gSaveSymbols.set_db_connection(m_dbConnector))
 		return FALSE;
 
 	// 주 창을 만들기 위해 이 코드에서는 새 프레임 창 개체를
@@ -134,40 +131,12 @@ BOOL CLSAPIApp::InitInstance()
 	return TRUE;
 }
 
-//bool	CLSAPIApp::init_dbsave()
-//{
-//	//if (!m_dbConnector) {
-//	//	m_dbConnector = new CDBConnector();
-//	//	if (!m_dbConnector->connect_db())
-//	//		return false;
-//	//}
-//
-//	return gSaveCandle.Initialize(m_dbConnector);
-//}
 
 bool CLSAPIApp::connect_db()
 {
 	m_dbConnector = new CDBConnector();
 	return m_dbConnector->connect_db();
 }
-
-bool CLSAPIApp::load_symbols_timeframes()
-{
-	if (!m_dbConnector)
-			return false;
-	
-	if( !gSymbol.Initialize(m_dbConnector))
-		return false;
-
-	if (!gSymbol.load_symbols())
-		return false;
-
-	if (!gSymbol.load_timeframes())
-		return false;
-
-	return true;
-}
-
 
 // CLSAPIApp 메시지 처리기
 
@@ -234,7 +203,7 @@ void CLSAPIApp::OnAppAbout()
 void CLSAPIApp::OnChartlib()
 {
     CChartFrame * pChild = new CChartFrame();
-    pChild->Create( NULL, "차트라이브러리", WS_CHILD | /*WS_VISIBLE |*/ WS_OVERLAPPEDWINDOW, CRect( 0, 0, 0, 0 ) );
+    pChild->Create( NULL, "종목마스터 조회", WS_CHILD | /*WS_VISIBLE |*/ WS_OVERLAPPEDWINDOW, CRect( 0, 0, 0, 0 ) );
     pChild->SetIndexName( 0, NULL );
 	pChild->SetWindowPos( NULL, 0, 0, 1000, 700, SWP_NOMOVE | SWP_NOZORDER | SWP_SHOWWINDOW );
 }

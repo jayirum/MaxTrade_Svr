@@ -139,7 +139,7 @@
     </ClCompile>
     <ClCompile Include="ChartAPIView.cpp" />
     <ClCompile Include="CQueryTime.cpp" />
-    <ClCompile Include="CSaveCandle.cpp" />
+    <ClCompile Include="CSaveSymbols.cpp" />
     <ClCompile Include="CSymbols.cpp" />
     <ClCompile Include="LSAPIApp.cpp" />
     <ClCompile Include="ChartFrame.cpp" />
@@ -161,7 +161,7 @@
     <ClInclude Include="CGlobals.h" />
     <ClInclude Include="ChartAPIView.h" />
     <ClInclude Include="CQueryTime.h" />
-    <ClInclude Include="CSaveCandle.h" />
+    <ClInclude Include="CSaveSymbols.h" />
     <ClInclude Include="CSymbols.h" />
     <ClInclude Include="LSAPIApp.h" />
     <ClInclude Include="ChartFrame.h" />
@@ -170,9 +170,11 @@
     <ClInclude Include="IXingAPI.h" />
     <ClInclude Include="LoginDlg.h" />
     <ClInclude Include="MainFrm.h" />
-    <ClInclude Include="o3103.h" />
+    <ClInclude Include="o3101.h" />
+    <ClInclude Include="o3105.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="t9943.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -183,7 +185,7 @@
     <ResourceCompile Include="ChartAPISample.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="LSAPI_Tr.ini" />
+    <None Include="LSAPI_Symbols.ini" />
     <None Include="res\ChartAPISample.rc2" />
   </ItemGroup>
   <ItemGroup>

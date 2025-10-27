@@ -77,7 +77,7 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <OutputFile>C:\_Source\MaxTrade\Server\Ebest\LSAPI_Tr\LSAPI_Tr.exe</OutputFile>
+      <OutputFile>C:\_Source\MaxTrade\Server\Ebest\LSAPI_Chart\LSAPI_Chart.exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -130,17 +130,25 @@
     <ClCompile Include="..\..\Common\LogMsg.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\..\Common\StringUtils.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\TimeUtils.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\..\Common\Util.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="CDBConnector.cpp" />
+    <ClCompile Include="CDBWorks.cpp" />
     <ClCompile Include="CGlobals.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ChartAPIView.cpp" />
     <ClCompile Include="CQueryTime.cpp" />
-    <ClCompile Include="CSaveCandle.cpp" />
-    <ClCompile Include="CSymbols.cpp" />
+    <ClCompile Include="CTimeframeOfSymbols.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="LSAPIApp.cpp" />
     <ClCompile Include="ChartFrame.cpp" />
     <ClCompile Include="Helper.cpp" />
@@ -156,13 +164,15 @@
     <ClInclude Include="..\..\Common\CODBC.h" />
     <ClInclude Include="..\..\Common\Log.h" />
     <ClInclude Include="..\..\Common\LogMsg.h" />
+    <ClInclude Include="..\..\Common\StringUtils.h" />
+    <ClInclude Include="..\..\Common\TimeUtils.h" />
     <ClInclude Include="..\..\Common\Util.h" />
     <ClInclude Include="CDBConnector.h" />
+    <ClInclude Include="CDBWorks.h" />
     <ClInclude Include="CGlobals.h" />
     <ClInclude Include="ChartAPIView.h" />
     <ClInclude Include="CQueryTime.h" />
-    <ClInclude Include="CSaveCandle.h" />
-    <ClInclude Include="CSymbols.h" />
+    <ClInclude Include="CTimeframeOfSymbols.h" />
     <ClInclude Include="LSAPIApp.h" />
     <ClInclude Include="ChartFrame.h" />
     <ClInclude Include="Helper.h" />
@@ -183,7 +193,7 @@
     <ResourceCompile Include="ChartAPISample.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="LSAPI_Tr.ini" />
+    <None Include="LSAPI_Chart.ini" />
     <None Include="res\ChartAPISample.rc2" />
   </ItemGroup>
   <ItemGroup>

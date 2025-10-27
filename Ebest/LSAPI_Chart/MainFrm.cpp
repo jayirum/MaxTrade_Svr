@@ -166,17 +166,17 @@ void CMainFrame::OnClose()
 //
 //    if (dlg.DoModal() == IDCANCEL)
 //    {
-//		gCommon.log(INFO,  "[OnLogin]Logon 창 cancel 함");
+//		__common.log(INFO,  "[OnLogin]Logon 창 cancel 함");
 //        g_bLogin = FALSE;
 //    }
 //	else {
-//		gCommon.log(INFO,  "[OnLogin]Logon 창 return ok");
+//		__common.log(INFO,  "[OnLogin]Logon 창 return ok");
 //	}
 //
 //
 //	// ChartWindow 를 띄운다.
 //	if (g_bLogin) {
-//		gCommon.log(INFO,  "[OnLogin]PosMessage(WM_OPENSCREEN)");
+//		__common.log(INFO,  "[OnLogin]PosMessage(WM_OPENSCREEN)");
 //		CMainFrame* pMainFrame = (CMainFrame*)AfxGetMainWnd();
 //		PostMessage(WM_OPENSCREEN);
 //	}

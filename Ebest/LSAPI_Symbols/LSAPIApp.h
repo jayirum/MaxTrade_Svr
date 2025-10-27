@@ -26,8 +26,6 @@ public:
 
 public:
 	bool	connect_db();
-	bool	load_symbols_timeframes();
-	//bool	init_dbsave();
 
 // 구현입니다.
 protected:

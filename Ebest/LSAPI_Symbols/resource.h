@@ -30,6 +30,9 @@
 #define IDC_ST_MSG                      1030
 #define IDC_LIST2                       1033
 #define IDC_LIST_LOG                    1033
+#define IDC_BUTTON_OV                   1034
+#define IDC_BUTTON_OF_DATE              1035
+#define IDC_BUTTON_OV_DATE              1035
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_                             32773
@@ -49,7 +52,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        135
 #define _APS_NEXT_COMMAND_VALUE         32782
-#define _APS_NEXT_CONTROL_VALUE         1034
+#define _APS_NEXT_CONTROL_VALUE         1036
 #define _APS_NEXT_SYMED_VALUE           104
 #endif
 #endif

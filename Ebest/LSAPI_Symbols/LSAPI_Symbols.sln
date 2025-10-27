@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36203.30
+VisualStudioVersion = 17.14.36203.30 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LSAPI_Tr", "LSAPI_Tr.vcxproj", "{58A5ECEC-9F55-472E-A73C-FA5D2C2DB1B8}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XingAPI_Sample_eSearch", "샘플\VC(DLL버전용)\xingAPI_Sample_eSearch(VC2010-e종목검색)\XingAPI_Sample_eSearch.vcxproj", "{BFAAFF0F-FF44-CE8C-5A46-FBB3A3987FB5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LSAPI_Symbols", "LSAPI_Symbols.vcxproj", "{58A5ECEC-9F55-472E-A73C-FA5D2C2DB1B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,15 +15,11 @@ Global
 		{58A5ECEC-9F55-472E-A73C-FA5D2C2DB1B8}.Debug|x86.Build.0 = Debug|Win32
 		{58A5ECEC-9F55-472E-A73C-FA5D2C2DB1B8}.Release|x86.ActiveCfg = Release|Win32
 		{58A5ECEC-9F55-472E-A73C-FA5D2C2DB1B8}.Release|x86.Build.0 = Release|Win32
-		{BFAAFF0F-FF44-CE8C-5A46-FBB3A3987FB5}.Debug|x86.ActiveCfg = Debug|Win32
-		{BFAAFF0F-FF44-CE8C-5A46-FBB3A3987FB5}.Debug|x86.Build.0 = Debug|Win32
-		{BFAAFF0F-FF44-CE8C-5A46-FBB3A3987FB5}.Release|x86.ActiveCfg = Release|Win32
-		{BFAAFF0F-FF44-CE8C-5A46-FBB3A3987FB5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {8BE1693E-3FFE-4671-BA32-05B235B8DE53}
+		SolutionGuid = {3D65F209-9A0D-420B-B371-8858541637F1}
 	EndGlobalSection
 EndGlobal

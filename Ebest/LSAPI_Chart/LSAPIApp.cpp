@@ -6,8 +6,9 @@
 #include "MainFrm.h"
 #include "ChartFrame.h"
 #include "CGlobals.h"
-#include "CSymbols.h"
-#include "CSaveCandle.h"
+#include "CDBWorks.h"
+#include "CTimeframeOfSymbols.h"
+#include <set>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -26,7 +27,7 @@ END_MESSAGE_MAP()
 
 // CLSAPIApp 생성
 
-CLSAPIApp::CLSAPIApp():m_dbConnector(NULL)
+CLSAPIApp::CLSAPIApp()
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
 	// InitInstance에 모든 중요한 초기화 작업을 배치합니다.
@@ -73,21 +74,19 @@ BOOL CLSAPIApp::InitInstance()
 	SetRegistryKey(_T("로컬 응용 프로그램 마법사에서 생성된 응용 프로그램"));
 
 
-	if (!gCommon.Initialize() || gCommon.read_config_all() ) {
-		AfxMessageBox("gCommon.Initialize() error");
+	if (!__common.Initialize() || !__common.read_config_all() ) {
+		AfxMessageBox("__common.Initialize() error");
 		return FALSE;
 	}
 
-	gCommon.logStart("[%s][%s] Start....", EXENAME, EXE_VERSION);
+	__common.logStart("[%s][%s] Start....", EXENAME, EXE_VERSION);
 
 	if (!connect_db())
 		return FALSE;
 
-	if (!load_symbols_timeframes())
+	if (!load_timeframes_symbols())
 		return FALSE;
 
-	if(!gSaveCandle.set_db_connection(m_dbConnector))
-		return FALSE;
 
 	// 주 창을 만들기 위해 이 코드에서는 새 프레임 창 개체를
 	// 만든 다음 이를 응용 프로그램의 주 창 개체로 설정합니다.
@@ -120,7 +119,7 @@ BOOL CLSAPIApp::InitInstance()
     CLoginDlg dlg( pFrame );
     if ( dlg.DoModal() == IDCANCEL || g_bLogin == FALSE )
     {
-		gCommon.log(ERR, "XingAPI 로그인 실패로 프로세스 종료");
+		__common.log(ERR, "XingAPI 로그인 실패로 프로세스 종료");
         pFrame->DestroyWindow();
         return TRUE;
     }
@@ -134,36 +133,37 @@ BOOL CLSAPIApp::InitInstance()
 	return TRUE;
 }
 
-//bool	CLSAPIApp::init_dbsave()
-//{
-//	//if (!m_dbConnector) {
-//	//	m_dbConnector = new CDBConnector();
-//	//	if (!m_dbConnector->connect_db())
-//	//		return false;
-//	//}
-//
-//	return gSaveCandle.Initialize(m_dbConnector);
-//}
-
 bool CLSAPIApp::connect_db()
 {
-	m_dbConnector = new CDBConnector();
-	return m_dbConnector->connect_db();
+	return __dbworks.connect();
 }
 
-bool CLSAPIApp::load_symbols_timeframes()
+bool CLSAPIApp::load_timeframes_symbols()
 {
-	if (!m_dbConnector)
-			return false;
+	if (!__dbworks.is_connected())
+		return false;
 	
-	if( !gSymbol.Initialize(m_dbConnector))
+	std::set<int> tfs = __dbworks.load_timeframes();
+	if (tfs.empty()) {
+		__common.log(ERR, "There is no timeframe in DB");
 		return false;
+	}
+	for (const int& tf : tfs) {
+		__map_tfs_symbols[tf]= std::make_shared<CTimeframeOfSymbols>(tf);
+	}
 
-	if (!gSymbol.load_symbols())
+	std::set<std::string> symbols = __dbworks.load_symbols();
+	if (symbols.empty()) {
+		__common.log(ERR, "There is no symbols in DB");
 		return false;
+	}
 
-	if (!gSymbol.load_timeframes())
-		return false;
+	// std::map<int, std::unique_ptr<CTimeframeOfSymbols>>
+	for (const std::string& symbol : symbols) {
+		for (auto&[key, ptr] : __map_tfs_symbols) {
+			ptr->set_symbol(symbol);
+		}
+	}
 
 	return true;
 }

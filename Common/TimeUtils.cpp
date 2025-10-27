@@ -17,6 +17,13 @@ char* CTimeUtils::DateTime_yyyymmdd_hh_mm_ss_mmm()
 	return m_z;
 }
 
+void  CTimeUtils::DateTime(_Out_ char* yyyymmdd, _Out_ char* hhmmss)
+{
+	SYSTEMTIME st; GetLocalTime(&st);
+	sprintf(yyyymmdd, "%04d%02d%02d", st.wYear, st.wMonth, st.wDay);
+	sprintf(hhmmss, "%02d%02d%02d", st.wHour, st.wMinute, st.wSecond);
+}
+
 char* CTimeUtils::Today_yyyymmdd()
 {
 	SYSTEMTIME st; GetLocalTime(&st);
@@ -42,6 +49,13 @@ char* CTimeUtils::DateTime_yyyymmdd_hhmmssmmm()
 {
 	SYSTEMTIME st; GetLocalTime(&st);
 	sprintf(m_z, "%04d%02d%02d_%02d%02d%02d%03d", st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds);
+	return m_z;
+}
+
+char* CTimeUtils::DateTime_yyyymmddhhmmss()
+{
+	SYSTEMTIME st; GetLocalTime(&st);
+	sprintf(m_z, "%04d%02d%02d%02d%02d%02d", st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
 	return m_z;
 }
 

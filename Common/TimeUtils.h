@@ -28,9 +28,12 @@ public:
 	char* Time_hhmmssmmm();
 	char* Time_hh_mm_ss_mmm();
 	
+
 	char* DateTime_yyyymmdd_hhmmssmmm();
+	char* DateTime_yyyymmddhhmmss();
 	char* DateTime_yyyymmdd_hh_mm_ss_mmm();
 	char* GmtDateTime_yyyymmdd_hhmmssmmm();
+	void  DateTime(_Out_ char* yyyymmdd, _Out_ char* hhmmss);
 
 	int		Get_WeekDay();
 	char*	Get_WeekDayS();

@@ -7,7 +7,6 @@
 #endif
 
 #include "resource.h"       // 주 기호입니다.
-#include "CDBConnector.h"
 
 // CLSAPIApp:
 // 이 클래스의 구현에 대해서는 ChartAPISample.cpp을 참조하십시오.
@@ -26,7 +25,7 @@ public:
 
 public:
 	bool	connect_db();
-	bool	load_symbols_timeframes();
+	bool	load_timeframes_symbols();
 	//bool	init_dbsave();
 
 // 구현입니다.
@@ -34,7 +33,7 @@ protected:
 	HMENU m_hMDIMenu;
 	HACCEL m_hMDIAccel;
 
-	CDBConnector* m_dbConnector;
+	
 
 public:
 	afx_msg void OnAppAbout();
