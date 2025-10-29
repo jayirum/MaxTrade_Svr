@@ -495,7 +495,7 @@ bool	CChartAPIView::save_candle_data(std::string sSymbol, std::string sTimeframe
 	sprintf(c, "%.*s", sizeof(pBlock->close), pBlock->close);
 	sprintf(v, "%.*s", sizeof(pBlock->volume), pBlock->volume);
 
-	__common.debug_fmt("\t<save_candle_data>(symbol:%s)(timeframe:%s)(timediff:%s)(dt:%s)(tm:%s)(o:%s)(h:%s)(l:%s)(c:%s)(v:%s)",
+	__common.debug_fmt("\t<save_candle_data>(symbol:%.s)(timeframe:%s)(timediff:%.2s)(dt:%s)(tm:%s)(o:%.8s)(h:%.8s)(l:%.8s)(c:%.8s)(v:%.8s)",
 		sSymbol.c_str(), sTimeframe.c_str(), sTimeDiff.c_str(),
 		dt, tm, o, h, l, c, v)
 		;

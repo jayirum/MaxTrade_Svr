@@ -28,7 +28,7 @@ public:
 	CSymbol& operator=(const CSymbol&)	= delete;	// 대입금지
 
 	// after receive api data (not from db)
-	void	update_candle_tm(const char* tm );			//yyyymmddhhmmss
+	void	update_candle_tm(const char* candle_tm_kor );			//yyyymmddhhmmss
 	
 	bool	check_time_to_apiqry(const char* now_tm);	//yyyymmddhhmmss
 

@@ -53,13 +53,27 @@ int	CTimeframeOfSymbols::check_time_to_apiqry_symbols(const char* now_tm)	//yyyy
 
 
 // after receive api data (not from db)
-void CSymbol::update_candle_tm(const char* tm)			//yyyymmddhhmmss
+void CSymbol::update_candle_tm(const char* candle_tm_kor)			//yyyymmddhhmmss
 {
 	char prev[32]; strcpy(prev, m_last_candle_tm_kor);
-	strcpy(m_last_candle_tm_kor, tm);
-	m_status = EN_STATUS::CANBE_FIRED;
 
-	__common.debug_fmt("\t<Update Candle Time> (TF:%d)(%s)(prev:%s)(new:%s)", m_tf, m_symbol.c_str(), prev, m_last_candle_tm_kor);
+	// candle 이 생성되지 않은 경우 => 한 단계 증가시킨다.
+	if (strcmp(m_last_candle_tm_kor, candle_tm_kor) == 0)
+	{
+		CTimeUtils util;
+		char dt[32], tm[32];
+		sprintf(dt, "%.8s", m_last_candle_tm_kor);
+		sprintf(tm, "%.6s", m_last_candle_tm_kor + 8);
+		util.AddMins(dt, tm, m_tf, m_next_qry_tm);
+		__common.debug_fmt("\t<Update Candle Time-1> (TF:%d)(%s)(prev:%s)(new:%s)(calc:%s)", 
+			m_tf, m_symbol.c_str(), prev, candle_tm_kor, m_last_candle_tm_kor);
+	}
+	else {
+		strcpy(m_last_candle_tm_kor, candle_tm_kor);
+		m_status = EN_STATUS::CANBE_FIRED;
+
+		__common.debug_fmt("\t<Update Candle Time-2> (TF:%d)(%s)(prev:%s)(new:%s)", m_tf, m_symbol.c_str(), prev, m_last_candle_tm_kor);
+	}
 }
 
 
