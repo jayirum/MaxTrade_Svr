@@ -42,19 +42,19 @@ bool CGlobals::read_config_all()
 
 		msg = "API_TR";
 		CHECK_BOOL(__common.getConfig((char*)"API_TR", (char*)"TRCODE",				m_cfg_apitr.tr_code),			msg);
-		CHECK_BOOL(__common.getConfig((char*)"API_TR", (char*)"QRY_CNT",			m_cfg_apitr.qry_cnt),			msg);
-		CHECK_BOOL(__common.getConfig((char*)"API_TR", (char*)"QRY_CNT_FIRST",		m_cfg_apitr.qry_cnt_first),		msg);
+		//CHECK_BOOL(__common.getConfig((char*)"API_TR", (char*)"QRY_CNT",			m_cfg_apitr.qry_cnt),			msg);
+		//CHECK_BOOL(__common.getConfig((char*)"API_TR", (char*)"QRY_CNT_FIRST",		m_cfg_apitr.qry_cnt_first),		msg);
 		CHECK_BOOL(__common.getConfig((char*)"API_TR", (char*)"TM_START",			m_cfg_apitr.tm_start),			msg);
 		CHECK_BOOL(__common.getConfig((char*)"API_TR", (char*)"TM_END",				m_cfg_apitr.tm_end),			msg);
 		CHECK_BOOL(__common.getConfig((char*)"API_TR", (char*)"APIQRY_ON_SEC",		m_cfg_apitr.apiqry_on_sec),		msg);
 		CHECK_BOOL(__common.getConfig((char*)"API_TR", (char*)"APIQRY_INTERVAL_MS", m_cfg_apitr.apiqry_interval_ms), msg);
 		CHECK_BOOL(__common.getConfig((char*)"API_TR", (char*)"MAX_SYMBOL_CNT",		m_cfg_apitr.max_symbol_cnt),	msg);
 		
-		__common.log_fmt(INFO, "[API_TR] TRCODE(%s) QRY_CNT_FIRST(%s) QRY_CNT(%s) TM_START(%s) TM_END(%s) "
+		__common.log_fmt(INFO, "[API_TR] TRCODE(%s) QRY_CNT_FIRST(%d) QRY_CNT_NEXT(%d) TM_START(%s) TM_END(%s) "
 							"APIQRY_ON_SEC(%s) APIQRY_INTERVAL_SEC(%s) MAX_SYMBOL_CNT(%s)"
 			, m_cfg_apitr.tr_code
-			, m_cfg_apitr.qry_cnt_first
-			, m_cfg_apitr.qry_cnt
+			, APIQRYCNT_FIRST
+			, APIQRYCNT_NEXT
 			, m_cfg_apitr.tm_start
 			, m_cfg_apitr.tm_end
 			, m_cfg_apitr.apiqry_on_sec
@@ -103,6 +103,7 @@ bool CGlobals::read_config_all()
 		CHECK_BOOL(__common.getConfig((char*)"DEBUGGING", (char*)"DEBUG_3", m_cfg_debug.debug3), msg);
 		CHECK_BOOL(__common.getConfig((char*)"DEBUGGING", (char*)"DEBUG_4", m_cfg_debug.debug4), msg);
 		CHECK_BOOL(__common.getConfig((char*)"DEBUGGING", (char*)"DEBUG_5", m_cfg_debug.debug5), msg);
+		CHECK_BOOL(__common.getConfig((char*)"DEBUGGING", (char*)"ASSERT", m_cfg_debug.assert), msg);
 
 		m_bDebugLog = (m_cfg_debug.log_debug[0] == 'Y') ? true : false;
 

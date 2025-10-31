@@ -53,10 +53,10 @@ public:
 	
 //private:
 	int		m_fd;
-	char	m_szPath	[_MAX_PATH];
-	char	m_szFileName[_MAX_PATH];
-	char	m_szPureFileName[_MAX_PATH];
-	char	m_szDate	[8+1];
+	char	m_szPath	[_MAX_PATH]{0};
+	char	m_szFileName[_MAX_PATH]{0};
+	char	m_szPureFileName[_MAX_PATH]{0};
+	char	m_szDate	[8+1]{0};
 	CRITICAL_SECTION m_cs;
 
 };

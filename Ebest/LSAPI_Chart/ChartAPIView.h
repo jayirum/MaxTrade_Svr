@@ -5,11 +5,12 @@
 #include <string>
 #include <deque>
 #include <map>
-#include "CQueryTime.h"
 #include "o3103.h"
 #include "CGlobals.h"
 #include "CDBWorks.h"
 
+
+constexpr int MIN_QRY_CNT = 2;
 
 typedef int REQ_ID;
 struct TReqInfo
@@ -114,24 +115,39 @@ private:
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//	Jay's Codes
 
-	bool	recv_apidata_proc(LPRECV_PACKET pPKData);	// 조회 결과 표시
-	bool	save_candle_data(std::string sSymbol, std::string sTimeframe, std::string sTimeDiff, o3103OutBlock1* pBlock, bool b_update_candle_tm);
-
+	//===== Initialize =====/
 	void	InitSymbolCombo();
 	void	InitTimeframeCombo();
 	
+	//===== api query 관련 =====/
 	void	api_get_limitation_for_logging();
 	
-	void	threadFunc_Query();
+	void	threadFunc_api_query();
 	void	first_api_qry();
-	int		check_qrytime_all();
+	//int		check_api_qry_time();
 	void	fetch_candles_apidata();
-	bool	fetch_apidata(std::string symbol, int timeframe, bool is_first);
+	bool	send_api_request(std::string& symbol, int timeframe, bool is_first);
 	void	requestID_add(int nReqId, const char* symbol, const char* timeframe);
+
 	
+	//===== api 수신 및 이후 처리 관련 =====/
+	void	threadFunc_save();
+	bool	recv_apidata_proc(LPRECV_PACKET pPKData);	// 조회 결과 표시
+	bool	is_finished_candle(char* candle_kor_ymd_hm);
+	bool	save_candle_data(std::string& sSymbol, std::string& sTimeframe, std::string& sTimeDiff, o3103OutBlock1* pBlock);
+	std::string		set_jsondata_for_client(const TAPIData& api);
 
 private:
-	CDBConnector* m_dbConnector;
+	CDBConnector*	m_dbConnector;
+	std::map<REQ_ID, std::shared_ptr<TReqInfo>>		m_mapReqNo;	//  
+	std::mutex										m_mtxReqNo;
+
+	std::thread				m_thrdQuery;
+	__MAX::CThreadFlag		m_thrdFlag;
+
+	std::thread				m_thrd_save;
+	CCheckTime				m_check_tm;
+
 
 	//
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -172,13 +188,4 @@ public:
 	CStatic			m_stMsg;
 	std::string		m_sTrCode;
 
-	std::map<REQ_ID, std::shared_ptr<TReqInfo>>		m_mapReqNo;	//  
-	std::mutex										m_mtxReqNo;
-	
-	CQueryTime				m_tm;
-	std::thread				m_thrdQuery;
-	__MAX::CThreadFlag		m_thrdFlag;
-	//char 					m_tm_start[6], m_tm_end[6];
-	
-	CCheckTime				m_check_tm;
 };

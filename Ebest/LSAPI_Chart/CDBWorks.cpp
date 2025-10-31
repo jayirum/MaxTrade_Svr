@@ -22,37 +22,27 @@ bool CDBWorks::connect()
 	return m_pDB->connect_db();
 }
 
-bool CDBWorks::save_chartdata(long timeframe
-	, std::string symbol
-	, char* zDt_Exch
-	, char* zTm_Exch
-	, int tm_diff
-	, double	o, double h, double l, double c, int v
-)
+bool CDBWorks::save_chartdata(const TAPIData& api)
 {
 	char zQ[1024];
 	sprintf(zQ, 
 		"SP_CHART_F_SAVE "
 		"%d"	//		@I_TIMEFRAME	INT-- 1:1min, 60 : 1hour,
 		",'%s'"	//@I_STK_CD		VARCHAR(10)
-		",'%s'"	//@I_DT_EXCH		CHAR(8)
-		",'%s'"	//@I_TM_EXCH		char(6)
-		",%d"	// @I_TM_DIFF		INT
+		",'%s'"	//@I_KOR_ymd_hms char(15)
 		",%.9f"	// @I_O			DECIMAL(15, 9)
 		",%.9f"	// @I_H			DECIMAL(15, 9)
 		",%.9f"	// @I_L			DECIMAL(15, 9)
 		",%.9f"	// @I_C			DECIMAL(15, 9)
 		",%d"	// @I_V			INT)
-		,timeframe
-		, symbol.c_str()
-		, zDt_Exch
-		, zTm_Exch
-		, tm_diff
-		, o
-		, h
-		, l
-		, c
-		, v
+		, std::stol(api.timeframe)
+		, api.symbol.c_str()
+		, api.tm_kor_ymd_hms.c_str()
+		, std::stod(api.o)
+		, std::stod(api.h)
+		, std::stod(api.l)
+		, std::stod(api.c)
+		, std::stol(api.v)
 	);
 	bool bNeedReconn;
 	m_pDB->m_pOdbc->Init_ExecQry(zQ);

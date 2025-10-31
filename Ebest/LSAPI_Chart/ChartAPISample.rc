@@ -297,7 +297,7 @@ END
 STRINGTABLE
 BEGIN
     IDR_MAINFRAME           "LSAPI_Tr"
-    IDR_ChartAPISampleTYPE  "\nChartAPISample\nChartAPISample"
+    IDR_ChartAPISampleTYPE  "\nLSAPI_Chart\nLSAPI_Chart"
 END
 
 STRINGTABLE

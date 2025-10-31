@@ -7,8 +7,11 @@
 #include "ChartFrame.h"
 #include "CGlobals.h"
 #include "CDBWorks.h"
-#include "CTimeframeOfSymbols.h"
+#include "CSymbolsets.h"
 #include <set>
+#include "CIOCPServer.h"
+
+using namespace std;
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -32,7 +35,11 @@ CLSAPIApp::CLSAPIApp()
 	// TODO: 여기에 생성 코드를 추가합니다.
 	// InitInstance에 모든 중요한 초기화 작업을 배치합니다.
 }
-
+CLSAPIApp::~CLSAPIApp()
+{
+	__iocpSvr.Stop();
+	__iocpSvr.Join();
+}
 
 // 유일한 CLSAPIApp 개체입니다.
 
@@ -74,15 +81,26 @@ BOOL CLSAPIApp::InitInstance()
 	SetRegistryKey(_T("로컬 응용 프로그램 마법사에서 생성된 응용 프로그램"));
 
 
-	if (!__common.Initialize() || !__common.read_config_all() ) {
+	if (!__common.Initialize()) {
 		AfxMessageBox("__common.Initialize() error");
 		return FALSE;
 	}
 
 	__common.logStart("[%s][%s] Start....", EXENAME, EXE_VERSION);
 
+	if(!__common.read_config_all() ) {
+		AfxMessageBox("__common.read_config_all() error");
+		return FALSE;
+	}
+
+	//IOCP 서버 실행
+	if (!__iocpSvr.Start(__common.app_listen_ip(), __common.app_listen_port()))
+		return FALSE;
+	__common.log_fmt(INFO, "IOCP Server started.(Port:%d)", __common.app_listen_port());
+
 	if (!connect_db())
 		return FALSE;
+	__common.log_fmt(INFO, "DB Connect OK(DNS Name:%s)", __common.get_dsn());
 
 	if (!load_timeframes_symbols())
 		return FALSE;
@@ -148,9 +166,6 @@ bool CLSAPIApp::load_timeframes_symbols()
 		__common.log(ERR, "There is no timeframe in DB");
 		return false;
 	}
-	for (const int& tf : tfs) {
-		__map_tfs_symbols[tf]= std::make_shared<CTimeframeOfSymbols>(tf);
-	}
 
 	std::set<std::string> symbols = __dbworks.load_symbols();
 	if (symbols.empty()) {
@@ -158,12 +173,15 @@ bool CLSAPIApp::load_timeframes_symbols()
 		return false;
 	}
 
-	// std::map<int, std::unique_ptr<CTimeframeOfSymbols>>
-	for (const std::string& symbol : symbols) {
-		for (auto&[key, ptr] : __map_tfs_symbols) {
-			ptr->set_symbol(symbol);
-		}
+	for (const int& tf : tfs) 
+	{
+		for (const string& symbol : symbols)
+		{
+			__SymbolSets.emplace_back(make_shared<CSymbolSets>(tf,symbol));
+			__common.log_fmt(INFO, "SymbolSet 구성 - (timeframe:%d)(symbol:%s)", tf, symbol.c_str());
+		}		
 	}
+
 
 	return true;
 }

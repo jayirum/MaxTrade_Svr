@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{16952a91-a9f2-49a0-9c6a-8139bcd14af7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ChartAPIHandlers">
+      <UniqueIdentifier>{29101f59-914b-4ecb-89bc-940edcd75de7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DBHandlers">
+      <UniqueIdentifier>{8a9d3f6a-e3ca-4ad1-8eab-501933f78c86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{4e951fdd-97dd-4aa2-903c-7f0060cbea14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOCPHandlers">
+      <UniqueIdentifier>{104e458b-24fa-4ebb-a955-5a679ff07de0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Common\CODBC.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Log.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\LogMsg.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Util.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\TimeUtils.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\StringUtils.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="ChartAPIView.cpp">
+      <Filter>ChartAPIHandlers</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimeframeOfSymbols.cpp">
+      <Filter>ChartAPIHandlers</Filter>
+    </ClCompile>
+    <ClCompile Include="CDBConnector.cpp">
+      <Filter>DBHandlers</Filter>
+    </ClCompile>
+    <ClCompile Include="CDBWorks.cpp">
+      <Filter>DBHandlers</Filter>
+    </ClCompile>
+    <ClCompile Include="CGlobals.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ChartFrame.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Helper.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBar.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginDlg.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="LSAPIApp.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="CIOCPServer.cpp">
+      <Filter>IOCPHandlers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Common\CODBC.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Log.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\LogMsg.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Util.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\TimeUtils.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\StringUtils.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="ChartAPIView.h">
+      <Filter>ChartAPIHandlers</Filter>
+    </ClInclude>
+    <ClInclude Include="CTimeframeOfSymbols.h">
+      <Filter>ChartAPIHandlers</Filter>
+    </ClInclude>
+    <ClInclude Include="CDBConnector.h">
+      <Filter>DBHandlers</Filter>
+    </ClInclude>
+    <ClInclude Include="CDBWorks.h">
+      <Filter>DBHandlers</Filter>
+    </ClInclude>
+    <ClInclude Include="o3103.h">
+      <Filter>ChartAPIHandlers</Filter>
+    </ClInclude>
+    <ClInclude Include="CGlobals.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="ChartFrame.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Helper.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBar.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="IXingAPI.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginDlg.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="LSAPIApp.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="CIOCPServer.h">
+      <Filter>IOCPHandlers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\CspscRing.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\ChartAPISample.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ChartAPISample.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\ChartAPISample.rc2">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="LSAPI_Chart.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+</Project>

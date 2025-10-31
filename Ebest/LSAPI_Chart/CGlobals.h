@@ -2,12 +2,15 @@
 
 #include "../../Common/LogMsg.h"
 #include "../../Common/util.h"
+#include "../../Common/StringUtils.h"
+#include "../../Common/CspscRing.h"
 #include <atomic>
 
 #define EXENAME			"LSAPI_Chart.exe"
-#define EXE_VERSION		"v3.0.0"	// 
+#define EXE_VERSION		"v5.0.0"	// IOCP 탑재 및 심볼데이터 관리 변경
 
-//#define CHECK_BOOL(f,msg) if (!(f)) throw std::runtime_error(#f ":" #msg);
+constexpr int APIQRYCNT_FIRST = 3;
+constexpr int APIQRYCNT_NEXT = 2;
 
 
 struct TApp {
@@ -18,8 +21,8 @@ struct TApp {
 
 struct TAPITr {
 	char tr_code			[32];
-	char qry_cnt			[32];
-	char qry_cnt_first		[32];
+	//char qry_cnt			[32];
+	//char qry_cnt_first	[32];
 	char tm_start			[32];
 	char tm_end				[32];
 	char apiqry_on_sec		[32];
@@ -59,6 +62,32 @@ struct TDebugging {
 	char debug3[32];
 	char debug4[32];
 	char debug5[32];
+	char assert[32];
+};
+
+
+struct TAPIData {
+	std::string symbol, timeframe, timediff;
+	std::string	tm_kor_ymd_hms;
+	std::string	o, h, l, c, v;
+	
+	void set(std::string& s, 
+			std::string& tf, 
+			char* candle_kor_ymd_hms, // yyyymmdd_hhmmss 20251031_152700
+			char* po, char* ph, char* pl, char* pc, char* pv
+			)
+	{
+		symbol		= s;
+		timeframe	= tf;
+		tm_kor_ymd_hms = candle_kor_ymd_hms;
+
+		CStringUtils u;
+		o = std::string(po);
+		h = std::string(ph);
+		l = std::string(pl);
+		c = std::string(pc);
+		v = std::string(pv);
+	}
 };
 
 
@@ -80,12 +109,14 @@ public:
 
 
 	//TApp
+	char*		app_listen_ip()		{ return m_cfg_app.listen_ip;}
+	uint16_t	app_listen_port()	{ return atoi(m_cfg_app.listen_port); }
 
 
 	//TAPITr
 	char* get_api_tr()			{ return m_cfg_apitr.tr_code;}
-	char* apiqry_qry_cnt()		{ return m_cfg_apitr.qry_cnt; }
-	char* apiqry_qry_cnt_first(){ return m_cfg_apitr.qry_cnt_first; }
+	//char* apiqry_qry_cnt()		{ return m_cfg_apitr.qry_cnt; }
+	//char* apiqry_qry_cnt_first(){ return m_cfg_apitr.qry_cnt_first; }
 	char* start_tm()			{ return m_cfg_apitr.tm_start; }
 	char* end_tm()				{ return m_cfg_apitr.tm_end; }
 	char* apiqry_on_sec()		{ return m_cfg_apitr.apiqry_on_sec; }
@@ -116,6 +147,7 @@ public:
 	bool is_debug3() { return (m_cfg_debug.debug3[0] == 'Y'); }
 	bool is_debug4() { return (m_cfg_debug.debug4[0] == 'Y'); }
 	bool is_debug5() { return (m_cfg_debug.debug5[0] == 'Y'); }
+	void assert_()  { if(m_cfg_debug.assert[0]=='Y') assert(false); }
 
 public:
 	TApp		m_cfg_app;
@@ -124,6 +156,8 @@ public:
 	TAPIInfo	m_cfg_api;
 	TQuery		m_cfg_qry;
 	TDebugging	m_cfg_debug;
+
+	CspscRing< TAPIData>	m_saveQ;
 private:
 	CLogMsg	m_log;
 	char	m_zConDir[_MAX_PATH];
@@ -150,5 +184,6 @@ private:
 	std::atomic<bool>			m_threadRun, m_threadReady;
 	
 };
+
 
 

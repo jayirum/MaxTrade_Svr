@@ -46,6 +46,7 @@
     <OutDir>$(SolutionDir)\$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\vcpkg-master\installed\x64-windows\include\nlohmann;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)\$(Configuration)\</OutDir>
@@ -61,14 +62,14 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
+      <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>C:\boost_1_88_0;C:\vcpkg-master\installed\x64-windows\include;C:\vcpkg-master\installed\x64-windows\include\nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <ProgramDataBaseFileName>$(ProjectDir)debug\$(TargetName).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <ResourceCompile>
@@ -145,8 +146,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ChartAPIView.cpp" />
-    <ClCompile Include="CQueryTime.cpp" />
-    <ClCompile Include="CTimeframeOfSymbols.cpp">
+    <ClCompile Include="CIOCPServer.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="CSymbolSets.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="LSAPIApp.cpp" />
@@ -162,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\CODBC.h" />
+    <ClInclude Include="..\..\Common\CspscRing.h" />
     <ClInclude Include="..\..\Common\Log.h" />
     <ClInclude Include="..\..\Common\LogMsg.h" />
     <ClInclude Include="..\..\Common\StringUtils.h" />
@@ -171,8 +175,8 @@
     <ClInclude Include="CDBWorks.h" />
     <ClInclude Include="CGlobals.h" />
     <ClInclude Include="ChartAPIView.h" />
-    <ClInclude Include="CQueryTime.h" />
-    <ClInclude Include="CTimeframeOfSymbols.h" />
+    <ClInclude Include="CIOCPServer.h" />
+    <ClInclude Include="CSymbolSets.h" />
     <ClInclude Include="LSAPIApp.h" />
     <ClInclude Include="ChartFrame.h" />
     <ClInclude Include="Helper.h" />
