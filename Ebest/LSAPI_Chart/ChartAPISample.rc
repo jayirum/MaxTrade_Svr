@@ -147,17 +147,17 @@ END
 
 IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "LSAPI_Tr"
+CAPTION "LSAPI_Chart"
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
-    LTEXT           "LSAPI_Tr, Ver 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "LSAPI_Chart, Ver 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
     DEFPUSHBUTTON   "»Æ¿Œ",IDOK,113,41,50,14,WS_GROUP
 END
 
 IDD_LOGINDLG DIALOGEX 0, 0, 318, 206
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "ChartApiSample"
+CAPTION "LSAPI_Chart"
 FONT 9, "∏º¿∫ ∞ÌµÒ", 400, 0, 0x81
 BEGIN
     EDITTEXT        IDC_EDIT1,224,123,87,14,ES_AUTOHSCROLL
@@ -213,14 +213,13 @@ BEGIN
     BEGIN
         BLOCK "041203b5"
         BEGIN
-            VALUE "CompanyName", "ChartLibSample: <eTrade>"
-            VALUE "FileDescription", "ChartLibSample: <Sample of Chart api>"
-            VALUE "FileVersion", "1.0.0.1"
-            VALUE "InternalName", "ChartLibSample.exe"
-            VALUE "LegalCopyright", "ChartLibSample: (c) <eTrade>.  All rights reserved."
-            VALUE "OriginalFilename", "ChartLibSample.exe"
-            VALUE "ProductName", "ChartLibSample: <Chart Lib Sample>"
-            VALUE "ProductVersion", "1.0.0.1"
+            VALUE "CompanyName", "Irumnet"
+            VALUE "FileDescription", "LSAPI_Chart"
+            VALUE "FileVersion", "5.0.0"
+            VALUE "InternalName", "LSAPI_Chart.exe"
+            VALUE "OriginalFilename", "LSAPI_Chart.exe"
+            VALUE "ProductName", "LSAPI_Chart"
+            VALUE "ProductVersion", "5.0.0.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -296,13 +295,13 @@ END
 
 STRINGTABLE
 BEGIN
-    IDR_MAINFRAME           "LSAPI_Tr"
-    IDR_ChartAPISampleTYPE  "\nLSAPI_Chart\nLSAPI_Chart"
+    IDR_MAINFRAME           "LSAPI_Chart"
+    IDR_LSAPI_Chart         "\nLSAPI_Chart\nLSAPI_Chart"
 END
 
 STRINGTABLE
 BEGIN
-    AFX_IDS_APP_TITLE       "LSAPI_Tr"
+    AFX_IDS_APP_TITLE       "LSAPI_Chart"
     AFX_IDS_IDLEMESSAGE     "¡ÿ∫Ò"
 END
 

@@ -14,39 +14,38 @@ constexpr int APIQRYCNT_NEXT = 2;
 
 
 struct TApp {
-	char listen_ip		[32];
-	char listen_port	[32];
-	char db_reconn_try	[32];
+	char listen_ip		[32]{};
+	char listen_port	[32]{};
+	char db_reconn_try	[32]{};
 };
 
 struct TAPITr {
-	char tr_code			[32];
-	//char qry_cnt			[32];
-	//char qry_cnt_first	[32];
-	char tm_start			[32];
-	char tm_end				[32];
-	char apiqry_on_sec		[32];
-	char apiqry_interval_ms [32];
-	char max_symbol_cnt		[32];
+	char tr_code			[32]{};
+	//char qry_cnt			[32]{};
+	//char qry_cnt_first	[32]{};
+	char tm_start			[32]{};
+	char tm_end				[32]{};
+	char apiqry_on_sec		[32]{};
+	char apiqry_interval_ms [32]{};
+	char max_symbol_cnt		[32]{};
 };
 
 struct TDBInfo{
-	char dbms	[32];
-	char ip		[32];
-	char port	[32];
-	char dsn	[32];
-	char uid	[32];
-	char pwd	[32];
-	char ping_timeout[32];
+	char dbms	[32]{};
+	char dsn	[32]{};
+	char uid	[32]{};
+	char pwd	[32]{};
+	char ping_timeout[32]{};
 };
 
 
 struct TAPIInfo {
-	char svr_ip		[32];
-	char svr_port	[32];
-	char userid		[32];
-	char userpwd	[128];
-	char certpwd	[128];
+	char xingapi_path	[_MAX_PATH]{};
+	char svr_ip		[32]{};
+	char svr_port	[32]{};
+	char userid		[32]{};
+	char userpwd	[128]{};
+	char certpwd	[128]{};
 };
 
 
@@ -131,9 +130,10 @@ public:
 	char*	get_db_ping_timeout() { return m_cfg_db.ping_timeout;}
 
 	//TAPIInfo
-	char*	get_userid(){ return m_cfg_api.userid;}
-	char*	get_userpwd() { return m_cfg_api.userpwd; }
-	char*	get_certpwd() { return m_cfg_api.certpwd; }
+	char*	get_xingapi_path()	{ return m_cfg_api.xingapi_path;}
+	char*	get_userid()		{ return m_cfg_api.userid;}
+	char*	get_userpwd()		{ return m_cfg_api.userpwd; }
+	char*	get_certpwd()		{ return m_cfg_api.certpwd; }
 
 	//TQuery
 	char* query_symbols() { return m_cfg_qry.load_symbol; }

@@ -88,15 +88,15 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
  //   m_wndIndexBar.EnableDocking(CBRS_ALIGN_ANY);
  //   DockPane(&m_wndIndexBar);
 
-	//------------------------------------------------------------
-	// xingAPI를 초기화합니다
-    TCHAR szPath[ MAX_PATH ] = { 0, };
-    GetModuleDir(szPath, sizeof(szPath));
-    if (!g_iXingAPI.Init(szPath))
-    {
-		AfxMessageBox("XingAPI DLL을 로드할 수 없습니다.");
-        return -1;
-    }
+	////------------------------------------------------------------
+	//// xingAPI를 초기화합니다
+ //   TCHAR szPath[ MAX_PATH ] = { 0, };
+ //   GetModuleDir(szPath, sizeof(szPath));
+ //   if (!g_iXingAPI.Init(szPath))
+ //   {
+	//	AfxMessageBox("XingAPI DLL을 로드할 수 없습니다.");
+ //       return -1;
+ //   }
 
 	return 0;
 }
@@ -105,12 +105,15 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
 	if( !CMDIFrameWndEx::PreCreateWindow(cs) )
 		return FALSE;
-	// TODO: CREATESTRUCT cs를 수정하여 여기에서
-	//  Window 클래스 또는 스타일을 수정합니다.
+
+	cs.lpszName = _T("LSAPI_Chart");
 
 	return TRUE;
 }
-
+void CMainFrame::OnUpdateFrameTitle(BOOL)
+{
+	SetWindowText(_T("LSAPI_Chart"));   // 항상 고정
+}
 
 // CMainFrame 진단
 

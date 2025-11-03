@@ -6,7 +6,7 @@
 #define IDP_OLE_INIT_FAILED             100
 #define IDD_LOGINDLG                    103
 #define IDR_MAINFRAME                   128
-#define IDR_ChartAPISampleTYPE          129
+#define IDR_LSAPI_Chart                 129
 #define IDD_INDEX11                     143
 #define IDC_EDIT1                       1000
 #define IDC_EDIT2                       1001

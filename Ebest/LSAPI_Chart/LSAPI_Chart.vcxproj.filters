@@ -168,9 +168,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\ChartAPISample.rc2">
-      <Filter>리소스 파일</Filter>
-    </None>
     <None Include="LSAPI_Chart.ini" />
   </ItemGroup>
   <ItemGroup>

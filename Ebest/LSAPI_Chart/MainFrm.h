@@ -27,7 +27,7 @@ private:
 // 재정의입니다.
 public:
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
-
+	virtual void OnUpdateFrameTitle(BOOL);
 // 구현입니다.
 public:
 	virtual ~CMainFrame();

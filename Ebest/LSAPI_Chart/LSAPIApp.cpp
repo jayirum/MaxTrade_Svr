@@ -1,4 +1,4 @@
-// ChartAPISample.cpp : 응용 프로그램에 대한 클래스 동작을 정의합니다.
+
 //
 
 #include "stdafx.h"
@@ -50,6 +50,7 @@ CLSAPIApp theApp;
 
 BOOL CLSAPIApp::InitInstance()
 {
+
 	// 응용 프로그램 매니페스트가 ComCtl32.dll 버전 6 이상을 사용하여 비주얼 스타일을
 	// 사용하도록 지정하는 경우, Windows XP 상에서 반드시 InitCommonControlsEx()가 필요합니다. 
 	// InitCommonControlsEx()를 사용하지 않으면 창을 만들 수 없습니다.
@@ -78,15 +79,24 @@ BOOL CLSAPIApp::InitInstance()
 	// 해당 설정이 저장된 레지스트리 키를 변경하십시오.
 	// TODO: 이 문자열을 회사 또는 조직의 이름과 같은
 	// 적절한 내용으로 수정해야 합니다.
-	SetRegistryKey(_T("로컬 응용 프로그램 마법사에서 생성된 응용 프로그램"));
+	SetRegistryKey(_T("LSAPI_Chart"));
 
 
 	if (!__common.Initialize()) {
 		AfxMessageBox("__common.Initialize() error");
 		return FALSE;
 	}
-
 	__common.logStart("[%s][%s] Start....", EXENAME, EXE_VERSION);
+
+
+	//------------------------------------------------------------
+	// xingAPI를 초기화합니다
+	if (!g_iXingAPI.Init(__common.get_xingapi_path()))
+	{
+		AfxMessageBox("XingAPI DLL을 로드할 수 없습니다.");
+		return FALSE;
+	}
+
 
 	if(!__common.read_config_all() ) {
 		AfxMessageBox("__common.read_config_all() error");

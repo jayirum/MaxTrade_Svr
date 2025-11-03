@@ -526,10 +526,15 @@ bool CChartAPIView::is_finished_candle(char* candle_kor_ymd_hms)
 
 	int comp = now_ymd_hms.compare(candle_kor_ymd_hms);
 	if (comp < 0) {
+		//__common.log_fmt(INFO, 
+		//				"CANDLE TIME 이 현재 시각보다 크다. 이건 사용하지 않는다.(현재:%s)(Candle Time:%s)", 
+		//				now_ymd_hms.c_str(), candle_kor_ymd_hms);
+		//return false;
+
 		__common.log_fmt(INFO, 
-						"CANDLE TIME 이 현재 시각보다 크다. 이건 사용하지 않는다.(현재:%s)(Candle Time:%s)", 
+						"CANDLE TIME 이 현재 시각보다 크다. 그래도 저장.(현재:%s)(Candle Time:%s)", 
 						now_ymd_hms.c_str(), candle_kor_ymd_hms);
-		return false;
+
 	}
 	return true;
 }

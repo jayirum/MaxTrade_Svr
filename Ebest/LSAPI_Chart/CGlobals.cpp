@@ -64,28 +64,26 @@ bool CGlobals::read_config_all()
 
 		msg = "DB_INFO";
 		CHECK_BOOL(__common.getConfig((char*)"DB_INFO", (char*)"DBMS",	m_cfg_db.dbms),	msg);
-		CHECK_BOOL(__common.getConfig((char*)"DB_INFO", (char*)"IP",	m_cfg_db.ip),	msg);
-		CHECK_BOOL(__common.getConfig((char*)"DB_INFO", (char*)"PORT",	m_cfg_db.port), msg);
 		CHECK_BOOL(__common.getConfig((char*)"DB_INFO", (char*)"DSN",	m_cfg_db.dsn),	msg);
 		CHECK_BOOL(__common.getConfig((char*)"DB_INFO", (char*)"UID",	m_cfg_db.uid),	msg);
 		CHECK_BOOL(__common.getConfig((char*)"DB_INFO", (char*)"PWD",	m_cfg_db.pwd),	msg);
 		CHECK_BOOL(__common.getConfig((char*)"DB_INFO", (char*)"PING_TIMEOUT_SEC", m_cfg_db.ping_timeout), msg);
-		__common.log_fmt(INFO, "[DB_INFO] DBMS(%s) IP(%s) PORT(%s) DSN(%s) UID(%s) PING_TIMEOUT(%s)"
+		__common.log_fmt(INFO, "[DB_INFO] DBMS(%s) DSN(%s) UID(%s) PING_TIMEOUT(%s)"
 			, m_cfg_db.dbms
-			, m_cfg_db.ip
-			, m_cfg_db.port
 			, m_cfg_db.dsn
 			, m_cfg_db.uid
 			, m_cfg_db.ping_timeout
 		);
 
 		msg = "API_INFO";	
+		CHECK_BOOL(__common.getConfig((char*)"API_INFO", (char*)"XINGAPI_PATH", m_cfg_api.xingapi_path), msg);
 		CHECK_BOOL(__common.getConfig((char*)"API_INFO", (char*)"SERVER_IP",	m_cfg_api.svr_ip),		msg);
 		CHECK_BOOL(__common.getConfig((char*)"API_INFO", (char*)"SERVER_PORT",	m_cfg_api.svr_port),	msg);
 		CHECK_BOOL(__common.getConfig((char*)"API_INFO", (char*)"USERID",		m_cfg_api.userid),		msg);
 		CHECK_BOOL(__common.getConfig((char*)"API_INFO", (char*)"USERPWD",		m_cfg_api.userpwd),		msg);
 		CHECK_BOOL(__common.getConfig((char*)"API_INFO", (char*)"CERTPWD",		m_cfg_api.certpwd),		msg);
-		__common.log_fmt(INFO, "[API_INFO] SERVER_IP(%s) SERVER_PORT(%s) USERID(%s)"
+		__common.log_fmt(INFO, "[API_INFO] XINGAPI_PATH(%s) SERVER_IP(%s) SERVER_PORT(%s) USERID(%s)"
+			, m_cfg_api.xingapi_path
 			, m_cfg_api.svr_ip
 			, m_cfg_api.svr_port
 			, m_cfg_api.userid
