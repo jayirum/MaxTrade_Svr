@@ -62,13 +62,13 @@ bool CGlobals::read_config_all()
 			, m_cfg_apitr.max_symbol_cnt
 		);
 
-		msg = "DB_INFO";
-		CHECK_BOOL(__common.getConfig((char*)"DB_INFO", (char*)"DBMS",	m_cfg_db.dbms),	msg);
-		CHECK_BOOL(__common.getConfig((char*)"DB_INFO", (char*)"DSN",	m_cfg_db.dsn),	msg);
-		CHECK_BOOL(__common.getConfig((char*)"DB_INFO", (char*)"UID",	m_cfg_db.uid),	msg);
-		CHECK_BOOL(__common.getConfig((char*)"DB_INFO", (char*)"PWD",	m_cfg_db.pwd),	msg);
-		CHECK_BOOL(__common.getConfig((char*)"DB_INFO", (char*)"PING_TIMEOUT_SEC", m_cfg_db.ping_timeout), msg);
-		__common.log_fmt(INFO, "[DB_INFO] DBMS(%s) DSN(%s) UID(%s) PING_TIMEOUT(%s)"
+		msg = "DB_INFO_BASE";
+		CHECK_BOOL(__common.getConfig((char*)"DB_INFO_BASE", (char*)"DBMS",	m_cfg_db.dbms),	msg);
+		CHECK_BOOL(__common.getConfig((char*)"DB_INFO_BASE", (char*)"DSN",	m_cfg_db.dsn),	msg);
+		CHECK_BOOL(__common.getConfig((char*)"DB_INFO_BASE", (char*)"UID",	m_cfg_db.uid),	msg);
+		CHECK_BOOL(__common.getConfig((char*)"DB_INFO_BASE", (char*)"PWD",	m_cfg_db.pwd),	msg);
+		CHECK_BOOL(__common.getConfig((char*)"DB_INFO_BASE", (char*)"PING_TIMEOUT_SEC", m_cfg_db.ping_timeout), msg);
+		__common.log_fmt(INFO, "[DB_INFO_BASE] DBMS(%s) DSN(%s) UID(%s) PING_TIMEOUT(%s)"
 			, m_cfg_db.dbms
 			, m_cfg_db.dsn
 			, m_cfg_db.uid

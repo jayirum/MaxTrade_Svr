@@ -110,7 +110,7 @@ BOOL CLSAPIApp::InitInstance()
 
 	if (!connect_db())
 		return FALSE;
-	__common.log_fmt(INFO, "DB Connect OK(DNS Name:%s)", __common.get_dsn());
+	__common.log_fmt(INFO, "DB Connect OK(DNS Name:%s)", __common.get_dsn_base());
 
 	if (!load_timeframes_symbols())
 		return FALSE;

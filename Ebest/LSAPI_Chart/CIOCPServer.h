@@ -26,6 +26,9 @@ std::atomic<
 #include <functional>
 #include "../../Common/CspscRing.h"
 #include "CGlobals.h"
+#include <wincrypt.h>               //websocket
+
+#pragma comment(lib, "Crypt32.lib") //websocket
 
 #pragma comment(lib, "Ws2_32.lib")
 #pragma comment(lib, "Mswsock.lib")
@@ -118,7 +121,9 @@ private:
     struct TSession : std::enable_shared_from_this<TSession> 
     {
         SOCKET              m_sock{ INVALID_SOCKET };
-        
+        bool                m_is_websocket = false;     //websocket WS 업그레이드 완료 여부
+        bool                m_ws_handshake_done = false;//websocket
+
         TRecvCtx            m_recvCtx{};
         std::string         m_buffer;
         
@@ -126,6 +131,13 @@ private:
         CspscRing<TPayLoad>  m_sendQ;
     
         CIOCPServer*        m_iocp_ptr{};
+
+        //websocket ---- WebSocket helpers ----
+        bool try_handle_ws_handshake();            // 최초 수신에서 핸드셰이크 처리
+        void handle_ws_data(const char* data, size_t len); // WS 프레임 파싱
+        void ws_send_text(const std::string& s);   // 서버→클라 텍스트 프레임 전송
+
+
 
         void enqueue_SendTask(const TPayLoad& p) 
         {
@@ -180,37 +192,37 @@ private:
                     PostSend(std::move(next));
             }
         }
-        void OnRecvCompleted(DWORD bytes) 
-        {
-            m_buffer.append(m_recvCtx.buf, m_recvCtx.buf + bytes);
-            __common.log_fmt(INFO, "[RECV FROM CLIENT](%s)", m_buffer.c_str());
-            m_buffer.clear();
-            //m_buffer.append(m_recvCtx.buf, m_recvCtx.buf + bytes);
-            //if (m_buffer.size() > MAX_LINE) { 
-            //    m_iocp_ptr->RemoveSession(shared_from_this());  //TODO
-            //    m_iocp_ptr->abort_close(m_sock); 
-            //    return; 
-            //}
+        void OnRecvCompleted(DWORD bytes); 
+        //{
+        //    m_buffer.append(m_recvCtx.buf, m_recvCtx.buf + bytes);
+        //    __common.log_fmt(INFO, "[RECV FROM CLIENT](%s)", m_buffer.c_str());
+        //    m_buffer.clear();
+        //    //m_buffer.append(m_recvCtx.buf, m_recvCtx.buf + bytes);
+        //    //if (m_buffer.size() > MAX_LINE) { 
+        //    //    m_iocp_ptr->RemoveSession(shared_from_this());  //TODO
+        //    //    m_iocp_ptr->abort_close(m_sock); 
+        //    //    return; 
+        //    //}
 
-            //size_t pos = 0;
-            //for (;;) {
-            //    auto eol = m_buffer.find("\r\n", pos);
-            //    if (eol == std::string::npos) break;
-            //    std::string line = m_buffer.substr(pos, eol - pos);
-            //    pos = eol + 2;
+        //    //size_t pos = 0;
+        //    //for (;;) {
+        //    //    auto eol = m_buffer.find("\r\n", pos);
+        //    //    if (eol == std::string::npos) break;
+        //    //    std::string line = m_buffer.substr(pos, eol - pos);
+        //    //    pos = eol + 2;
 
-            //    //if (m_iocp_ptr->m_onLine_callback) m_iocp_ptr->m_onLine_callback(line, m_iocp_ptr->m_onLine_user);
-            //    //TODO LOGGING
+        //    //    //if (m_iocp_ptr->m_onLine_callback) m_iocp_ptr->m_onLine_callback(line, m_iocp_ptr->m_onLine_user);
+        //    //    //TODO LOGGING
 
-            //    //auto msg = std::make_shared<TByteVec>();
-            //    //msg->insert(msg->end(), line.begin(), line.end());
-            //    //msg->push_back('\r'); msg->push_back('\n');
-            //    //m_iocp_ptr->broadcast_all_clients(msg);
-            //}
-            //m_buffer.erase(0, pos);
+        //    //    //auto msg = std::make_shared<TByteVec>();
+        //    //    //msg->insert(msg->end(), line.begin(), line.end());
+        //    //    //msg->push_back('\r'); msg->push_back('\n');
+        //    //    //m_iocp_ptr->broadcast_all_clients(msg);
+        //    //}
+        //    //m_buffer.erase(0, pos);
 
-            PostRecv(shared_from_this(), m_sock);
-        }
+        //    PostRecv(shared_from_this(), m_sock);
+        //}
 
         bool PostRecv(SessionPtr sess, SOCKET& sock)
         {
@@ -277,28 +289,8 @@ private:
 extern CIOCPServer  __iocpSvr;
 //============================
 
-//====================== 사용 예(샘플 main) ======================
-// 실제 앱에서는 아래 main 대신, 기존 애플리케이션의 진입점에서
-// CIOCPServer 인스턴스 생성 → Start → 필요 시 broadcast_all_clients → Stop/Join 호출만 하면 됩니다.
-#ifdef m_iocp_handleSERVER_DEMO_MAIN
-int main() {
-    CIOCPServer svr;
-    if (!svr.Start(9000)) return 1;
+// WebSocket 판단/유틸
+bool looks_like_ws_handshake(const std::string& s);
+bool parse_sec_websocket_key(const std::string& req, std::string& outKey);
+bool compute_ws_accept(const std::string& key, std::string& outAccept); // SHA1+Base64
 
-    // 수신 라인 콜백(옵션)
-    svr.SetOnLine([](const std::string& line, void*) {
-        // 여기서 애플리케이션 로직과 연동
-        // 예: 특정 명령 처리, 로깅 등
-        // printf("[onLine] %s\n", line.c_str());
-        });
-
-    svr.StartTicker(); // 옵션: 1초마다 "tick\r\n" 브로드캐스트
-
-    puts("IOCP server on 9000. Press Enter to stop.");
-    getchar();
-
-    svr.Stop();
-    svr.Join();
-    return 0;
-}
-#endif

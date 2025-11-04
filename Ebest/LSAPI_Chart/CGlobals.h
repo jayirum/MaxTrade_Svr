@@ -7,7 +7,8 @@
 #include <atomic>
 
 #define EXENAME			"LSAPI_Chart.exe"
-#define EXE_VERSION		"v5.0.0"	// IOCP 탑재 및 심볼데이터 관리 변경
+//#define EXE_VERSION	"v5.0.0"	// IOCP 탑재 및 심볼데이터 관리 변경
+#define EXE_VERSION		"v6.0.0"	// WebSocket client 처리
 
 constexpr int APIQRYCNT_FIRST = 3;
 constexpr int APIQRYCNT_NEXT = 2;
@@ -30,7 +31,7 @@ struct TAPITr {
 	char max_symbol_cnt		[32]{};
 };
 
-struct TDBInfo{
+struct TDBInfoBase{
 	char dbms	[32]{};
 	char dsn	[32]{};
 	char uid	[32]{};
@@ -123,10 +124,10 @@ public:
 	int   max_symbol_cnt()		{ return atoi(m_cfg_apitr.max_symbol_cnt);}
 
 
-	//TDBInfo
-	char*	get_dsn(){ return m_cfg_db.dsn;}
-	char*	get_db_uid() { return m_cfg_db.uid;}
-	char*	get_db_pwd() { return m_cfg_db.pwd;}
+	//TDBInfoBase
+	char*	get_dsn_base(){ return m_cfg_db.dsn;}
+	char*	get_db_uid_base() { return m_cfg_db.uid;}
+	char*	get_db_pwd_base() { return m_cfg_db.pwd;}
 	char*	get_db_ping_timeout() { return m_cfg_db.ping_timeout;}
 
 	//TAPIInfo
@@ -152,7 +153,7 @@ public:
 public:
 	TApp		m_cfg_app;
 	TAPITr		m_cfg_apitr;
-	TDBInfo		m_cfg_db;
+	TDBInfoBase	m_cfg_db;
 	TAPIInfo	m_cfg_api;
 	TQuery		m_cfg_qry;
 	TDebugging	m_cfg_debug;

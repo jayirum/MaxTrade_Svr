@@ -347,3 +347,210 @@ void CIOCPServer::WorkerLoop()
         }
     }
 }
+
+bool CIOCPServer::TSession::try_handle_ws_handshake()
+{
+    // m_buffer에 최초 HTTP 요청이 누적됨 (OnRecvCompleted에서 append)
+    // 헤더 끝(\r\n\r\n) 확인 전에는 더 받는다.
+    auto hdrEnd = m_buffer.find("\r\n\r\n");
+    if (hdrEnd == std::string::npos) return false; // 아직 다 안 옴
+
+    std::string req = m_buffer.substr(0, hdrEnd + 4);
+    if (!looks_like_ws_handshake(req)) return false;
+
+    std::string key, accept;
+    if (!parse_sec_websocket_key(req, key)) return false;
+    if (!compute_ws_accept(key, accept)) return false;
+
+    // 101 응답
+    std::string resp = "HTTP/1.1 101 Switching Protocols\r\n"
+        "Upgrade: websocket\r\n"
+        "Connection: Upgrade\r\n"
+        "Sec-WebSocket-Accept: " + accept + "\r\n"
+        "\r\n";
+
+    auto msg = std::make_shared<TByteVec>(resp.begin(), resp.end());
+    enqueue_SendTask(msg);
+
+    // 버퍼에서 헤더 제거(혹시 남은 데이터는 이후 프레임으로 간주)
+    m_buffer.erase(0, hdrEnd + 4);
+    m_is_websocket = true;
+    m_ws_handshake_done = true;
+    return true;
+}
+
+// 아주 단순한 WS 프레임 파서 (텍스트 단일프레임, ping/close 처리)
+// 실제 서비스에선 분할/대용량/연속 프레임, 확장, 대용량 마스킹 최적화 필요
+void CIOCPServer::TSession::handle_ws_data(const char* data, size_t len)
+{
+    size_t i = 0;
+    while (len - i >= 2) {
+        const uint8_t* p = reinterpret_cast<const uint8_t*>(data) + i;
+        uint8_t b0 = p[0], b1 = p[1];
+        bool fin = (b0 & 0x80) != 0;
+        uint8_t opcode = (b0 & 0x0F);
+        bool masked = (b1 & 0x80) != 0;
+        uint64_t paylen = (b1 & 0x7F);
+        size_t hdr = 2;
+
+        if (!masked) { // 브라우저→서버는 반드시 마스킹
+            // 프로토콜 위반: 연결 종료
+            shutdown(m_sock, SD_BOTH); return;
+        }
+
+        if (paylen == 126) { if (len - i < hdr + 2) return; paylen = (p[2] << 8) | p[3]; hdr += 2; }
+        else if (paylen == 127) {
+            if (len - i < hdr + 8) return;
+            paylen = 0;
+            for (int k = 0; k < 8; ++k) paylen = (paylen << 8) | p[2 + k];
+            hdr += 8;
+        }
+
+        if (len - i < hdr + 4 + paylen) return; // 불완전: 더 받기
+        uint8_t mkey[4] = { p[hdr + 0], p[hdr + 1], p[hdr + 2], p[hdr + 3] };
+        const uint8_t* payload = p + hdr + 4;
+
+        std::string out; out.resize((size_t)paylen);
+        for (size_t j = 0; j < (size_t)paylen; ++j) out[j] = char(payload[j] ^ mkey[j & 3]);
+
+        if (opcode == 0x1) { // text
+            __common.log_fmt(INFO, "[WS TEXT]%s", out.c_str());
+            // echo 데모 (원하면 브로드캐스트 등으로 변경)
+            ws_send_text(out);
+        }
+        else if (opcode == 0x9) { // ping -> pong
+            // pong 전송
+            // FIN+PONG, payload 그대로
+            std::string frame;
+            frame.push_back((char)0x8A);
+            if (out.size() <= 125) { frame.push_back((char)out.size()); }
+            else { /* 단순화: 작은 핑만 지원 */ frame.push_back(0); }
+            frame.append(out);
+            auto msg = std::make_shared<TByteVec>(frame.begin(), frame.end());
+            enqueue_SendTask(msg);
+        }
+        else if (opcode == 0x8) { // close
+            shutdown(m_sock, SD_BOTH);
+            return;
+        }
+        // (binary/continuation 등은 필요시 확장)
+
+        i += hdr + 4 + (size_t)paylen;
+    }
+}
+
+void CIOCPServer::TSession::ws_send_text(const std::string& s)
+{
+    // 서버→클라는 마스킹하지 않음
+    std::string frame;
+    frame.push_back((char)0x81); // FIN + text
+    if (s.size() <= 125) { frame.push_back((char)s.size()); }
+    else if (s.size() <= 0xFFFF) {
+        frame.push_back(126);
+        frame.push_back((char)((s.size() >> 8) & 0xFF));
+        frame.push_back((char)(s.size() & 0xFF));
+    }
+    else {
+        frame.push_back(127);
+        for (int k = 7; k >= 0; --k) frame.push_back((char)(((uint64_t)s.size() >> (k * 8)) & 0xFF));
+    }
+    frame.append(s);
+    auto msg = std::make_shared<TByteVec>(frame.begin(), frame.end());
+    enqueue_SendTask(msg);
+}
+
+
+void CIOCPServer::TSession::OnRecvCompleted(DWORD bytes)
+{
+    m_buffer.append(m_recvCtx.buf, m_recvCtx.buf + bytes);
+
+    // 1) 아직 WS 아닌 상태라면, 핸드셰이크 시도
+    if (!m_is_websocket) {
+        if (try_handle_ws_handshake()) {
+            // 핸드셰이크가 끝났고, 혹시 m_buffer에 남은 게 있으면 프레임 파싱
+            if (!m_buffer.empty())
+                handle_ws_data(m_buffer.data(), m_buffer.size());
+            m_buffer.clear();
+        }
+        else {
+            // WS가 아니면 (필요 시) 일반 TCP/라인 프로토콜로 처리
+            // 여기서는 데모로 그냥 로그
+            // __common.log_fmt(INFO, "[RECV FROM CLIENT](%s)", m_buffer.c_str());
+            // m_buffer.clear();
+            // ※ 실제로는 일반 TCP 모드 별도 파서를 두세요.
+        }
+    }
+    else {
+        // 2) 이미 WebSocket 모드라면 프레임 파싱
+        handle_ws_data(m_buffer.data(), m_buffer.size());
+        m_buffer.clear();
+    }
+
+    // 다음 수신 예약
+    PostRecv(shared_from_this(), m_sock);
+}
+
+
+
+static inline std::string tolower_str(std::string s) {
+    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c) { return (char)std::tolower(c); });
+    return s;
+}
+
+bool looks_like_ws_handshake(const std::string& s) {
+    // 최소: "GET "로 시작하고 헤더에 Upgrade: websocket, Connection: Upgrade, Sec-WebSocket-Key 존재
+    if (s.rfind("GET ", 0) != 0) return false;
+    auto ls = tolower_str(s);
+    return (ls.find("upgrade: websocket") != std::string::npos) &&
+        (ls.find("connection: upgrade") != std::string::npos) &&
+        (ls.find("sec-websocket-key:") != std::string::npos);
+}
+
+bool parse_sec_websocket_key(const std::string& req, std::string& outKey) {
+    auto ls = tolower_str(req);
+    auto pos = ls.find("sec-websocket-key:");
+    if (pos == std::string::npos) return false;
+    // 그 줄의 끝까지
+    auto end = req.find("\r\n", pos);
+    if (end == std::string::npos) return false;
+    // 원문에서 앞뒤 공백 제거
+    std::string line = req.substr(pos, end - pos);
+    auto colon = line.find(':');
+    if (colon == std::string::npos) return false;
+    std::string v = line.substr(colon + 1);
+    // trim
+    auto l = v.find_first_not_of(" \t"); if (l == std::string::npos) return false;
+    auto r = v.find_last_not_of(" \t");  if (r == std::string::npos) return false;
+    outKey = v.substr(l, r - l + 1);
+    return !outKey.empty();
+}
+
+bool compute_ws_accept(const std::string& key,  // 클라이언트가 보낸 Sec-WebSocket-Key 문자열(Base64 형태)
+                        std::string& outAccept) // 서버가 보낼 Sec-WebSocket-Accept 문자열(Base64 형태)
+{
+    static const char* GUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
+    std::string src = key; src += GUID;
+
+    HCRYPTPROV hProv = 0;
+    HCRYPTHASH hHash = 0;
+    BYTE sha[20]; DWORD shaLen = sizeof(sha);
+
+    if (!CryptAcquireContextA(&hProv, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT)) return false;
+    if (!CryptCreateHash(hProv, CALG_SHA1, 0, 0, &hHash)) { CryptReleaseContext(hProv, 0); return false; }
+    if (!CryptHashData(hHash, reinterpret_cast<const BYTE*>(src.data()), (DWORD)src.size(), 0)) {
+        CryptDestroyHash(hHash); CryptReleaseContext(hProv, 0); return false;
+    }
+    if (!CryptGetHashParam(hHash, HP_HASHVAL, sha, &shaLen, 0)) {
+        CryptDestroyHash(hHash); CryptReleaseContext(hProv, 0); return false;
+    }
+    CryptDestroyHash(hHash); CryptReleaseContext(hProv, 0);
+
+    // Base64
+    DWORD outLen = 0;
+    if (!CryptBinaryToStringA(sha, shaLen, CRYPT_STRING_BASE64 | CRYPT_STRING_NOCRLF, NULL, &outLen)) return false;
+    std::string b64(outLen, '\0');
+    if (!CryptBinaryToStringA(sha, shaLen, CRYPT_STRING_BASE64 | CRYPT_STRING_NOCRLF, b64.data(), &outLen)) return false;
+    b64.resize(outLen);
+    outAccept = std::move(b64);
+    return true;
+}
