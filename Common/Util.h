@@ -159,14 +159,14 @@ namespace __UTILS
 //#define SAFE_DELETE(p)						if (p != NULL){ delete p; p = NULL;}
 //#endif
 //
-//#ifndef SAFE_CLOSEHANDLE
-//#define SAFE_CLOSEHANDLE(p)					if (p != NULL){ CloseHandle(p); p = NULL;}
-//#endif
+#ifndef SAFE_CLOSEHANDLE
+#define SAFE_CLOSEHANDLE(p)					if (p != NULL){ CloseHandle(p); p = NULL;}
+#endif
 //
 //
-//#ifndef SAFE_CLOSESOCKET
-//#define SAFE_CLOSESOCKET(p)					if (p != INVALID_SOCKET){ closesocket(p); p = INVALID_SOCKET;}
-//#endif
+#ifndef SAFE_CLOSESOCKET
+#define SAFE_CLOSESOCKET(p)					if (p != INVALID_SOCKET){ closesocket(p); p = INVALID_SOCKET;}
+#endif
 //
 //#define MAX_MESSAGE_BUFF	512
 //

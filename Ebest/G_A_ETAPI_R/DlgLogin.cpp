@@ -191,7 +191,7 @@ BOOL CDlgLogin::ConnectServer()
 
 BOOL CDlgLogin::GetApiLoginInfo()
 {
-	CODBC odbc;
+	CODBC odbc(DBMS_TYPE::MSSQL);
 	if (!odbc.Initialize())
 	{
 		LOGGING(LOGTP_ERR, TRUE, odbc.getMsg());
@@ -223,7 +223,8 @@ BOOL CDlgLogin::GetApiLoginInfo()
 		DEF_ACNT_TP);
 
 	odbc.Init_ExecQry(zQ);
-	if (!odbc.Exec_Qry()) {
+	bool bNeeded = false;
+	if (!odbc.Exec_Qry(bNeeded)) {
 		LOGGING(LOGTP_ERR, TRUE, odbc.getMsg());
 		return FALSE;
 	}

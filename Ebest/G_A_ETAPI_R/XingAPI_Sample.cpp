@@ -158,7 +158,7 @@ BOOL CXingAPI_SampleApp::Create_CircularQ()
 
 BOOL CXingAPI_SampleApp::Read_StkCode()
 {
-	CODBC odbc;
+	CODBC odbc(DBMS_TYPE::MSSQL);
 	if (!odbc.Initialize())
 	{
 		LOGGING(LOGTP_ERR, TRUE, odbc.getMsg());
@@ -174,7 +174,7 @@ BOOL CXingAPI_SampleApp::Read_StkCode()
 		LOGGING(LOGTP_ERR, TRUE, "DB정보 조회 오류.INI파일을 확인하세요");
 		return FALSE;
 	}
-
+	
 	char connStr[512];
 	sprintf(connStr, "DSN=%s;UID=%s;PWD=%s;", zDsn, zUid, zPwd);
 	if (!odbc.Connect(connStr))
@@ -182,16 +182,17 @@ BOOL CXingAPI_SampleApp::Read_StkCode()
 		LOGGING(LOGTP_ERR, TRUE, "DB Connect 오류:%s", odbc.getMsg());
 		return FALSE;
 	}
-
+	
 
 	char zQ[1024];
-#ifdef G_F_REAL_F
+#ifdef DEF_KF
 	sprintf(zQ, "SELECT STK_CD FROM STK_MST WHERE STK_USE_YN='Y' AND ACNT_TP='1'");
-#elif G_F_REAL_GF
+#else
 	sprintf(zQ, "SELECT STK_CD FROM STK_MST WHERE STK_USE_YN='Y' AND ACNT_TP='2'");
 #endif
 	odbc.Init_ExecQry(zQ);
-	if (!odbc.Exec_Qry()) {
+	bool bNeeded=false;
+	if (!odbc.Exec_Qry(bNeeded)) {
 		LOGGING(LOGTP_ERR, TRUE, odbc.getMsg());
 		return FALSE;
 	}
@@ -216,6 +217,8 @@ BOOL CXingAPI_SampleApp::Initialize_SendDataSvr()
 {
 	if (!g_SendPrcSvr.Initialize())
 		return FALSE;
+
+	return TRUE;
 }
 
 BOOL CXingAPI_SampleApp::GetDir_Cnfg_Log()

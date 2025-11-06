@@ -14,6 +14,7 @@
 #include <string>
 #include <map>
 #include <assert.h>
+#include <algorithm>
 using namespace std;
 
 class smartptrBuf;
@@ -57,6 +58,12 @@ public:
 	string	stringFormat(const char* p, ...);
 
 	char* SubStr(char* p, int start, int len = 0);
+
+	std::string tolower_str(std::string s) {
+		std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c) { return (char)std::tolower(c); });
+		return s;
+	}
+
 private:
 	char	m_z[__ALPHA::LEN_BUF];
 };

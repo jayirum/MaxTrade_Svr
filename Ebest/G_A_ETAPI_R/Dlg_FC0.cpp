@@ -87,10 +87,10 @@ void CDlg_FC0::OnButtonRequest()
 		Sleep(10);
 		AdviseData(bSise, (*it));
 
-		BOOL bSise = TRUE;
-		UnadviseData(!bSise, (*it));
-		Sleep(10);
-		AdviseData(!bSise, (*it));
+		//BOOL bSise = TRUE;
+		//UnadviseData(!bSise, (*it));
+		//Sleep(10);
+		//AdviseData(!bSise, (*it));
 	}
 }
 
@@ -104,17 +104,17 @@ void CDlg_FC0::AdviseData(BOOL bSise, string sStkCd)
 	char zMsg[128] = { 0 };
 	int nSize;
 
-	if (bSise)
+	//if (bSise)
 	{
 		strcpy(zTrCode, APICODE_SISE);
 		nSize = sizeof(FC0_InBlock);
 		strcpy(zMsg, "시세");
 	}
-	{
-		strcpy(zTrCode, APICODE_HOGA);
-		nSize = sizeof(FH0_InBlock);
-		strcpy(zMsg, "호가");
-	}
+	//{
+	//	strcpy(zTrCode, APICODE_HOGA);
+	//	nSize = sizeof(FH0_InBlock);
+	//	strcpy(zMsg, "호가");
+	//}
 
 	//-----------------------------------------------------------
 	// 데이터 전송
@@ -134,7 +134,7 @@ void CDlg_FC0::AdviseData(BOOL bSise, string sStkCd)
 	}
 	else
 	{
-		LOGGING(LOGTP_SUCC, FALSE, "[%s][%s] 조회 성공", sStkCd.c_str(), zMsg);
+		LOGGING(LOGTP_SUCC, FALSE, "[%s][%s][%d] 조회 성공", zTrCode, sStkCd.c_str(), nSize);
 	}
 }
 
@@ -182,7 +182,9 @@ LRESULT CDlg_FC0::OnXMReceiveRealData( WPARAM wParam, LPARAM lParam )
 	memcpy(pQUnit->buf, pRealPacket->pszData, pRealPacket->nDataLength);
 	pQUnit->dataSize = pRealPacket->nDataLength;
 
-	PostThreadMessage(m_unThrdSave, WM_MARKETDATA, 0, (LPARAM)pQUnit);
+	LOGGING(LOGTP_SUCC, FALSE, "[OnXMReceiveRealData](TR:%s)", pRealPacket->szTrCode);
+
+	//TODO PostThreadMessage(m_unThrdSave, WM_MARKETDATA, 0, (LPARAM)pQUnit);
 
 	//if( strcmp( pRealPacket->szTrCode, "FC0" ) == 0 )
 	//{

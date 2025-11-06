@@ -13,7 +13,7 @@ using namespace std;
 
 
 
-#define Q_MINSIZE		10000	// at least Q has 10,000 units
+#define Q_MINSIZE		100	//10000	// at least Q has 10,000 units
 #define UNIT_BUF_LEN	1024 
 #define RESERVED_LEN	128
 #define MAX_READ_SIZE	10

@@ -149,7 +149,7 @@ BOOL CSendPriceSvr::InitListen()
 
 	SOCKADDR_IN InternetAddr;
 	InternetAddr.sin_family = AF_INET;
-	InternetAddr.sin_addr.s_addr = inet_addr(m_zListenIP);
+	InternetAddr.sin_addr.s_addr = htonl(INADDR_ANY); //inet_addr(m_zListenIP);
 	InternetAddr.sin_port = htons(m_nListenPort);
 
 	BOOL opt = TRUE;
@@ -323,7 +323,7 @@ unsigned WINAPI CSendPriceSvr::Thread_Iocp(LPVOID lp)
 
 			pThis->m_parser.AddPacket(pCK->sock, pIoContext->buf, dwIoSize);
 
-			PostThreadMessage(pThis->m_unParsing, WM_RECEIVE_DATA, (WPARAM)0, (LPARAM)pCK);
+			PostThreadMessage(pThis->m_unParsing, __MAX::WM_RECEIVE_DATA, (WPARAM)0, (LPARAM)pCK);
 		}
 
 		if (pIoContext->context == CTX_RQST_SEND)
@@ -354,7 +354,7 @@ unsigned WINAPI CSendPriceSvr::Thread_Parsing(LPVOID lp)
 		MSG msg;
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) == FALSE)
 			continue;
-		if (msg.message != WM_RECEIVE_DATA)
+		if (msg.message != __MAX::WM_RECEIVE_DATA)
 		{
 			((COMPLETION_KEY*)msg.lParam)->Release();
 			continue;

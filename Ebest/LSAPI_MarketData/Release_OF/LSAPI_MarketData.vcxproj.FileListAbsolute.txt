@@ -1,0 +1,1 @@
+C:\_Source\MaxTrade\Server\Ebest\LSAPI_MarketData\Release_OF\LSAPI_MarketData.vcxproj.AssemblyReference.cache

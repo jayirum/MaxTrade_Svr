@@ -19,6 +19,8 @@ using namespace std;
 namespace __MAX
 {
 	const int BUF_LEN = 512;
+	const int BUFLEN_1K = 1024;
+	const int BUFLEN_4K = 4096;
 	const int BIGBUF_LEN = 1024;
 
 	inline constexpr char ACNT_TP_K = '1';

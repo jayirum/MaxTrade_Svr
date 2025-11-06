@@ -16,7 +16,10 @@ void recv_loop(SOCKET s) {
             break;
         }
         buf[rc] = 0;
-        std::cout << buf; // 서버가 tick이나 브로드캐스트 보냄
+        if( strncmp(buf, "RA001", 5)==0)
+            printf("[시세]%.50s\n", buf);
+        else
+            printf("[호가]%.50s\n", buf);
     }
 }
 
@@ -33,10 +36,18 @@ int main() {
         return 1;
     }
 
+    INT port=0;
+    std::string ip;
+    printf("input server ip. local ip is 127.0.0.1\n");
+    std::cin >> ip;
+    
+    printf("input server port. kf:9010, of:9020\n");
+    std::cin >> port;
+
     sockaddr_in srv{};
     srv.sin_family = AF_INET;
-    srv.sin_port = htons(8010);
-    inet_pton(AF_INET, "127.0.0.1", &srv.sin_addr); // 로컬 테스트용
+    srv.sin_port = htons(port);
+    inet_pton(AF_INET, ip.c_str(), &srv.sin_addr); // 로컬 테스트용
 
     if (connect(s, (sockaddr*)&srv, sizeof(srv)) == SOCKET_ERROR) {
         std::cerr << "connect failed, err=" << WSAGetLastError() << "\n";
