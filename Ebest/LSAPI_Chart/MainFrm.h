@@ -3,7 +3,6 @@
 
 
 #pragma once
-
 #include "Helper.h"
 #include "LoginDlg.h"
 #include "IndexBar.h"

@@ -2,7 +2,6 @@
 #include "CDBWorks.h"
 #include "CGlobals.h"
 
-
 CDBWorks __dbworks;
 
 
@@ -22,7 +21,7 @@ bool CDBWorks::connect()
 	return m_pDB->connect_db();
 }
 
-bool CDBWorks::save_chartdata(const TAPIData& api)
+bool CDBWorks::save_chartdata(const DataUnitPtr& api)
 {
 	char zQ[1024];
 	sprintf(zQ, 
@@ -35,14 +34,14 @@ bool CDBWorks::save_chartdata(const TAPIData& api)
 		",%.9f"	// @I_L			DECIMAL(15, 9)
 		",%.9f"	// @I_C			DECIMAL(15, 9)
 		",%d"	// @I_V			INT)
-		, std::stol(api.timeframe)
-		, api.symbol.c_str()
-		, api.tm_kor_ymd_hms.c_str()
-		, std::stod(api.o)
-		, std::stod(api.h)
-		, std::stod(api.l)
-		, std::stod(api.c)
-		, std::stol(api.v)
+		, api->tf
+		, api->symbol.c_str()
+		, api->candle_tm_kor.c_str()
+		, std::stod(api->o)
+		, std::stod(api->h)
+		, std::stod(api->l)
+		, std::stod(api->c)
+		, std::stol(api->v)
 	);
 	bool bNeedReconn;
 	m_pDB->m_pOdbc->Init_ExecQry(zQ);
@@ -85,43 +84,43 @@ std::set<int> CDBWorks::load_timeframes()
 	}	
 	m_pDB->m_pOdbc->DeInit_ExecQry();
 
-	return std::move(set_tf);
+	return set_tf;
 }
 
 
-std::set<std::string> CDBWorks::load_symbols()
+std::vector<shared_ptr<TSymbol>> CDBWorks::load_symbols()
 {
 	__common.log_fmt(INFO, "Try to load Symbols Query(%s)", __common.query_symbols());
 
-	std::set<std::string> symbols{};
+	
 
 	m_pDB->m_pOdbc->Init_ExecQry(__common.query_symbols());
 	bool bNeedReconn;
 	if (!m_pDB->m_pOdbc->Exec_Qry(bNeedReconn)) {
 		__common.log(LOGTP_ERR, m_pDB->m_pOdbc->getMsg());
+		__common.log_fmt(ERR, "%s",__common.query_symbols());
 		m_pDB->m_pOdbc->DeInit_ExecQry();
-		return std::set<std::string>{};
+		return std::vector<shared_ptr<TSymbol>>{};
 	}	
 
+	std::vector<shared_ptr<TSymbol>> rslt{};
 	BOOL bSendSise = TRUE;
 	while (m_pDB->m_pOdbc->GetNextData())
 	{
-		char zSymbol[128] = { 0, };
+		char zSymbol[128];
+		shared_ptr<TSymbol> s = std::make_shared<TSymbol>();
 
 		m_pDB->m_pOdbc->GetDataStr(1, sizeof(zSymbol), zSymbol);
-		symbols.insert(zSymbol);
+		s->sb = zSymbol;
 
-		__common.log_fmt(INFO, "Load symbols from DB(%s)", zSymbol);
+		m_pDB->m_pOdbc->GetDataLong(2, &s->dot_cnt);
 
-		Sleep(1);
+		__common.log_fmt(INFO, "Load symbols from DB(%s)(DotCnt:%d)", zSymbol, s->dot_cnt);
+
+		rslt.push_back(s);
 	}
 	m_pDB->m_pOdbc->DeInit_ExecQry();
 
-	if (symbols.size() > (unsigned int)__common.max_symbol_cnt())
-	{
-		__common.log_fmt(ERR, "Symbol Number is greater than (%d)", __common.max_symbol_cnt());
-		return std::set<std::string>{};
-	}
 
-	return std::move(symbols);
+	return rslt;
 }

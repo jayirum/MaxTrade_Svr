@@ -18,10 +18,10 @@ CGlobals::~CGlobals()
 bool CGlobals::Initialize()
 {
 	GetCurrentDirectory(_MAX_PATH, m_zConDir);
-	CUtil::GetCnfgFileNm(m_zConDir, (char*)EXENAME, m_zConfigFileName);
+	CUtil::GetCnfgFileNm(m_zConDir, (char*)DEF_EXENAME, m_zConfigFileName);
 	sprintf(m_zLogDir, "%s\\Log", m_zConDir);
 
-	if (!m_log.OpenLog(m_zLogDir, EXENAME))
+	if (!m_log.OpenLog(m_zLogDir, DEF_EXENAME))
 	{
 		printf("Open Log Error(%s)\n", m_zLogDir);
 		return false;
@@ -39,6 +39,13 @@ bool CGlobals::read_config_all()
 		CHECK_BOOL(__common.getConfig((char*)"APP_CONFIG", (char*)"LISTEN_PORT",	m_cfg_app.listen_port),		msg);
 		CHECK_BOOL(__common.getConfig((char*)"APP_CONFIG", (char*)"DB_RECONN_TRY",	m_cfg_app.db_reconn_try),	msg);
 		__common.log_fmt(INFO, "[APP_CONFIG]Listen IP(%s)  Listen PORT(%s)", m_cfg_app.listen_ip, m_cfg_app.listen_port);
+
+		msg = "SISE_SERVER";
+		CHECK_BOOL(__common.getConfig((char*)"SISE_SERVER", (char*)"IP",				m_cfg_sise_svr.ip), msg);
+		CHECK_BOOL(__common.getConfig((char*)"SISE_SERVER", (char*)"PORT",				m_cfg_sise_svr.port), msg);
+		CHECK_BOOL(__common.getConfig((char*)"SISE_SERVER", (char*)"RECV_TIMEOUT_MS",	m_cfg_sise_svr.timeout_ms), msg);
+		__common.log_fmt(INFO, "[SISE_SERVER] IP(%s) PORT(%s) RECV TIMEOUT_MS(%s)", 
+								m_cfg_sise_svr.ip, m_cfg_sise_svr.port, m_cfg_sise_svr.timeout_ms );
 
 		msg = "API_TR";
 		CHECK_BOOL(__common.getConfig((char*)"API_TR", (char*)"TRCODE",				m_cfg_apitr.tr_code),			msg);
@@ -125,13 +132,19 @@ void CGlobals::debug_fmt(const char* pMsg, ...)
 	if (!m_bDebugLog)
 		return;
 
-	const int size = 10000;
+	const int size = 4096;
 	char szBuf[size];
 
 	va_list argptr;
 	va_start(argptr, pMsg);
-	vsprintf_s(szBuf, size, pMsg, argptr);
+	//vsprintf_s(szBuf, size, pMsg, argptr);
+	int n = vsnprintf_s(szBuf, size, _TRUNCATE, pMsg, argptr);
 	va_end(argptr);
+
+	if (n < 0){
+		// 잘렸거나 에러 → 최소 메시지로 대체
+		strcpy_s(szBuf, sizeof(szBuf), "[log truncated or format error]");
+	}
 
 	szBuf[size - 1] = 0;
 	m_log.Log(INFO, szBuf, TRUE);

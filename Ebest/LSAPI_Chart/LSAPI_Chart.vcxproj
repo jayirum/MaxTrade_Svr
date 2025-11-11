@@ -91,7 +91,7 @@
       <ValidateAllParameters>true</ValidateAllParameters>
     </Midl>
     <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
@@ -128,12 +128,18 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\..\Common\CTcpClient.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\..\Common\Log.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\..\Common\LogMsg.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\MaxTradeInc.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\..\Common\StringUtils.cpp">
@@ -148,6 +154,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="CCandleBySymbol.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="CDBConnector.cpp" />
     <ClCompile Include="CDBWorks.cpp" />
     <ClCompile Include="CGlobals.cpp">
@@ -156,10 +165,6 @@
     </ClCompile>
     <ClCompile Include="ChartAPIView.cpp" />
     <ClCompile Include="CIOCPServer.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="CSymbolSets.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -176,18 +181,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\CODBC.h" />
-    <ClInclude Include="..\..\Common\CspscRing.h" />
+    <ClInclude Include="..\..\Common\CTcpClient.h" />
     <ClInclude Include="..\..\Common\Log.h" />
     <ClInclude Include="..\..\Common\LogMsg.h" />
+    <ClInclude Include="..\..\Common\MaxTradeInc.h" />
     <ClInclude Include="..\..\Common\StringUtils.h" />
     <ClInclude Include="..\..\Common\TimeUtils.h" />
     <ClInclude Include="..\..\Common\Util.h" />
+    <ClInclude Include="AppCommon.h" />
+    <ClInclude Include="CCandleBySymbol.h" />
     <ClInclude Include="CDBConnector.h" />
     <ClInclude Include="CDBWorks.h" />
     <ClInclude Include="CGlobals.h" />
     <ClInclude Include="ChartAPIView.h" />
     <ClInclude Include="CIOCPServer.h" />
-    <ClInclude Include="CSymbolSets.h" />
+    <ClInclude Include="CParser.h" />
     <ClInclude Include="LSAPIApp.h" />
     <ClInclude Include="ChartFrame.h" />
     <ClInclude Include="Helper.h" />

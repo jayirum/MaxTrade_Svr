@@ -24,7 +24,7 @@ std::atomic<
 #include <chrono>
 #include <algorithm>
 #include <functional>
-#include "../../Common/CspscRing.h"
+#include "../../Common/CNoLockRingQueue.h"
 #include "CGlobals.h"
 #include <wincrypt.h>               //websocket
 
@@ -127,8 +127,8 @@ private:
         TRecvCtx            m_recvCtx{};
         std::string         m_buffer;
         
-        std::atomic<bool>   m_is_sending{ false };
-        CspscRing<TPayLoad>  m_sendQ;
+        std::atomic<bool>           m_is_sending{ false };
+        CNoLockRingQueue<TPayLoad>  m_send_ringQ;
     
         CIOCPServer*        m_iocp_ptr{};
 
@@ -148,13 +148,13 @@ private:
         }
         void handle_SendTask(const TPayLoad& p)
         {
-            while (!m_sendQ.push(p)) _mm_pause();
+            while (!m_send_ringQ.push(p)) _mm_pause();
             
             //kickSend_if_idle();
             if (m_is_sending.exchange(true, std::memory_order_acq_rel)) return;
 
             TPayLoad newP;
-            if (!m_sendQ.pop(newP)) {
+            if (!m_send_ringQ.pop(newP)) {
                 m_is_sending.store(false, std::memory_order_release); 
                 return; 
             }
@@ -182,13 +182,13 @@ private:
         {
             delete ctx;
             TPayLoad next;
-            if (m_sendQ.pop(next)) {
+            if (m_send_ringQ.pop(next)) {
                 PostSend(std::move(next));
             }
             else 
             {
                 m_is_sending.store(false, std::memory_order_release);
-                if (m_sendQ.pop(next) && !m_is_sending.exchange(true, std::memory_order_acq_rel))
+                if (m_send_ringQ.pop(next) && !m_is_sending.exchange(true, std::memory_order_acq_rel))
                     PostSend(std::move(next));
             }
         }

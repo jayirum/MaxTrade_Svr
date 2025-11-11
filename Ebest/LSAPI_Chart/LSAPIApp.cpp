@@ -7,9 +7,9 @@
 #include "ChartFrame.h"
 #include "CGlobals.h"
 #include "CDBWorks.h"
-#include "CSymbolsets.h"
 #include <set>
 #include "CIOCPServer.h"
+#include "CCandleBySymbol.h"
 
 using namespace std;
 
@@ -86,7 +86,7 @@ BOOL CLSAPIApp::InitInstance()
 		AfxMessageBox("__common.Initialize() error");
 		return FALSE;
 	}
-	__common.logStart("[%s][%s] Start....", EXENAME, EXE_VERSION);
+	__common.logStart("[%s][%s] Start....", DEF_EXENAME, EXE_VERSION);
 
 
 	//------------------------------------------------------------
@@ -112,7 +112,8 @@ BOOL CLSAPIApp::InitInstance()
 		return FALSE;
 	__common.log_fmt(INFO, "DB Connect OK(DNS Name:%s)", __common.get_dsn_base());
 
-	if (!load_timeframes_symbols())
+	//===== DB에서 symbol, timeframe 정보 가져와서 구성
+	if (!create_candle_list())
 		return FALSE;
 
 
@@ -166,7 +167,7 @@ bool CLSAPIApp::connect_db()
 	return __dbworks.connect();
 }
 
-bool CLSAPIApp::load_timeframes_symbols()
+bool CLSAPIApp::create_candle_list()
 {
 	if (!__dbworks.is_connected())
 		return false;
@@ -177,19 +178,15 @@ bool CLSAPIApp::load_timeframes_symbols()
 		return false;
 	}
 
-	std::set<std::string> symbols = __dbworks.load_symbols();
+	std::vector<shared_ptr<TSymbol>> symbols = __dbworks.load_symbols();
 	if (symbols.empty()) {
 		__common.log(ERR, "There is no symbols in DB");
 		return false;
 	}
-
-	for (const int& tf : tfs) 
+	
+	for (const auto& s : symbols)
 	{
-		for (const string& symbol : symbols)
-		{
-			__SymbolSets.emplace_back(make_shared<CSymbolSets>(tf,symbol));
-			__common.log_fmt(INFO, "SymbolSet 구성 - (timeframe:%d)(symbol:%s)", tf, symbol.c_str());
-		}		
+		__CandleList[s->sb] = make_shared<ns_candle::CCandleBySymbol>(s->sb, s->dot_cnt, tfs);
 	}
 
 

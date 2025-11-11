@@ -27,7 +27,7 @@ public:
 
 public:
 	bool	connect_db();
-	bool	load_timeframes_symbols();
+	bool	create_candle_list();
 	//bool	init_dbsave();
 
 // 구현입니다.

@@ -17,7 +17,7 @@
     <Filter Include="Sources">
       <UniqueIdentifier>{4e951fdd-97dd-4aa2-903c-7f0060cbea14}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IOCPHandlers">
+    <Filter Include="TCPSocketHandlers">
       <UniqueIdentifier>{104e458b-24fa-4ebb-a955-5a679ff07de0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -74,10 +74,16 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="CIOCPServer.cpp">
-      <Filter>IOCPHandlers</Filter>
+      <Filter>TCPSocketHandlers</Filter>
     </ClCompile>
-    <ClCompile Include="CSymbolSets.cpp">
+    <ClCompile Include="CCandleBySymbol.cpp">
       <Filter>ChartAPIHandlers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\CTcpClient.cpp">
+      <Filter>TCPSocketHandlers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\MaxTradeInc.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -145,13 +151,20 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="CIOCPServer.h">
-      <Filter>IOCPHandlers</Filter>
+      <Filter>TCPSocketHandlers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\CspscRing.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="CSymbolSets.h">
+    <ClInclude Include="CCandleBySymbol.h">
       <Filter>ChartAPIHandlers</Filter>
+    </ClInclude>
+    <ClInclude Include="AppCommon.h" />
+    <ClInclude Include="..\..\Common\CTcpClient.h">
+      <Filter>TCPSocketHandlers</Filter>
+    </ClInclude>
+    <ClInclude Include="CParser.h">
+      <Filter>TCPSocketHandlers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\MaxTradeInc.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

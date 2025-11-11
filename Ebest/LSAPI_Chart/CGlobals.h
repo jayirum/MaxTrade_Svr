@@ -3,21 +3,19 @@
 #include "../../Common/LogMsg.h"
 #include "../../Common/util.h"
 #include "../../Common/StringUtils.h"
-#include "../../Common/CspscRing.h"
 #include <atomic>
-
-#define EXENAME			"LSAPI_Chart.exe"
-//#define EXE_VERSION	"v5.0.0"	// IOCP 탑재 및 심볼데이터 관리 변경
-#define EXE_VERSION		"v6.0.0"	// WebSocket client 처리
-
-constexpr int APIQRYCNT_FIRST = 3;
-constexpr int APIQRYCNT_NEXT = 2;
-
+#include "AppCommon.h"
 
 struct TApp {
 	char listen_ip		[32]{};
 	char listen_port	[32]{};
 	char db_reconn_try	[32]{};
+};
+
+struct TSiseSvr{
+	char ip			[32]{};
+	char port		[32]{};
+	char timeout_ms	[32]{};
 };
 
 struct TAPITr {
@@ -66,29 +64,6 @@ struct TDebugging {
 };
 
 
-struct TAPIData {
-	std::string symbol, timeframe, timediff;
-	std::string	tm_kor_ymd_hms;
-	std::string	o, h, l, c, v;
-	
-	void set(std::string& s, 
-			std::string& tf, 
-			char* candle_kor_ymd_hms, // yyyymmdd_hhmmss 20251031_152700
-			char* po, char* ph, char* pl, char* pc, char* pv
-			)
-	{
-		symbol		= s;
-		timeframe	= tf;
-		tm_kor_ymd_hms = candle_kor_ymd_hms;
-
-		CStringUtils u;
-		o = std::string(po);
-		h = std::string(ph);
-		l = std::string(pl);
-		c = std::string(pc);
-		v = std::string(pv);
-	}
-};
 
 
 class CGlobals
@@ -112,6 +87,10 @@ public:
 	char*		app_listen_ip()		{ return m_cfg_app.listen_ip;}
 	uint16_t	app_listen_port()	{ return atoi(m_cfg_app.listen_port); }
 
+	// sise server
+	char*		sise_svr_ip()			{ return m_cfg_sise_svr.ip; }
+	int			sise_svr_port()			{ return atoi(m_cfg_sise_svr.port);}
+	int			sise_recv_timeout_ms()	{ return atoi(m_cfg_sise_svr.timeout_ms); }
 
 	//TAPITr
 	char* get_api_tr()			{ return m_cfg_apitr.tr_code;}
@@ -152,15 +131,16 @@ public:
 
 public:
 	TApp		m_cfg_app;
+	TSiseSvr	m_cfg_sise_svr;
 	TAPITr		m_cfg_apitr;
 	TDBInfoBase	m_cfg_db;
 	TAPIInfo	m_cfg_api;
 	TQuery		m_cfg_qry;
 	TDebugging	m_cfg_debug;
-
-	CspscRing< TAPIData>	m_saveQ;
+	CLogMsg		m_log;
+	
 private:
-	CLogMsg	m_log;
+	
 	char	m_zConDir[_MAX_PATH];
 	char	m_zLogDir[_MAX_PATH];
 	char	m_zConfigFileName[MAX_PATH];
