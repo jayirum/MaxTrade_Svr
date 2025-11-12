@@ -210,15 +210,14 @@ void CChartAPIView::OnSize(UINT nType, int cx, int cy)
 void	CChartAPIView::first_api_qry()
 {
 	__common.debug("[First Query] Start...");
+	m_api_req_timeout.set_last();
+
 	for (const auto&[sb,candles]: __CandleList)
 	{
 		for(const auto& candle : candles->m_candles)
 		{
-			if (!send_api_request(sb, candle->m_tf, APIQRYCNT_FIRST))
-			{
-				//TODO
-			}
-			std::this_thread::sleep_for(std::chrono::milliseconds(__common.apiqry_interval_ms()));
+			std::lock_guard<std::mutex> lock(m_mtx_rqst_queue);
+			m_rqst_queue.push_back(make_shared<TSendReq>(sb, candle->m_tf, APIQRYCNT_FIRST));
 		}
 	}
 }
@@ -226,11 +225,23 @@ void	CChartAPIView::first_api_qry()
 // this is called from CCandleBySymbol
 void CChartAPIView::cb_request_apidata_on_timing(DataUnitPtr& data)
 {
-	__common.debug_fmt("[REQUEST CALL BACK](%s)(%d)", data->symbol.c_str(), data->tf);
-
-	send_api_request(data->symbol, data->tf, APIQRYCNT_NEXT);
+	std::lock_guard<std::mutex> lock(m_mtx_rqst_queue);
+	m_rqst_queue.push_back(make_shared<TSendReq>(data->symbol, data->tf, APIQRYCNT_NEXT));
 }
 
+bool	CChartAPIView::send_api_request_wrapper()
+{
+	std::lock_guard<std::mutex> lock(m_mtx_rqst_queue);
+
+	for (auto it = m_rqst_queue.begin(); it!= m_rqst_queue.end(); )
+	{
+		m_api_req_timeout.pause();
+		send_api_request((*it)->symbol, (*it)->tf, (*it)->read_cnt);
+		it = m_rqst_queue.erase(it);
+	}
+	m_rqst_queue.clear();
+	return true;
+}
 
 bool	CChartAPIView::send_api_request(const std::string& symbol, int timeframe, int read_cnt)
 {
@@ -270,15 +281,13 @@ bool	CChartAPIView::send_api_request(const std::string& symbol, int timeframe, i
 		// Request ID가 0보다 작을 경우에는 에러이다.
 		if (nRqID < 0)
 		{
-			__common.log_fmt(ERR, "g_iXingAPI.Request 실패.API 조회 신청 에러(REQID:%d)(%s)", nRqID, g_iXingAPI.GetErrorMessage(nRqID));
-			__common.log_fmt(ERR, "Request실패(TR:%s)(symbol:%.*s)(timeframe:%.*s)(qry_cnt:%.*s)(dt:%.*s)(tm:%.*s)",
+			__common.log_fmt(ERR, "g_iXingAPI.Request 실패.(TR:%s)(symbol:%.*s)(timeframe:%.*s)(qry_cnt:%.*s)(REQID:%d)(%s)", 
 				NAME_o3103,
 				sizeof(inBlock.shcode), inBlock.shcode,
 				sizeof(inBlock.ncnt), inBlock.ncnt,
 				sizeof(inBlock.readcnt), inBlock.readcnt,
-				sizeof(inBlock.cts_date), inBlock.cts_date,
-				sizeof(inBlock.cts_time), inBlock.cts_time
-			);
+				nRqID, g_iXingAPI.GetErrorMessage(nRqID));
+				
 			ret = false;
 			Sleep(2000);
 		}
@@ -392,8 +401,8 @@ bool CChartAPIView::recv_apidata_proc(LPRECV_PACKET pPKData)
 		o3103OutBlock* pOut = (o3103OutBlock*)pPKData->lpData;
 		char read_cnt[32]; sprintf(read_cnt, "%.*s", sizeof(pOut->readcnt), pOut->readcnt);
 
-		__common.debug_fmt("\t<NAME_o3103OutBlock> (reqid:%d)(DataLen:%d)(DataMode:%d)(BlockName:%s)(read_cnt:%s)(dt:%.8s)(tm:%.6s)",
-			reqId, nDataLength, pPKData->nDataMode, pPKData->szBlockName, read_cnt, pOut->cts_date, pOut->cts_time);
+		//__common.debug_fmt("\t<NAME_o3103OutBlock> (reqid:%d)(DataLen:%d)(DataMode:%d)(BlockName:%s)(read_cnt:%s)(dt:%.8s)(tm:%.6s)",
+		//	reqId, nDataLength, pPKData->nDataMode, pPKData->szBlockName, read_cnt, pOut->cts_date, pOut->cts_time);
 
 		sprintf(zTimeDiff, "%.*s", sizeof(pOut->timediff), pOut->timediff);	// 시차
 
@@ -420,8 +429,8 @@ bool CChartAPIView::recv_apidata_proc(LPRECV_PACKET pPKData)
 		int block_cnt	= nDataLength / block_size;
 		o3103OutBlock1* pOut = (o3103OutBlock1*)pPKData->lpData;
 
-		__common.debug_fmt("\t<NAME_o3103OutBlock1> (reqid:%d)(DataLen:%d)(DataMode:%d)(BlockName:%s)(block_size:%d)(block_cnt:%d)(dt:%.8s)(tm:%.6s)",
-			reqId, nDataLength, pPKData->nDataMode, pPKData->szBlockName, block_size, block_cnt, pOut->date, pOut->time);
+		//__common.debug_fmt("\t<NAME_o3103OutBlock1> (reqid:%d)(DataLen:%d)(DataMode:%d)(BlockName:%s)(block_size:%d)(block_cnt:%d)(dt:%.8s)(tm:%.6s)",
+		//	reqId, nDataLength, pPKData->nDataMode, pPKData->szBlockName, block_size, block_cnt, pOut->date, pOut->time);
 
 		std::string symbol, timeframe, timediff;
 
@@ -493,11 +502,11 @@ bool	CChartAPIView::save_candle_data(std::string& sSymbol, std::string& sTimefra
 	strcpy(c, u.trim_all(c));
 	strcpy(v, u.trim_all(v));
 
-	__common.debug_fmt("\t<save_candle_data>(symbol:%s)(timeframe:%s)(dt:%s)[[TM:%s]](diff:%s)(tm_kor:%s)"
-						"(o:%.8s)(h:%.8s)(l:%.8s)(c:%.8s)(v:%.8s)",
-		sSymbol.c_str(), sTimeframe.c_str(), dt, tm, sTimeDiff.c_str(), candle_kor_ymd_hms,
-		o, h, l, c, v)
-		;
+	//__common.debug_fmt("\t<save_candle_data>(symbol:%s)(timeframe:%s)(dt:%s)[[TM:%s]](diff:%s)(tm_kor:%s)"
+	//					"(o:%.8s)(h:%.8s)(l:%.8s)(c:%.8s)(v:%.8s)",
+	//	sSymbol.c_str(), sTimeframe.c_str(), dt, tm, sTimeDiff.c_str(), candle_kor_ymd_hms,
+	//	o, h, l, c, v)
+	//	;
 	
 	//===== 모든 candles 에 전달 =====//
 	DataUnitPtr data = std::make_shared<TDataUnit>(DATA_TP::API);	
@@ -513,7 +522,7 @@ bool	CChartAPIView::save_candle_data(std::string& sSymbol, std::string& sTimefra
 	}
 
 	//===== 이후 작업을 위해 thread 에게 전달 =====//
-	if (!m_dbQ.push(data))
+	if (m_dbQ.push(data)!=RING_Q_RET::Succ)
 	{
 		__common.log(ERR, "Save Q is full. Failed to save API data");
 		return (!is_saved);
@@ -533,8 +542,10 @@ void CChartAPIView::thrdfunc_save()
 
 		if (m_thrdFlag.is_idle()) continue;
 
+		send_api_request_wrapper();
+
 		DataUnitPtr data;
-		if( !m_dbQ.pop(data) )
+		if( m_dbQ.pop(data)!=RING_Q_RET::Succ )
 			continue;
 
 		bool ret = __dbworks.save_chartdata(data);

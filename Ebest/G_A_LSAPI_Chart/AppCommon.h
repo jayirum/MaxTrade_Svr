@@ -3,10 +3,11 @@
 #include "../../Common/StringUtils.h"
 using namespace std;
 
-#define DEF_EXENAME		"LSAPI_Chart.exe"
+#define DEF_EXENAME		"G_A_LSAPI_Chart.exe"
 //#define EXE_VERSION	"v5.0.0"	// IOCP 탑재 및 심볼데이터 관리 변경
 //#define EXE_VERSION	"v6.0.0"	// WebSocket client 
-#define EXE_VERSION		"v7.0.0"	//실시간 차트 처리
+//#define EXE_VERSION	"v7.0.0"	// 실시간 차트 처리
+#define EXE_VERSION		"v8.2.0"	// BOT DB 에 저장. TRecvCtx-weak_ptr 사용
 
 #define DEF_API_TR_OF	"o3103"
 

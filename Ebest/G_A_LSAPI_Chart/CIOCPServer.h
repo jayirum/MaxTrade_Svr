@@ -27,6 +27,7 @@ std::atomic<
 #include "../../Common/CNoLockRingQueue.h"
 #include "CGlobals.h"
 #include <wincrypt.h>               //websocket
+#include <json.hpp>
 
 #pragma comment(lib, "Crypt32.lib") //websocket
 
@@ -42,7 +43,7 @@ constexpr ULONG_PTR STRAND_KEY = 0xFFFF'FFFF'FFFF'FFFEULL;
 constexpr ULONG_PTR SHUTDOWN_KEY = 0xFFFF'FFFF'FFFF'FFFDULL;
 
 #else
-constexpr ULONG_PTR STRAND_KEY   = 990;
+constexpr ULONG_PTR STRAND_KEY = 990;
 constexpr ULONG_PTR SHUTDOWN_KEY = 991;
 #endif
 
@@ -50,14 +51,15 @@ constexpr ULONG_PTR SHUTDOWN_KEY = 991;
 
 
 //====================== 공용 타입 ======================
+enum class CLIENT_TP{NONE, Server, Client};
 using TByteVec = std::vector<char>;
 using TPayLoad = std::shared_ptr<const TByteVec>;
 
-class CIOCPServer 
+class CIOCPServer
 {
 
 public:
-    
+
     using OnLine = std::function<void(const std::string& line, void* user)>;
 
     CIOCPServer() = default;
@@ -69,7 +71,7 @@ public:
     void Join();    // workers join & clear. Stop() 이후 호출
 
     // 서버가 임의로 브로드캐스트 (ex. ticker, 알림 등)
-    void broadcast_all_clients(const std::string& jsondata) ;
+    void broadcast_all_clients(const string& symbol, int tf, const std::string& jsondata);
 
     // 사용자가 수신 라인을 가공/필터 후 재브로드캐스트하고 싶을 때 hook
     void SetOnLine(OnLine cb, void* user = nullptr);// { m_onLine_callback = std::move(cb); m_onLine_user = user; }
@@ -80,11 +82,11 @@ public:
 private:
     //====================== 내부 타입/컨텍스트 ======================
     struct TOvlapBase {
-        OVERLAPPED ov{}; 
+        OVERLAPPED ov{};
         enum class Type { Accept, Recv, Send } type{};
-        explicit TOvlapBase(Type t) : type(t) { 
+        explicit TOvlapBase(Type t) : type(t) {
             //static_assert(offsetof(TOvlapBase, ov) == 0, "OVERLAPPED must be first");
-            ZeroMemory(&ov, sizeof(ov)); 
+            ZeroMemory(&ov, sizeof(ov));
         }
         static TOvlapBase* From(LPOVERLAPPED p) { return reinterpret_cast<TOvlapBase*>(p); }
         //virtual ~TOvlapBase(){}
@@ -98,144 +100,79 @@ private:
     using SessionPtr = std::shared_ptr<TSession>;
 
     struct TRecvCtx : TOvlapBase {
-        WSABUF wsa{}; char buf[16 * 1024]; TSession* self{};
+        WSABUF wsa{}; char buf[16 * 1024]; std::weak_ptr<TSession> self{};
         TRecvCtx() : TOvlapBase(Type::Recv) { wsa.buf = buf; wsa.len = sizeof(buf); }
     };
     struct TSendCtx : TOvlapBase {
         SessionPtr selfSessionPtr; TPayLoad payload;
         TSendCtx(SessionPtr s, TPayLoad p) : TOvlapBase(Type::Send), selfSessionPtr(std::move(s)), payload(std::move(p)) {}
     };
-    struct TSendTask : OVERLAPPED 
+    struct TSendTask : OVERLAPPED
     {
-        SessionPtr selfSessionPtr; 
+        SessionPtr selfSessionPtr;
         TPayLoad payload;
         TSendTask(SessionPtr s, TPayLoad p) : selfSessionPtr(std::move(s)), payload(std::move(p)) { ZeroMemory(this, sizeof(OVERLAPPED)); }
     };
 
     /*
-        std::enable_shared_from_this<T> 를 상속받은 클래스는 
+        std::enable_shared_from_this<T> 를 상속받은 클래스는
         이미 std::shared_ptr<T> 로 관리되고 있을 때,
-        내부에서 shared_from_this() 를 호출하면 
+        내부에서 shared_from_this() 를 호출하면
         자기자신을 가리키는 새로운 std::shared_ptr<T> 를 반환한다.
     */
-    struct TSession : std::enable_shared_from_this<TSession> 
+
+    enum class State { Open, Closing, Closed };
+    struct TSession : std::enable_shared_from_this<TSession>
     {
         SOCKET              m_sock{ INVALID_SOCKET };
+        char                m_sock_s[32];
         bool                m_is_websocket = false;     //websocket WS 업그레이드 완료 여부
         bool                m_ws_handshake_done = false;//websocket
 
         TRecvCtx            m_recvCtx{};
         std::string         m_buffer;
-        
-        std::atomic<bool>           m_is_sending{ false };
+
+        //std::atomic<bool>           m_is_sending{ false };
         CNoLockRingQueue<TPayLoad>  m_send_ringQ;
-    
-        CIOCPServer*        m_iocp_ptr{};
+
+        string                      m_symbol_wanted;
+        int                         m_tf_wanted;
+        CLIENT_TP                   m_clientTp{CLIENT_TP::NONE};
+        int                         m_my_idx{-1};
+
+        std::atomic<State>          m_state{ State::Open };
+        std::atomic<long>           m_io_inflight{ 0 };     // 발행한 IO 수 (send/recv)        
+        std::shared_ptr<TSession>   m_close_guard;          // 닫히는 동안 객체 생존 보장용
+
+        CIOCPServer* m_iocp_ptr{};
 
         //websocket ---- WebSocket helpers ----
         bool try_handle_ws_handshake();            // 최초 수신에서 핸드셰이크 처리
         void handle_ws_data(const char* data, size_t len); // WS 프레임 파싱
         void ws_send_text(const std::string& s);   // 서버→클라 텍스트 프레임 전송
+        void handle_ws_frames();
+        void handle_plain_json_lines();
+        bool parse_client_request(string rqst);
+        
 
+        void enqueue_SendTask(const TPayLoad& p);
+        void handle_SendTask(const TPayLoad& p);
+        void PostSend(TPayLoad&& p);
+        void OnSendCompleted(TSendCtx* ctx, DWORD /*bytes*/, DWORD wsagetlasterror);
+        void OnRecvCompleted(DWORD bytes, DWORD wsagetlasterror);
+        bool PostRecv(SessionPtr sess, SOCKET& sock);
+        void parse_client_request_payload(const nlohmann::json& j);
+        void pop_and_send();
 
-
-        void enqueue_SendTask(const TPayLoad& p) 
-        {
-            auto self   = shared_from_this();
-            auto* task  = new TSendTask(self, p);
-            PostQueuedCompletionStatus(m_iocp_ptr->m_iocp_handle, 0, STRAND_KEY, reinterpret_cast<LPOVERLAPPED>(task));
-            //__common.debug_fmt("<enqueue_SendTask>(sock:%d)(%s)", self->m_sock, p->data());
-        }
-        void handle_SendTask(const TPayLoad& p)
-        {
-            while (!m_send_ringQ.push(p)) _mm_pause();
-            
-            //kickSend_if_idle();
-            if (m_is_sending.exchange(true, std::memory_order_acq_rel)) return;
-
-            TPayLoad newP;
-            if (!m_send_ringQ.pop(newP)) {
-                m_is_sending.store(false, std::memory_order_release); 
-                return; 
+        //===== 종료 관련
+        bool CloseSession_Request();
+        void CloseSession_TryFinalize();
+        void CloseSession_Finalize();
+        void inc_io_inflight() { m_io_inflight.fetch_add(1, std::memory_order_acq_rel); }
+        void dec_io_inflight() {
+            if (m_io_inflight.fetch_sub(1, std::memory_order_acq_rel) == 1) {
+                CloseSession_TryFinalize();
             }
-            //__common.debug_fmt("<handle_SendTask> PostSend to Client(sock:%d)(%s)", m_sock, newP->data());
-            PostSend(std::move(newP));
-        }
-
-        void PostSend(TPayLoad&& p) 
-        {
-            auto* ctx = new TSendCtx(shared_from_this(), std::move(p));
-            WSABUF wsa{ (ULONG)ctx->payload->size(), const_cast<char*>(ctx->payload->data()) };
-            
-            DWORD sent = 0;
-            int rc = WSASend(m_sock, &wsa, 1, &sent, 0, &ctx->ov, nullptr);
-            if (rc == SOCKET_ERROR && WSAGetLastError() != WSA_IO_PENDING) 
-            {
-                delete ctx; 
-                m_is_sending.store(false, std::memory_order_release);
-                //m_iocp_ptr->RemoveSession(shared_from_this());   //TODO. 삭제해야 하나 로깅
-                //m_iocp_ptr->abort_close(m_sock);
-                __common.log_fmt(ERR,"[PostSend Error](%d)", WSAGetLastError);
-            }
-        }
-        void OnSendCompleted(TSendCtx* ctx, DWORD /*bytes*/) 
-        {
-            delete ctx;
-            TPayLoad next;
-            if (m_send_ringQ.pop(next)) {
-                PostSend(std::move(next));
-            }
-            else 
-            {
-                m_is_sending.store(false, std::memory_order_release);
-                if (m_send_ringQ.pop(next) && !m_is_sending.exchange(true, std::memory_order_acq_rel))
-                    PostSend(std::move(next));
-            }
-        }
-        void OnRecvCompleted(DWORD bytes); 
-        //{
-        //    m_buffer.append(m_recvCtx.buf, m_recvCtx.buf + bytes);
-        //    __common.log_fmt(INFO, "[RECV FROM CLIENT](%s)", m_buffer.c_str());
-        //    m_buffer.clear();
-        //    //m_buffer.append(m_recvCtx.buf, m_recvCtx.buf + bytes);
-        //    //if (m_buffer.size() > MAX_LINE) { 
-        //    //    m_iocp_ptr->RemoveSession(shared_from_this());  //TODO
-        //    //    m_iocp_ptr->abort_close(m_sock); 
-        //    //    return; 
-        //    //}
-
-        //    //size_t pos = 0;
-        //    //for (;;) {
-        //    //    auto eol = m_buffer.find("\r\n", pos);
-        //    //    if (eol == std::string::npos) break;
-        //    //    std::string line = m_buffer.substr(pos, eol - pos);
-        //    //    pos = eol + 2;
-
-        //    //    //if (m_iocp_ptr->m_onLine_callback) m_iocp_ptr->m_onLine_callback(line, m_iocp_ptr->m_onLine_user);
-        //    //    //TODO LOGGING
-
-        //    //    //auto msg = std::make_shared<TByteVec>();
-        //    //    //msg->insert(msg->end(), line.begin(), line.end());
-        //    //    //msg->push_back('\r'); msg->push_back('\n');
-        //    //    //m_iocp_ptr->broadcast_all_clients(msg);
-        //    //}
-        //    //m_buffer.erase(0, pos);
-
-        //    PostRecv(shared_from_this(), m_sock);
-        //}
-
-        bool PostRecv(SessionPtr sess, SOCKET& sock)
-        {
-            ZeroMemory(&sess->m_recvCtx.ov, sizeof(OVERLAPPED));
-            DWORD flags = 0, recvd = 0;
-            int rc = WSARecv(sock, &sess->m_recvCtx.wsa, 1, &recvd, &flags, &sess->m_recvCtx.ov, nullptr);
-            if (rc == SOCKET_ERROR && WSAGetLastError() != WSA_IO_PENDING) {
-                //sess->m_iocp_ptr->RemoveSession(sess);
-                //sess->m_iocp_ptr->abort_close(sock);
-                __common.log_fmt(ERR, "[PostRecv Error](%d)", WSAGetLastError);
-                return false;
-            }
-            return true;
         }
     };
 
@@ -243,21 +180,23 @@ private:
     void perrorW(const char* msg);
     static void set_nodelay(SOCKET s);
     void associate_iocp(HANDLE h, ULONG_PTR key = 0);
-    void abort_close(SOCKET s);
+    //void abort_close(SOCKET& s);
     bool ensure_extensions(SOCKET ls);
     bool init_winsock();
     void wsacleanup_if_inited();
-
+    bool is_error_for_close(int socket_err);
+    
+    
     //====================== AcceptEx ======================
-    void post_AcceptEx(int n) ;
+    void post_AcceptEx(int n);
 
     //====================== 세션 관리(COW) ======================
-    void AddSession(const SessionPtr& newSession) ;
-    void RemoveSession(const SessionPtr& target);
-
+    void Session_AddToList(const SessionPtr& newSession);
+    void Session_RemoveFromList(const SessionPtr& target);
+    void Session_DestroyClosedSession();
     //====================== 워커 ======================
     void WorkerLoop();
-    
+
 
 private:
     // winsock
@@ -278,7 +217,9 @@ private:
     std::thread                             ticker_;
 
     // sessions(COW - copy-on-write)
-    std::atomic<std::shared_ptr<std::vector<SessionPtr>>> m_Sessions;   //SessionPtr = std::shared_ptr<TSession>)
+    std::atomic<std::shared_ptr<std::vector<SessionPtr>>>   m_Sessions;   //SessionPtr = std::shared_ptr<TSession>)
+    vector<SessionPtr>                                      m_ClosedSessions;
+    std::mutex                                              m_mtxClosedSess;
 
     // callbacks
     OnLine m_onLine_callback{};

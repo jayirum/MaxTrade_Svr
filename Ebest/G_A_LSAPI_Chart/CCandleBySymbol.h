@@ -1,3 +1,9 @@
+/*
+	LS 증권의 차트 시간은 
+
+	10:00:00~10:00:59 까지가 1분봉으로 10:01 캔들이다.
+*/
+
 #pragma once
 #pragma warning(disable:4996)
 
@@ -10,6 +16,7 @@
 #include "CGlobals.h"
 #include "../../Common/CNoLockRingQueue.h"
 #include <set>
+#include <map>
 #include "AppCommon.h"
 
 using namespace std;
@@ -17,36 +24,59 @@ using namespace std;
 namespace ns_candle
 {
 
-constexpr int LEN_TM = 15;
-enum class CANDLE_STATUS { CREATED, READY, FIRED };
-enum class COMP_TIME { API_EARLY=-1, SAME, API_LATE};
+constexpr int MAX_CANDLE_CNT	= 3;
+constexpr int LEN_TM			= 15;
+enum class CANDLE_STATUS	{ CREATED, READY, FIRED };
+enum class COMP_TIME		{ API_EARLY=-1, SAME, API_LATE};
 
+
+string	calc_ongoing_candle_tm	(const string& now, long tf, const string& ongoing_candle);
+string	calc_next_qry_tm		(const string& now, long tf, const string& base_candle_tm);
+string	calc_prev_candle_tm		(long tf, const string& ongoing_candle);
+string	calc_candle_end_tm		(const string& candle_tm);
 
 struct TCandle
 {
-	TCandle(int timeframe, int dot_cnt) {
-		tf = timeframe;
-		dot_cnt = dot_cnt;
-	}
-	int			tf{0};
-	string		ongoing_candle_tm;
-	string		prev_candle_tm;
+	TCandle(string& tm, double op, double hi, double lo, double cl, int vo)
+		:candle_tm{tm}, o{op}, h{hi}, l{lo}, c{cl}, v{vo}{
+			candle_end_tm = calc_candle_end_tm(tm);
+		};
+
+	string		candle_tm;
+	string		candle_end_tm;
 	double		o{0}, h{ 0 }, l{ 0 }, c{ 0 };
 	int			v{0};
-	int			dot_cnt{0};
-	CANDLE_STATUS	status{ CANDLE_STATUS::CREATED};
-
-	void reset() {o=0;h=0;l=0;c=0;v=0;}
-	void status_fired() { status = CANDLE_STATUS::FIRED; }
-	void status_ready() { status = CANDLE_STATUS::READY; }
-
-	string candle_tm_bak;
-	double o_bak{ 0 }, h_bak{ 0 }, l_bak{ 0 }, c_bak{ 0 };
-	void backup(){ o_bak=o; h_bak=h; l_bak=l; c_bak=c;}
-	void reset_bak(){ o_bak = 0; h_bak = 0; l_bak = 0; c_bak = 0; }
 };
 
-using CandlePtr		= shared_ptr < TCandle>;
+class CCandle
+{
+public:
+
+	CCandle(int timeframe, int dot_cnt) {
+		m_tf = timeframe;
+		m_dot_cnt = dot_cnt;
+	}
+	void status_fired() { m_status = CANDLE_STATUS::FIRED; }
+	void status_ready() { m_status = CANDLE_STATUS::READY; }
+	void remove_old_candle()
+	{
+		while (m_map_by_candletm.size() > MAX_CANDLE_CNT) 
+		{
+			auto it = m_map_by_candletm.begin();
+			m_map_by_candletm.erase(it);
+		}
+	};
+
+public:
+	int				m_tf{ 0 };
+	string			m_next_qry_tm;
+	int				m_dot_cnt{ 0 };
+	CANDLE_STATUS	m_status{ CANDLE_STATUS::CREATED };
+
+	map<string, shared_ptr< TCandle>>	m_map_by_candletm;
+};
+
+using CandlePtr		= shared_ptr <CCandle>;
 using CALLBACK_RQST	= std::function<void(DataUnitPtr&)>	;
 
 class CCandleBySymbol
@@ -60,7 +90,6 @@ public:
 	void	setcallback_req_api(std::function<void(DataUnitPtr&)> f) {
 		m_cb_req_api = std::move(f);
 	}
-
 	void	set_die(){ m_is_continue=false;}
 
 private:
@@ -76,11 +105,8 @@ private:
 
 	void	update_candle_by_close_price(DataUnitPtr&);
 
-	void	send_candle_to_client_byCandle(const char* caller, const ns_candle::CandlePtr& candle);
-	void	send_candle_to_client_byApi(const char* caller, const DataUnitPtr& api);
+	void	send_candle_to_client(const char* caller, int tf, string& candle_tm, double o, double h, double l, double c, int v);
 
-	string	calc_ongoing_candle_tm(const string& now, long tf, const string& ongoing_candle);
-	string	calc_prev_candle_tm(long tf, const string& ongoing_candle);
 
 	
 	int		compare_candle_tm(string l, string r) {
@@ -107,8 +133,8 @@ private:
 	string								m_last_sent_min;
 };
 
-using SymbolInfoPtr = std::shared_ptr<CCandleBySymbol>;
+using CandleBySymbolPtr = std::shared_ptr<CCandleBySymbol>;
 
 } // namespace ns_candle
 
-extern map<string, ns_candle::SymbolInfoPtr>	__CandleList;
+extern map<string, ns_candle::CandleBySymbolPtr>	__CandleList;

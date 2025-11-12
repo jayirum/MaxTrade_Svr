@@ -10,6 +10,7 @@
 #include <set>
 #include "CIOCPServer.h"
 #include "CCandleBySymbol.h"
+#include "CBOTDbSaver.h"
 
 using namespace std;
 
@@ -89,6 +90,32 @@ BOOL CLSAPIApp::InitInstance()
 	__common.logStart("[%s][%s] Start....", DEF_EXENAME, EXE_VERSION);
 
 
+	if(!__common.read_config_all() ) {
+		AfxMessageBox("__common.read_config_all() error");
+		return FALSE;
+	}
+
+	//===== DB에서 symbol, timeframe 정보 가져와서 구성 =====
+	if (!connect_db())
+		return FALSE;
+	__common.log_fmt(INFO, "DB Connect OK(DNS Name:%s)", __common.get_dsn_base());
+
+
+	if (!create_candle_list())
+		return FALSE;
+
+
+	//===== BOT DB 연결 =====//
+	if(!__bot_manager.create_bots())
+		return FALSE;
+
+	//===== IOCP 서버 실행 =====//
+	if (!__iocpSvr.Start(__common.app_listen_ip(), __common.app_listen_port()))
+		return FALSE;
+	__common.log_fmt(INFO, "IOCP Server started.(Port:%d)", __common.app_listen_port());
+
+
+
 	//------------------------------------------------------------
 	// xingAPI를 초기화합니다
 	if (!g_iXingAPI.Init(__common.get_xingapi_path()))
@@ -97,24 +124,6 @@ BOOL CLSAPIApp::InitInstance()
 		return FALSE;
 	}
 
-
-	if(!__common.read_config_all() ) {
-		AfxMessageBox("__common.read_config_all() error");
-		return FALSE;
-	}
-
-	//IOCP 서버 실행
-	if (!__iocpSvr.Start(__common.app_listen_ip(), __common.app_listen_port()))
-		return FALSE;
-	__common.log_fmt(INFO, "IOCP Server started.(Port:%d)", __common.app_listen_port());
-
-	if (!connect_db())
-		return FALSE;
-	__common.log_fmt(INFO, "DB Connect OK(DNS Name:%s)", __common.get_dsn_base());
-
-	//===== DB에서 symbol, timeframe 정보 가져와서 구성
-	if (!create_candle_list())
-		return FALSE;
 
 
 	// 주 창을 만들기 위해 이 코드에서는 새 프레임 창 개체를

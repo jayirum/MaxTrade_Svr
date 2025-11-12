@@ -30,13 +30,21 @@ struct TAPITr {
 };
 
 struct TDBInfoBase{
-	char dbms	[32]{};
-	char dsn	[32]{};
-	char uid	[32]{};
-	char pwd	[32]{};
+	char dbms	[64]{};
+	char dsn	[64]{};
+	char uid	[64]{};
+	char pwd	[64]{};
 	char ping_timeout[32]{};
 };
 
+struct TBOTDb
+{
+	char company[64]{};
+	char dbms[64]{};
+	char dsn[64]{};
+	char uid[64]{};
+	char pwd[64]{};
+};
 
 struct TAPIInfo {
 	char xingapi_path	[_MAX_PATH]{};

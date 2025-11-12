@@ -85,6 +85,9 @@
     <ClCompile Include="..\..\Common\MaxTradeInc.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="CBOTDbSaver.cpp">
+      <Filter>DBHandlers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\CODBC.h">
@@ -165,6 +168,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\MaxTradeInc.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\CNoLockRingQueue.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CBOTDbSaver.h">
+      <Filter>DBHandlers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

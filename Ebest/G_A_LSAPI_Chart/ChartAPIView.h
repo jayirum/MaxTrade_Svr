@@ -11,8 +11,10 @@
 #include "CDBWorks.h"
 #include "AppCommon.h"
 #include "../../Common/CNoLockRingQueue.h"
+#include "../../Common/TimeUtils.h"
 #include "CParser.h"
 
+using namespace std;
 
 constexpr int MIN_QRY_CNT = 2;
 
@@ -24,6 +26,47 @@ struct TReqInfo
 	std::string sTimeDiff;
 };
 
+
+struct TSendReq {
+	string	symbol;
+	int		tf;
+	int		read_cnt;
+
+	TSendReq(string s, int t, int r):symbol{s}, tf{t}, read_cnt{r}{}
+};
+
+#define API_TIMEOUT_MS	1500
+class CAPIRqstTimeout {
+public:
+	
+	void	pause() 
+	{
+		if(m_last_sent.empty()) return;
+
+		CTimeUtils u;
+		string now;
+		string next = u.AddMiliseconds(m_last_sent.c_str(), API_TIMEOUT_MS);
+		__common.debug_fmt("(m_last_sent:%s)(next:%s)", m_last_sent.c_str(), next.c_str());
+		while(true)
+		{
+			now = u.sDateTime_yyyymmdd_hhmmssmmm();
+			if(now.compare(next)>0){
+				break;
+			}
+			_mm_pause();
+		}
+		m_last_sent = now;
+		///__common.debug_fmt("[m_last_sent](%s)", m_last_sent.c_str());
+	}
+
+	void	set_last(){ 
+		CTimeUtils u; m_last_sent= u.sDateTime_yyyymmdd_hhmmssmmm();
+		//__common.debug_fmt("[set_last](%s)", m_last_sent.c_str());
+	}
+private:
+	
+	string	m_last_sent;
+};
 
 // CChartAPIView Æû ºäÀÔ´Ï´Ù.
 
@@ -65,6 +108,7 @@ private:
 	void	api_get_limitation_for_logging();
 	void	first_api_qry();
 	bool	send_api_request(const std::string& symbol, int timeframe, int read_cnt);
+	bool	send_api_request_wrapper();
 	void	requestID_add(int nReqId, const char* symbol, const char* timeframe);
 	void	cb_request_apidata_on_timing(DataUnitPtr&);
 	void	cb_recv_sise_handler(ns_tcpclient::RET_BOOL, ns_tcpclient::RECV_LEN, const ns_tcpclient::RECV_BUF&, const ns_tcpclient::MSG_BUF*);
@@ -85,11 +129,14 @@ private:
 	std::thread						m_thrd_save;
 	std::thread						m_thrd_sise_parser;
 	CNoLockRingQueue< DataUnitPtr>	m_dbQ;
+	
+	vector<shared_ptr<TSendReq>>	m_rqst_queue;
+	std::mutex						m_mtx_rqst_queue;
 
 	shared_ptr<ns_tcpclient::CTcpClient>	m_sise_client;
 	ns_parser::CParser						m_sise_parser;
 
-
+	CAPIRqstTimeout							m_api_req_timeout;
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 protected:
