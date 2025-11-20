@@ -13,7 +13,10 @@ CGlobals::CGlobals()
 }
 
 CGlobals::~CGlobals()
-{}
+{
+	_thrd_continue = false;
+	if(_thrd_read_debug.joinable() ) _thrd_read_debug.join();
+}
 
 bool CGlobals::Initialize()
 {
@@ -27,6 +30,7 @@ bool CGlobals::Initialize()
 		return false;
 	}
 
+	_thrd_read_debug = std::thread(&CGlobals::thrd_read_debug, this);
 	return true;
 }
 
@@ -75,11 +79,9 @@ bool CGlobals::read_config_all()
 		CHECK_BOOL(__common.getConfig((char*)"DB_INFO_BASE", (char*)"UID",	m_cfg_db.uid),	msg);
 		CHECK_BOOL(__common.getConfig((char*)"DB_INFO_BASE", (char*)"PWD",	m_cfg_db.pwd),	msg);
 		CHECK_BOOL(__common.getConfig((char*)"DB_INFO_BASE", (char*)"PING_TIMEOUT_SEC", m_cfg_db.ping_timeout), msg);
-		__common.log_fmt(INFO, "[DB_INFO_BASE] DBMS(%s) DSN(%s) UID(%s) PING_TIMEOUT(%s)"
+		__common.log_fmt(INFO, "[DB_INFO_BASE] DBMS(%s) DSN(%s)"
 			, m_cfg_db.dbms
 			, m_cfg_db.dsn
-			, m_cfg_db.uid
-			, m_cfg_db.ping_timeout
 		);
 
 		msg = "API_INFO";	
@@ -101,16 +103,7 @@ bool CGlobals::read_config_all()
 		CHECK_BOOL(__common.getConfig((char*)"QUERY", (char*)"GET_TIMEFRAME",	m_cfg_qry.load_timeframe),	msg);
 
 
-		msg = "DEBUGGING";
-		CHECK_BOOL(__common.getConfig((char*)"DEBUGGING", (char*)"LOG_DEBUG", m_cfg_debug.log_debug), msg);
-		CHECK_BOOL(__common.getConfig((char*)"DEBUGGING", (char*)"DEBUG_1", m_cfg_debug.debug1), msg);
-		CHECK_BOOL(__common.getConfig((char*)"DEBUGGING", (char*)"DEBUG_2", m_cfg_debug.debug2), msg);
-		CHECK_BOOL(__common.getConfig((char*)"DEBUGGING", (char*)"DEBUG_3", m_cfg_debug.debug3), msg);
-		CHECK_BOOL(__common.getConfig((char*)"DEBUGGING", (char*)"DEBUG_4", m_cfg_debug.debug4), msg);
-		CHECK_BOOL(__common.getConfig((char*)"DEBUGGING", (char*)"DEBUG_5", m_cfg_debug.debug5), msg);
-		CHECK_BOOL(__common.getConfig((char*)"DEBUGGING", (char*)"ASSERT", m_cfg_debug.assert), msg);
-
-		m_bDebugLog = (m_cfg_debug.log_debug[0] == 'Y') ? true : false;
+		read_config_debug();
 
 	}
 	catch (const std::exception& e)
@@ -122,15 +115,43 @@ bool CGlobals::read_config_all()
 	return true;
 }
 
+bool CGlobals::read_config_debug()
+{
+	std::string msg;
+	try {
+		
+		msg = "DEBUGGING";
+		CHECK_BOOL(__common.getConfig((char*)"DEBUGGING", (char*)"DEBUG_LOG", m_cfg_debug.debug_log), msg);
+		CHECK_BOOL(__common.getConfig((char*)"DEBUGGING", (char*)"DEBUG_RECV", m_cfg_debug.debug_recv), msg);
+		CHECK_BOOL(__common.getConfig((char*)"DEBUGGING", (char*)"DEBUG_SEND", m_cfg_debug.debug_send), msg);
+		CHECK_BOOL(__common.getConfig((char*)"DEBUGGING", (char*)"ASSERT", m_cfg_debug.assert), msg);
+
+	}
+	catch (const std::exception& e)
+	{
+		__common.log_fmt(ERR, "Config Debugging 읽는 도중 오류:%s", e.what());
+		return false;
+	}
+
+	return true;
+}
+
+void CGlobals::assert_()
+{
+	if (m_cfg_debug.assert[0] != 'Y')	return;
+	
+	assert(true);
+}
+
 void CGlobals::debug( const char* pMsg)
 {
+	if (m_cfg_debug.debug_log[0] != 'Y')	return;
 	m_log.Log(INFO, pMsg, FALSE);
 }
 
 void CGlobals::debug_fmt(const char* pMsg, ...)
 {
-	if (!m_bDebugLog)
-		return;
+	if( m_cfg_debug.debug_log[0]!='Y' )	return;
 
 	const int size = 4096;
 	char szBuf[size];
@@ -144,6 +165,51 @@ void CGlobals::debug_fmt(const char* pMsg, ...)
 	if (n < 0){
 		// 잘렸거나 에러 → 최소 메시지로 대체
 		strcpy_s(szBuf, sizeof(szBuf), "[log truncated or format error]");
+	}
+
+	szBuf[size - 1] = 0;
+	m_log.Log(INFO, szBuf, TRUE);
+}
+
+
+void CGlobals::debug_send(const char* pMsg, ...)
+{
+	if (m_cfg_debug.debug_send[0] != 'Y')	return;
+
+	const int size = 40960;
+	char szBuf[size];
+
+	va_list argptr;
+	va_start(argptr, pMsg);
+	//vsprintf_s(szBuf, size, pMsg, argptr);
+	int n = vsnprintf_s(szBuf, size, _TRUNCATE, pMsg, argptr);
+	va_end(argptr);
+
+	if (n < 0) {
+		// 잘렸거나 에러 → 최소 메시지로 대체
+		strcpy_s(szBuf, sizeof(szBuf), "[debug_send][log truncated or format error]");
+	}
+
+	szBuf[size - 1] = 0;
+	m_log.Log(INFO, szBuf, TRUE);
+}
+
+void CGlobals::debug_recv(const char* pMsg, ...)
+{
+	if (m_cfg_debug.debug_recv[0] != 'Y')	return;
+
+	const int size = 40960;
+	char szBuf[size];
+
+	va_list argptr;
+	va_start(argptr, pMsg);
+	//vsprintf_s(szBuf, size, pMsg, argptr);
+	int n = vsnprintf_s(szBuf, size, _TRUNCATE, pMsg, argptr);
+	va_end(argptr);
+
+	if (n < 0) {
+		// 잘렸거나 에러 → 최소 메시지로 대체
+		strcpy_s(szBuf, sizeof(szBuf), "[debug_recv][log truncated or format error]");
 	}
 
 	szBuf[size - 1] = 0;
@@ -199,3 +265,14 @@ void CGlobals::format_api_str(const char* org, int size, _Out_ char* fmt)
 	sprintf(fmt, "%-*s", size, org);	//[124.24    ]
 }
 
+void CGlobals::thrd_read_debug()
+{
+	std::this_thread::sleep_for(std::chrono::seconds(3));
+
+	while (_thrd_continue)
+	{
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+
+		read_config_debug();
+	}
+}

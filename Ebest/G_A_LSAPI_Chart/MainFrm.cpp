@@ -112,7 +112,7 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 }
 void CMainFrame::OnUpdateFrameTitle(BOOL)
 {
-	SetWindowText(_T("LSAPI_Chart"));   // 항상 고정
+	SetWindowText(_T("G_A_LSAPI_Chart"));   // 항상 고정
 }
 
 // CMainFrame 진단

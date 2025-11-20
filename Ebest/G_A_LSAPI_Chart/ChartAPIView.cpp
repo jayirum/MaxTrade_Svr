@@ -91,6 +91,7 @@ void CChartAPIView::OnInitialUpdate()
 	//===== CandleBySymbol 클래스들이 데이터를 전달할 수 있도록 callback 등록
 	for (auto& [symbol, candles] : __CandleList) 
 	{
+		Sleep(1);
 		candles->setcallback_req_api([this](DataUnitPtr& p){
 			cb_request_apidata_on_timing(p);
 		});
@@ -114,7 +115,7 @@ void CChartAPIView::OnInitialUpdate()
 
 		
 	//===== 시세 CLIENT SOCKET 초기화
-	m_sise_client = std::make_shared<ns_tcpclient::CTcpClient>(&__common.m_log);
+	m_sise_client = std::make_shared<ns_tcpclient::CTcpClient>();
 	m_sise_client->setcallback_recv_handler(
 			[this](	ns_tcpclient::RET_BOOL ret, 
 					ns_tcpclient::RECV_LEN len, 
@@ -122,6 +123,9 @@ void CChartAPIView::OnInitialUpdate()
 					const ns_tcpclient::MSG_BUF *msg
 					){
 		cb_recv_sise_handler(ret, len, buf, msg);
+	});
+	m_sise_client->setcallback_logger([this](string& msg, bool err) {
+		cb_print_tcpmsg(msg, err);
 	});
 
 	if (!m_sise_client->begin(__common.sise_svr_ip(),
@@ -496,11 +500,11 @@ bool	CChartAPIView::save_candle_data(std::string& sSymbol, std::string& sTimefra
 
 	//===== trimming =====//
 	CStringUtils u;
-	strcpy(o, u.trim_all(o));
-	strcpy(h, u.trim_all(h));
-	strcpy(l, u.trim_all(l));
-	strcpy(c, u.trim_all(c));
-	strcpy(v, u.trim_all(v));
+	u.trim_all(o);
+	u.trim_all(h);
+	u.trim_all(l);
+	u.trim_all(c);
+	u.trim_all(v);
 
 	//__common.debug_fmt("\t<save_candle_data>(symbol:%s)(timeframe:%s)(dt:%s)[[TM:%s]](diff:%s)(tm_kor:%s)"
 	//					"(o:%.8s)(h:%.8s)(l:%.8s)(c:%.8s)(v:%.8s)",
@@ -538,7 +542,7 @@ void CChartAPIView::thrdfunc_save()
 	CTimeUtils util;
 	while (!m_thrdFlag.is_stopped())
 	{
-		_mm_pause();
+		Sleep(1);
 
 		if (m_thrdFlag.is_idle()) continue;
 
@@ -561,7 +565,7 @@ void CChartAPIView::thrdfunc_sise_parser()
 
 	while (!m_thrdFlag.is_stopped())
 	{
-		_mm_pause();
+		Sleep(1);
 		if (m_thrdFlag.is_idle()) continue;
 
 		string one_pack;
@@ -569,15 +573,18 @@ void CChartAPIView::thrdfunc_sise_parser()
 
 		m_sise_parser.get_one_packet(one_pack, len);
 		if( len==0 ) continue;
-				
+		
+		//__common.debug_fmt("[수신](%.*s)", one_pack.size(), one_pack.c_str());
+
+
 		__MAX::TRA001* p = (__MAX::TRA001*)one_pack.c_str();
 		if (strncmp(p->header.packet_cd, __MAX::CD_SISE, sizeof(p->header.packet_cd)) != 0)
 		{
 			//__common.log_fmt(ERR, "[시세패킷(%s)이 아님(수신코드:%s)", __MAX::CD_SISE, p->header.packet_cd);
 			continue;
 		}
+		//if( strncmp(p->header.stk_cd, "NQZ25", 5) )	continue;
 		
-		//__common.debug_fmt("[시세수신](%.*s)", one_pack.size(), one_pack.c_str());
 
 		//check sum
 		if (one_pack.size() != sizeof(__MAX::TRA001) - 2) {
@@ -606,6 +613,11 @@ void CChartAPIView::thrdfunc_sise_parser()
 	}
 }
 
+void CChartAPIView::cb_print_tcpmsg(string& msg, bool err)
+{
+	if(err)	__common.log(ERR, msg.c_str());
+	else	__common.log(INFO, msg.c_str());
+}
 
 void CChartAPIView::cb_recv_sise_handler(
 	ns_tcpclient::RET_BOOL recv_ret,
@@ -619,6 +631,7 @@ void CChartAPIView::cb_recv_sise_handler(
 		if (!m_sise_parser.append(recv_buf.data(), recv_len)) {
 			__common.log_fmt(ERR, "%s", m_sise_parser.get_msg());
 		}
+		__common.debug_recv( "[D][Parser.append](%.*s)", recv_len, recv_buf.data() );
 	}
 
 	if (!recv_ret)

@@ -80,7 +80,7 @@ BOOL CLSAPIApp::InitInstance()
 	// 해당 설정이 저장된 레지스트리 키를 변경하십시오.
 	// TODO: 이 문자열을 회사 또는 조직의 이름과 같은
 	// 적절한 내용으로 수정해야 합니다.
-	SetRegistryKey(_T("LSAPI_Chart"));
+	SetRegistryKey(_T("G_A_LSAPI_Chart"));
 
 
 	if (!__common.Initialize()) {

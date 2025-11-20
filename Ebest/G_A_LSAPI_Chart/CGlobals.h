@@ -62,12 +62,9 @@ struct TQuery {
 };
 
 struct TDebugging {
-	char log_debug[32];
-	char debug1[32];
-	char debug2[32];
-	char debug3[32];
-	char debug4[32];
-	char debug5[32];
+	char debug_log[32];
+	char debug_recv[32];
+	char debug_send[32];
 	char assert[32];
 };
 
@@ -82,6 +79,7 @@ public:
 
 	bool Initialize();
 	bool read_config_all();
+	bool read_config_debug();
 	void logStart	(const char* pMsg, ...);
 	void log_fmt	(LOGMSG_TP tp, const char* pMsg, ...);
 	void log(LOGMSG_TP tp, const char* pMsg);
@@ -130,13 +128,13 @@ public:
 	//TDebugging
 	void debug_fmt(const char* pMsg, ...);
 	void debug(const char* pMsg);
-	bool is_debug1(){ return  (m_cfg_debug.debug1[0]=='Y'); }
-	bool is_debug2() { return (m_cfg_debug.debug2[0] == 'Y'); }
-	bool is_debug3() { return (m_cfg_debug.debug3[0] == 'Y'); }
-	bool is_debug4() { return (m_cfg_debug.debug4[0] == 'Y'); }
-	bool is_debug5() { return (m_cfg_debug.debug5[0] == 'Y'); }
-	void assert_()  { if(m_cfg_debug.assert[0]=='Y') assert(false); }
+	
+	void debug_recv(const char* pMsg, ...);
+	void debug_send(const char* pMsg, ...);
+	void assert_();//  { if(m_cfg_debug.assert[0]=='Y') assert(false); }
 
+private:
+	void	thrd_read_debug();
 public:
 	TApp		m_cfg_app;
 	TSiseSvr	m_cfg_sise_svr;
@@ -152,7 +150,9 @@ private:
 	char	m_zConDir[_MAX_PATH];
 	char	m_zLogDir[_MAX_PATH];
 	char	m_zConfigFileName[MAX_PATH];
-	bool	m_bDebugLog;
+	
+	std::thread		_thrd_read_debug;
+	bool			_thrd_continue{true};
 };
 
 extern CGlobals	__common;

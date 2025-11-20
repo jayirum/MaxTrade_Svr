@@ -53,7 +53,7 @@ public:
 			if(now.compare(next)>0){
 				break;
 			}
-			_mm_pause();
+			Sleep(1);
 		}
 		m_last_sent = now;
 		///__common.debug_fmt("[m_last_sent](%s)", m_last_sent.c_str());
@@ -112,6 +112,7 @@ private:
 	void	requestID_add(int nReqId, const char* symbol, const char* timeframe);
 	void	cb_request_apidata_on_timing(DataUnitPtr&);
 	void	cb_recv_sise_handler(ns_tcpclient::RET_BOOL, ns_tcpclient::RECV_LEN, const ns_tcpclient::RECV_BUF&, const ns_tcpclient::MSG_BUF*);
+	void	cb_print_tcpmsg(string& msg, bool err);
 	
 	//===== api 수신 및 이후 처리 관련 =====/
 	void	thrdfunc_save();

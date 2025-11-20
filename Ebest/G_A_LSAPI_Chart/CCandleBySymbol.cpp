@@ -34,16 +34,18 @@ void ns_candle::CCandleBySymbol::thrdfunc_main()
 {
 	while (m_is_continue)
 	{
-		_mm_pause();
-
+		Sleep(1);
+		
 		if(is_passed_last_sent_tm()){
 			check_fire_api_request();
 		}
 
-
+		
 		DataUnitPtr data;
 		RING_Q_RET ret = m_rcv_queue.pop(data);
-		if (ret!=RING_Q_RET::Succ)	continue;
+		if (ret!=RING_Q_RET::Succ){
+			continue;
+		}
 
 		if (data->symbol.compare(m_symbol))
 			continue;
@@ -57,6 +59,7 @@ void ns_candle::CCandleBySymbol::thrdfunc_main()
 				update_candle_by_close_price(data);
 				break;
 		}
+		
 	}
 }
 
@@ -74,8 +77,8 @@ void	ns_candle::CCandleBySymbol::check_fire_api_request()
 	
 	for (auto& candle : m_candles)
 	{
+		Sleep(1);
 		if( candle->m_status != CANDLE_STATUS::READY ){
-			_mm_pause();
 			continue;
 		}
 
@@ -117,6 +120,7 @@ void	ns_candle::CCandleBySymbol::update_candle_by_close_price(DataUnitPtr& data)
 
 	for (auto& candle : m_candles)
 	{
+		Sleep(1);
 		if (candle->m_status == CANDLE_STATUS::CREATED)
 		{
 			continue;
@@ -154,7 +158,7 @@ void	ns_candle::CCandleBySymbol::update_candle_by_close_price(DataUnitPtr& data)
 
 			//candle->m_next_qry_tm = calc_next_qry_tm(price_tm, candle->m_tf, price_candle_tm);
 
-			__common.log_fmt(INFO, "[update_candle_by_close_price-1](%s)(%d)아직 TR로 새 캔들 생성 전. close price 정보를 이용해서 만든다."
+			__common.debug_fmt("[update_candle_by_close_price-1](%s)(%d)아직 TR로 새 캔들 생성 전. close price 정보를 이용해서 만든다."
 									"(price_time:%s)(price candle:%s)(close price:%s)(next_qry:%s)"
 									,m_symbol.c_str()
 									,candle->m_tf
@@ -180,10 +184,11 @@ void	ns_candle::CCandleBySymbol::update_candle_by_close_price(DataUnitPtr& data)
 			//===== Send to client
 			send_candle_to_client("close price", candle->m_tf, price_candle_tm, p->o, p->h, p->l, p->c, p->v);
 
-			//__common.log_fmt(INFO, "[update_candle_by_close_price-2](%s)(%d) (price_time:%s)price candle:%s)"
+			//__common.log_fmt(INFO, "[update_candle_by_close_price-2](%s)(%d)(%.5f)(price_time:%s)price candle:%s)"
 			//	"같은 시간 candle 이 이미 있으므로 h,l,c 갱신"
 			//	, m_symbol.c_str()
 			//	, candle->m_tf
+			//	, p->c
 			//	, price_tm.c_str()
 			//	, price_candle_tm.c_str()
 			//);
@@ -199,18 +204,23 @@ void	ns_candle::CCandleBySymbol::send_candle_to_client(
 	j["code"] = "CHART";
 	j["symbol"] = m_symbol;
 	j["timeframe"] = tf;
-	j["candle_tm"] = candle_tm;
+	//j["candle_tm"] = candle_tm;
 	j["o"] = o;
 	j["h"] = h;
 	j["l"] = l;
 	j["c"] = c;
 	j["v"] = v;
+
+	CTimeUtils ut;
+	long utxTimestamp = ut.toUnixTimestamp(candle_tm);
+	j["candle_tm"] = utxTimestamp;
 	
-	std::string data = std::move(j.dump());
+	std::string data = j.dump();
 	if (data.size() == 0) {
 		__common.assert_();
 	}
-	//__common.debug_fmt("(%s)[CLIENT SEND](%s)", caller, data.c_str());
+	
+	__common.debug_send("(%s)[CLIENT SEND](%s)", caller, data.c_str());
 
 	__iocpSvr.broadcast_all_clients(m_symbol, tf, data);	
 
@@ -226,6 +236,7 @@ void	ns_candle::CCandleBySymbol::update_candle_by_api_data(DataUnitPtr& data)
 
 	for (auto& candle : m_candles)
 	{
+		Sleep(1);
 		if (candle->m_tf == data->tf)
 		{
 			if(candle->m_status == CANDLE_STATUS::CREATED)
@@ -275,7 +286,7 @@ void ns_candle::CCandleBySymbol::update_candle_by_first(const string& now, DataU
 																		,std::stol(api->v)
 																		);
 
-	__common.log_fmt(INFO,"[update_candle_by_first-1] 캔들 생성.(%s)(%d)(now:%s), (candle_tm:%s)(ohlcv:%s/%s/%s/%s/%s)"
+	__common.debug_fmt("[update_candle_by_first-1] 캔들 생성.(%s)(%d)(now:%s), (candle_tm:%s)(ohlcv:%s/%s/%s/%s/%s)"
 					,m_symbol.c_str()
 					,candle->m_tf
 					,now.c_str()
@@ -290,7 +301,7 @@ void ns_candle::CCandleBySymbol::update_candle_by_first(const string& now, DataU
 	//========== 다음 쿼리 시간 계산
 	candle->m_next_qry_tm = calc_next_qry_tm(now, candle->m_tf, api->candle_tm_kor);
 	candle->m_status = CANDLE_STATUS::READY;
-	__common.log_fmt(INFO, "[update_candle_by_first-2] 다음 쿼리 시간 저장.(%s)(%d)(now:%s)(next_qry_tm:%s)"
+	__common.debug_fmt("[update_candle_by_first-2] 다음 쿼리 시간 저장.(%s)(%d)(now:%s)(next_qry_tm:%s)"
 		, m_symbol.c_str()
 		, candle->m_tf
 		, now.c_str()
@@ -339,7 +350,7 @@ void ns_candle::CCandleBySymbol::update_candle_by_next(const string& now, DataUn
 
 		candle->m_next_qry_tm = calc_next_qry_tm(now, candle->m_tf, api_tm);
 		
-		__common.log_fmt(INFO, "[update_candle_by_next-새로운candle](%s)(%d)(now:%s)(API:%s)(next qry:%s)"
+		__common.debug_fmt("[update_candle_by_next-새로운candle](%s)(%d)(now:%s)(API:%s)(next qry:%s)"
 								"새로운 candle 생성, client 전송, next qry time재계산",
 								m_symbol.c_str(), candle->m_tf, now.c_str(), api_tm.c_str(), candle->m_next_qry_tm.c_str());
 
@@ -365,7 +376,7 @@ void ns_candle::CCandleBySymbol::update_candle_by_next(const string& now, DataUn
 			candle->m_next_qry_tm = calc_next_qry_tm(now, candle->m_tf, api_tm);
 		}
 
-		__common.log_fmt(INFO, "[update_candle_by_next-기존candle](%s)(%d)(now:%s)(API:%s)(next qry:%s)"
+		__common.debug_fmt("[update_candle_by_next-기존candle](%s)(%d)(now:%s)(API:%s)(next qry:%s)"
 			"기존 candle update, client 전송",
 			m_symbol.c_str(), candle->m_tf, now.c_str(), api_tm.c_str(), candle->m_next_qry_tm.c_str());
 
@@ -401,6 +412,7 @@ string	ns_candle::calc_ongoing_candle_tm(const string& now, long tf, const strin
 
 	for (;;)
 	{
+		Sleep(1);
 		if (now.compare(ongoing) < 0)	// 현재 10:04,  candle 10:06
 		{
 			result = ongoing;
@@ -417,8 +429,6 @@ string	ns_candle::calc_ongoing_candle_tm(const string& now, long tf, const strin
 		util.AddMins_(dt, tm, tf, ongoing);
 
 		strcpy(ongoing + LEN_TM_MIN, "00");	// candle 은 second 가 0 이다.
-
-		_mm_pause();
 	}
 
 	return result;

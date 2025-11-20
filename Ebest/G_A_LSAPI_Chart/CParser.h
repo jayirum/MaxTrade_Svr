@@ -7,6 +7,7 @@
 #include <optional>
 #include <stdexcept>
 #include <algorithm>
+#include "CGlobals.h"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ using namespace std;
 namespace ns_parser
 {
 
-constexpr  size_t  MAX_SIZE = 4096*10;
+constexpr  size_t  MAX_SIZE = 4096*1000;  //4M
 
 class CParser {
 public:
@@ -41,7 +42,7 @@ public:
     }
 
     // 완성된 '한 개의' 패킷(개행으로 구분) 꺼내기. 없으면 nullopt.
-    // 반환은 개행을 제거한 payload (CRLF -> CR 제거됨).
+    // 반환은 개행을 제거한 payload (CRLF -> CR 제거됨 ).
     void get_one_packet(_Out_ string& rslt_packet, _Out_ int& len) 
     {
         len = 0;
@@ -55,6 +56,7 @@ public:
             // 아직 한 줄이 완성되지 않았음 (너무 길어지면 방어)
             if (m_buff.size() > MAX_SIZE) {
                 sprintf(m_msg, "패킷에 엔터가 없으면서 max size(%d) 보다 크다(size:%d). 버퍼 클리어", MAX_SIZE, m_buff.size());
+                __common.debug_fmt("[1](%s)", m_msg);
             }
             return;
         }

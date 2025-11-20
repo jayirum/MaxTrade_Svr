@@ -18,9 +18,8 @@ CDBConnector::~CDBConnector()
 
 bool CDBConnector::connect_db()
 {
-	sprintf(m_zConnStr, "DSN=%s;UID=%s;PWD=%s;", 
-			__common.get_dsn_base(), __common.get_db_uid_base(), __common.get_db_pwd_base());
-			__common.log(INFO, m_zConnStr);
+	sprintf(m_zConnStr, "DSN=%s;UID=%s;PWD=%s;", __common.get_dsn_base(), __common.get_db_uid_base(), __common.get_db_pwd_base());
+	//__common.log(INFO, m_zConnStr);
 
 	m_pingTimeout_sec = atoi(__common.get_db_ping_timeout());
 

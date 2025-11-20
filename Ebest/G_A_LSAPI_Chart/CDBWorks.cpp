@@ -43,6 +43,13 @@ bool CDBWorks::save_chartdata(const DataUnitPtr& api)
 		, std::stod(api->c)
 		, std::stol(api->v)
 	);
+
+
+	//TODO
+	return true;
+
+
+
 	bool bNeedReconn;
 	m_pDB->m_pOdbc->Init_ExecQry(zQ);
 	bool ret = m_pDB->m_pOdbc->Exec_Qry(bNeedReconn);

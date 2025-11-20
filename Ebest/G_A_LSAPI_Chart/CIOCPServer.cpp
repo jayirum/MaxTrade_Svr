@@ -612,7 +612,7 @@ void CIOCPServer::TSession::handle_SendTask(const TPayLoad& p)
     if (!m_send_ringQ.is_available()) return;
 
     RING_Q_RET ret_code;
-    while ((ret_code = m_send_ringQ.push(p)) == RING_Q_RET::Fail) _mm_pause();
+    while ((ret_code = m_send_ringQ.push(p)) == RING_Q_RET::Fail) Sleep(1);
 
     // pop 을 위한 token 획득
     if( !m_send_ringQ.can_i_pop() ) return;

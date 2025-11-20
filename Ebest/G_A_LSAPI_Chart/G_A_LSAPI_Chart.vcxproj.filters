@@ -190,9 +190,9 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LSAPI_Chart.ini" />
+    <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <None Include="G_A_LSAPI_Chart.ini" />
   </ItemGroup>
 </Project>

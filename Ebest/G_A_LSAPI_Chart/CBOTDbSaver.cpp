@@ -46,7 +46,7 @@ bool ns_bot_db::COneBot::connect()
 		return false;
 	}
 
-	__common.log_fmt(INFO, "[%s]DB Connected successfully", m_conn_str);
+	__common.log_fmt(INFO, "[%s]DB Connected successfully", m_dsn.c_str());
 	return true;
 }
 
@@ -84,7 +84,7 @@ void ns_bot_db::COneBot::thrd_main()
 	char t[1024]{};
 	while (m_is_continue)
 	{
-		_mm_pause();
+		Sleep(1);
 
 		string query;
 		int cnt = compose_query(query);
@@ -135,6 +135,7 @@ int	ns_bot_db::COneBot::compose_query(string& query)
 
 	for (candle_cnt = 0; candle_cnt < ns_bot_db::MAX_CNADLE_CNT; candle_cnt++)
 	{
+		Sleep(1);
 		if( !m_queue.empty() )
 		{
 			TBOTCandPtr candle = m_queue.front();
