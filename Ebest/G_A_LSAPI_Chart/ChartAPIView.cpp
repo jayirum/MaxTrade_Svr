@@ -526,12 +526,12 @@ bool	CChartAPIView::save_candle_data(std::string& sSymbol, std::string& sTimefra
 	}
 
 	//===== 이후 작업을 위해 thread 에게 전달 =====//
-	if (m_dbQ.push(data)!=RING_Q_RET::Succ)
+	if (m_ring_db.push(data)!=RING_Q_RET::Succ)
 	{
 		__common.log(ERR, "Save Q is full. Failed to save API data");
 		return (!is_saved);
 	}
-
+	
 	return is_saved;
 }
 
@@ -549,7 +549,7 @@ void CChartAPIView::thrdfunc_save()
 		send_api_request_wrapper();
 
 		DataUnitPtr data;
-		if( m_dbQ.pop(data)!=RING_Q_RET::Succ )
+		if( m_ring_db.pop(data)!=RING_Q_RET::Succ )
 			continue;
 
 		bool ret = __dbworks.save_chartdata(data);
@@ -568,10 +568,9 @@ void CChartAPIView::thrdfunc_sise_parser()
 		Sleep(1);
 		if (m_thrdFlag.is_idle()) continue;
 
-		string one_pack;
+		
 		int len = 0;
-
-		m_sise_parser.get_one_packet(one_pack, len);
+		string one_pack = m_sise_parser.get_one_packet(len);
 		if( len==0 ) continue;
 		
 		//__common.debug_fmt("[수신](%.*s)", one_pack.size(), one_pack.c_str());
@@ -583,8 +582,6 @@ void CChartAPIView::thrdfunc_sise_parser()
 			//__common.log_fmt(ERR, "[시세패킷(%s)이 아님(수신코드:%s)", __MAX::CD_SISE, p->header.packet_cd);
 			continue;
 		}
-		//if( strncmp(p->header.stk_cd, "NQZ25", 5) )	continue;
-		
 
 		//check sum
 		if (one_pack.size() != sizeof(__MAX::TRA001) - 2) {
@@ -606,10 +603,24 @@ void CChartAPIView::thrdfunc_sise_parser()
 		string symbol = sb;
 		data->set(symbol, 0, tm, o, (char*)"0", (char*)"0", now_prc, v);
 
+
+		
 		for (auto& [sb, candles] : __CandleList)
 		{
 			candles->push_data(data);
 		}
+		
+		/*
+		CStringUtils su; 
+		string sym = su.trim_str(symbol);
+		if(sym.compare("NQZ25")==0){
+		char z[128];
+		sprintf(z, "[%s](%s)\r\n", tm, now_prc);
+		string ss(z);
+		int tf = 5;
+		__iocpSvr.broadcast_all_clients(sym, tf, ss);		
+		}
+		*/
 	}
 }
 

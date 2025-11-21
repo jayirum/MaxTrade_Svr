@@ -32,7 +32,7 @@ using TBOTCandPtr = shared_ptr<TBOTCandle>;
 class COneBot
 {
 public:
-	COneBot(DBMS_TYPE dbms, string company, string dsn, string user, string pwd);
+	COneBot(DBMS_TYPE dbms, string company, string ip, string port, string dbname, string user, string pwd);
 	~COneBot();
 
 	bool	initialize();
@@ -49,10 +49,10 @@ private:
 private:
 	DBMS_TYPE					m_dbms;
 	string						m_company;
-	string						m_dsn;
-	string						m_user, m_pwd;
+	string						m_ip, m_port, m_dbname;
+	string						m_uid, m_pwd;
 	std::shared_ptr <CODBC>		m_odbc;
-	char						m_conn_str[512];
+	
 
 	bool						m_is_continue;
 	std::thread					m_thrd;

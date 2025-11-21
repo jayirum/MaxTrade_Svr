@@ -14,10 +14,11 @@
 #include <list>
 #include "../../Common/TimeUtils.h"
 #include "CGlobals.h"
-#include "../../Common/CNoLockRingQueue.h"
+//#include "../../Common/CSPSCRing.h"
 #include <set>
 #include <map>
 #include "AppCommon.h"
+
 
 using namespace std;
 
@@ -120,17 +121,18 @@ private:
 	}
 
 public:
-	vector<CandlePtr>					m_candles;
+	vector<CandlePtr>			m_candles;
 
 private:
 	
-	std::string							m_symbol;
-	CNoLockRingQueue<DataUnitPtr>		m_rcv_queue;	// chart data, close price 수신
-	CALLBACK_RQST						m_cb_req_api;
-	std::thread							m_thrd;
-	bool								m_is_continue{true};
+	std::string								m_symbol;
+	//CSPSCRing<DataUnitPtr>					m_ring_recv{4};	// chart data, close price 수신
+	CSimpleQueue<DataUnitPtr>				m_ring_recv;	// chart data, close price 수신
+	CALLBACK_RQST							m_cb_req_api;
+	std::thread								m_thrd;
+	bool									m_is_continue{true};
 
-	string								m_last_sent_min;
+	string									m_last_sent_min;
 };
 
 using CandleBySymbolPtr = std::shared_ptr<CCandleBySymbol>;

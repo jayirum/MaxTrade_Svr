@@ -98,9 +98,7 @@ BOOL CLSAPIApp::InitInstance()
 	//===== DB에서 symbol, timeframe 정보 가져와서 구성 =====
 	if (!connect_db())
 		return FALSE;
-	__common.log_fmt(INFO, "DB Connect OK(DNS Name:%s)", __common.get_dsn_base());
-
-
+	
 	if (!create_candle_list())
 		return FALSE;
 

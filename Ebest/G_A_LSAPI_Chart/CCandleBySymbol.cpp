@@ -6,7 +6,7 @@
 map<string, ns_candle::CandleBySymbolPtr>	__CandleList;
 
 ns_candle::CCandleBySymbol::CCandleBySymbol(string symbol, int dot_cnt, set<int>& tfs)
-{ 
+{
 	m_symbol = symbol;
 
 	for (const auto& tf : tfs)
@@ -27,7 +27,7 @@ ns_candle::CCandleBySymbol::~CCandleBySymbol()
 
 void ns_candle::CCandleBySymbol::push_data(DataUnitPtr p)
 {
-	m_rcv_queue.push(p);
+	m_ring_recv.push(p);
 }
 
 void ns_candle::CCandleBySymbol::thrdfunc_main()
@@ -41,11 +41,13 @@ void ns_candle::CCandleBySymbol::thrdfunc_main()
 		}
 
 		
-		DataUnitPtr data;
-		RING_Q_RET ret = m_rcv_queue.pop(data);
-		if (ret!=RING_Q_RET::Succ){
-			continue;
-		}
+		DataUnitPtr data = m_ring_recv.pop();
+		if( !data ) continue;
+
+		//RING_Q_RET ret = m_ring_recv.pop(data);
+		//if (ret!=RING_Q_RET::Succ){
+		//	continue;
+		//}
 
 		if (data->symbol.compare(m_symbol))
 			continue;
@@ -219,6 +221,7 @@ void	ns_candle::CCandleBySymbol::send_candle_to_client(
 	if (data.size() == 0) {
 		__common.assert_();
 	}
+	data += "\r\n";
 	
 	__common.debug_send("(%s)[CLIENT SEND](%s)", caller, data.c_str());
 

@@ -7,7 +7,9 @@ using namespace std;
 //#define EXE_VERSION	"v5.0.0"	// IOCP 탑재 및 심볼데이터 관리 변경
 //#define EXE_VERSION	"v6.0.0"	// WebSocket client 
 //#define EXE_VERSION	"v7.0.0"	// 실시간 차트 처리
-#define EXE_VERSION		"v8.4.1"	// BOT DB 에 저장. TRecvCtx-weak_ptr 사용, ClosedSessions vector 사용, 디버깅용 로그 실시간체크
+//#define EXE_VERSION		"v8.4.1"	// BOT DB 에 저장. TRecvCtx-weak_ptr 사용, ClosedSessions vector 사용, 디버깅용 로그 실시간체크
+//#define EXE_VERSION		"v8.5.1"	// Parsing Queue 를 스레드 처리 및 deque 사용
+#define EXE_VERSION		"v9.0.0"	// IOCP 에서 RingQueue 제거, 직접 전송. ODBC 드라이버 코딩으로
 
 #define DEF_API_TR_OF	"o3103"
 

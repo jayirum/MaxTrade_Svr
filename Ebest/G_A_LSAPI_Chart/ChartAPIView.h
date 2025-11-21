@@ -10,7 +10,7 @@
 #include "CGlobals.h"
 #include "CDBWorks.h"
 #include "AppCommon.h"
-#include "../../Common/CNoLockRingQueue.h"
+#include "../../Common/CSPSCRing.h"
 #include "../../Common/TimeUtils.h"
 #include "CParser.h"
 
@@ -129,7 +129,7 @@ private:
 	__MAX::CThreadFlag				m_thrdFlag;
 	std::thread						m_thrd_save;
 	std::thread						m_thrd_sise_parser;
-	CNoLockRingQueue< DataUnitPtr>	m_dbQ;
+	CSPSCRing<DataUnitPtr>			m_ring_db{1};
 	
 	vector<shared_ptr<TSendReq>>	m_rqst_queue;
 	std::mutex						m_mtx_rqst_queue;

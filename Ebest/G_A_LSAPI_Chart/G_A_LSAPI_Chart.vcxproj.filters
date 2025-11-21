@@ -169,11 +169,11 @@
     <ClInclude Include="..\..\Common\MaxTradeInc.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\CNoLockRingQueue.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="CBOTDbSaver.h">
       <Filter>DBHandlers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\CSPSCRing.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

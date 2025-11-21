@@ -4,14 +4,16 @@
 
 ns_bot_db::CBOTDbManager __bot_manager;
 
-ns_bot_db::COneBot::COneBot(DBMS_TYPE dbms, string company, string dsn, string user, string pwd)
+ns_bot_db::COneBot::COneBot(DBMS_TYPE dbms, string company, string ip, string port, string dbname, string user, string pwd)
 {
 	m_is_continue = true;
 
 	m_dbms		= dbms;
 	m_company	= company;
-	m_dsn		= dsn;
-	m_user		= user;
+	m_ip		= ip;
+	m_port		= port;
+	m_dbname	= dbname;
+	m_uid		= user;
 	m_pwd		= pwd;
 
 	m_odbc = std::make_shared<CODBC>(m_dbms);	
@@ -32,21 +34,20 @@ bool ns_bot_db::COneBot::initialize()
 }
 
 bool ns_bot_db::COneBot::connect()
-{
-	sprintf(m_conn_str, "DSN=%s;UID=%s;PWD=%s;", m_dsn.c_str(), m_user.c_str(), m_pwd.c_str());
-
-	if (!m_odbc->Initialize(PING_TIMEOUT_SEC))
+{	
+	if (!m_odbc->Initialize((char*)m_ip.c_str(), (char*)m_port.c_str(), (char*)m_dbname.c_str(), 
+		(char*)m_uid.c_str(), (char*)m_pwd.c_str(),  PING_TIMEOUT_SEC))
 	{
 		__common.log_fmt(ERR, "[COneBot::connect] Failed to Initialize DB:%s", m_odbc->getMsg());
 		return false;
 	}
-	if (!m_odbc->Connect(m_conn_str))
+	if (!m_odbc->Connect())
 	{
-		__common.log_fmt(ERR, "[CDBConnector::connect_db] Failed to connect DB:%s", m_odbc->getMsg());
+		__common.log_fmt(ERR, "[%s] Failed to connect DB:%s", m_odbc->get_conn_str(), m_odbc->getMsg());
 		return false;
 	}
 
-	__common.log_fmt(INFO, "[%s]DB Connected successfully", m_dsn.c_str());
+	__common.log_fmt(INFO, "[%s][%s]DB Connected successfully", m_ip.c_str(), m_port.c_str());
 	return true;
 }
 
@@ -56,13 +57,14 @@ bool ns_bot_db::COneBot::re_connect()
 {
 	m_odbc->DeInitialize();
 
-	if (!m_odbc->Initialize(PING_TIMEOUT_SEC))
+	if (!m_odbc->Initialize((char*)m_ip.c_str(), (char*)m_port.c_str(), (char*)m_dbname.c_str(),
+		(char*)m_uid.c_str(), (char*)m_pwd.c_str(), PING_TIMEOUT_SEC))
 	{
 		__common.log_fmt(LOGTP_ERR, "[reconnect_db]Failed to Initialize-(%s)", m_odbc->getMsg());
 		std::this_thread::sleep_for(std::chrono::seconds(5));
 		return false;
 	}
-	if (!m_odbc->Connect(m_conn_str))
+	if (!m_odbc->Connect())
 	{
 		__common.log_fmt(LOGTP_ERR, "[reconnect_db]Failed to Connect-(%s)", m_odbc->getMsg());
 		std::this_thread::sleep_for(std::chrono::seconds(30));
@@ -190,12 +192,14 @@ bool ns_bot_db::CBOTDbManager::create_bots()
 		return false;
 	}
 
-	char key_dbms[128], key_dsn[128], key_uid[128], key_pwd[128], key_company[128];
+	char key_dbms[128], key_ip[128], key_port[128], key_dbname[128], key_uid[128], key_pwd[128], key_company[128];
 	int cnt = atoi(val);
 	for (int i = 1; i < cnt + 1; i++)
 	{
 		sprintf(key_dbms,		"DBMS_%d",		i);
-		sprintf(key_dsn,		"DSN_%d",		i);
+		sprintf(key_ip,			"IP_%d",		i);
+		sprintf(key_port,		"PORT_%d", i);
+		sprintf(key_dbname,		"DATABASE_%d", i);
 		sprintf(key_uid,		"UID_%d",		i);
 		sprintf(key_pwd,		"PWD_%d",		i);
 		sprintf(key_company,	"COMPANY_%d",	i);
@@ -203,8 +207,14 @@ bool ns_bot_db::CBOTDbManager::create_bots()
 		if (!__common.getConfig((char*)"BOT_INFO", key_dbms, val)) return false;
 		string dbms = val;
 
-		if (!__common.getConfig((char*)"BOT_INFO", key_dsn, val)) return false;
-		string dsn = val;
+		if (!__common.getConfig((char*)"BOT_INFO", key_ip, val)) return false;
+		string ip = val;
+
+		if (!__common.getConfig((char*)"BOT_INFO", key_port, val)) return false;
+		string port = val;
+
+		if (!__common.getConfig((char*)"BOT_INFO", key_dbname, val)) return false;
+		string dbname = val;
 
 		if (!__common.getConfig((char*)"BOT_INFO", key_uid, val)) return false;
 		string uid = val;
@@ -219,7 +229,7 @@ bool ns_bot_db::CBOTDbManager::create_bots()
 		DBMS_TYPE dbms_tp = (dbms.compare("MSSQL")==0)? DBMS_TYPE::MSSQL : DBMS_TYPE::MYSQL;	
 
 
-		m_vec_bot.push_back(make_shared<COneBot>(dbms_tp, company, dsn, uid, pwd));
+		m_vec_bot.push_back(make_shared<COneBot>(dbms_tp, company, ip, port, dbname, uid, pwd));
 
 		auto it = m_vec_bot.back();
 		if (!it->initialize()) {

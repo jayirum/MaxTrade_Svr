@@ -607,28 +607,65 @@ void CIOCPServer::TSession::enqueue_SendTask(const TPayLoad& p)
     PostQueuedCompletionStatus(m_iocp_ptr->m_iocp_handle, 0, STRAND_KEY, reinterpret_cast<LPOVERLAPPED>(task));
     //__common.debug_fmt("<enqueue_SendTask>(sock:%d)(%s)", self->m_sock, p->data());
 }
-void CIOCPServer::TSession::handle_SendTask(TPayLoad& p)
+void CIOCPServer::TSession::handle_SendTask(const TPayLoad& p)
 {
-    PostSend(std::move(p));
+    //if (!m_send_ringQ.is_available()) return;
 
-    
-    //TODO m_send_ringQ.push(p);
+    RING_Q_RET ret_code;
+    while ((ret_code = m_send_ringQ.push(p)) == RING_Q_RET::Fail) Sleep(0);
+
+    // pop 을 위한 token 획득
+    //if( !m_send_ringQ.can_i_pop() ) return;
 
     // 데이터 있으면 pop & 전송
-    //TODO pop_and_send();
+    pop_and_send();
 }
 
 void CIOCPServer::TSession::pop_and_send()
 {
-    for(int i=0; i<2; i++)
-    { 
-        TPayLoad payload = m_send_ringQ.pop();
+    while (true)
+    {
+        //if( !m_send_ringQ.i_already_have_pop_token() ){
+        //    if( !m_send_ringQ.can_i_pop() ) return; // 다른 스레드가 전송 중
+        //}
 
-        //===== 데이터가 있으면 전송 =====/
-        if (payload && !payload->empty()) { 
-            PostSend(std::move(payload)); 
-            return;
+        TPayLoad payload;
+        if (m_send_ringQ.pop(payload) == RING_Q_RET::Succ) 
+        {
+            //===== 데이터가 있으면 전송 =====/
+            if (payload && !payload->empty()) { 
+                PostSend(std::move(payload)); 
+                return;
+            }
+            else {
+                //__common.log_fmt(ERR,"[RingQ 에러][TSession::pop_and_send] Ring Queue 에서 가져온 TPayLoad 가 무효하거나 비어있다.");
+                continue;
+            }
         }
+
+        // Queue 가 비어 있으므로 Pop Token 반납
+        //m_send_ringQ.set_pop_available();
+
+        // race 보정. 방금 다른 스레드에 의해 들어왔을 수 있으므로 다시 토큰 획득하고 Q 점검
+        //if (m_send_ringQ.can_i_pop())
+        {
+            if (m_send_ringQ.pop(payload) == RING_Q_RET::Succ)
+            {
+                //===== 데이터가 있으면 전송 =====/
+                if (payload && !payload->empty()) {
+                    PostSend(std::move(payload));
+                    return;
+                }
+                else {
+                    //__common.log_fmt(ERR, "[RingQ 에러][TSession::pop_and_send] Ring Queue 에서 가져온 TPayLoad 가 무효하거나 비어있다.");
+                    continue;
+                }
+            }
+
+            // Q가 비어 있으므로 다시 token 반납
+            //m_send_ringQ.set_pop_available();
+        }
+        return;
     }
 }
 
@@ -679,7 +716,7 @@ void CIOCPServer::TSession::OnSendCompleted(TSendCtx* ctx, DWORD /*bytes*/, DWOR
     }
        
     //payload 처리
-    //TODO pop_and_send();
+    pop_and_send();
 
 
     delete ctx;

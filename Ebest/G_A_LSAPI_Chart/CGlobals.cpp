@@ -75,13 +75,17 @@ bool CGlobals::read_config_all()
 
 		msg = "DB_INFO_BASE";
 		CHECK_BOOL(__common.getConfig((char*)"DB_INFO_BASE", (char*)"DBMS",	m_cfg_db.dbms),	msg);
-		CHECK_BOOL(__common.getConfig((char*)"DB_INFO_BASE", (char*)"DSN",	m_cfg_db.dsn),	msg);
-		CHECK_BOOL(__common.getConfig((char*)"DB_INFO_BASE", (char*)"UID",	m_cfg_db.uid),	msg);
+		CHECK_BOOL(__common.getConfig((char*)"DB_INFO_BASE", (char*)"IP",	m_cfg_db.ip),	msg);
+		CHECK_BOOL(__common.getConfig((char*)"DB_INFO_BASE", (char*)"PORT", m_cfg_db.port), msg);
+		CHECK_BOOL(__common.getConfig((char*)"DB_INFO_BASE", (char*)"DATABASE",	m_cfg_db.dbname),	msg);
+		CHECK_BOOL(__common.getConfig((char*)"DB_INFO_BASE", (char*)"UID", m_cfg_db.uid), msg);
 		CHECK_BOOL(__common.getConfig((char*)"DB_INFO_BASE", (char*)"PWD",	m_cfg_db.pwd),	msg);
 		CHECK_BOOL(__common.getConfig((char*)"DB_INFO_BASE", (char*)"PING_TIMEOUT_SEC", m_cfg_db.ping_timeout), msg);
-		__common.log_fmt(INFO, "[DB_INFO_BASE] DBMS(%s) DSN(%s)"
+		__common.log_fmt(INFO, "[DB_INFO_BASE] DBMS(%s) IP(%s) PORT(%s) DATABASE(%s)"
 			, m_cfg_db.dbms
-			, m_cfg_db.dsn
+			, m_cfg_db.ip
+			, m_cfg_db.port
+			, m_cfg_db.dbname
 		);
 
 		msg = "API_INFO";	

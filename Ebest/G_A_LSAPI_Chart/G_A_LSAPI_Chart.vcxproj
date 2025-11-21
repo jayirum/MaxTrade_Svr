@@ -182,8 +182,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Common\CNoLockRingQueue.h" />
     <ClInclude Include="..\..\Common\CODBC.h" />
+    <ClInclude Include="..\..\Common\CSPSCRing.h" />
     <ClInclude Include="..\..\Common\CTcpClient.h" />
     <ClInclude Include="..\..\Common\Log.h" />
     <ClInclude Include="..\..\Common\LogMsg.h" />

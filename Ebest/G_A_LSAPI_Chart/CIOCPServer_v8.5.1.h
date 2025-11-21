@@ -24,11 +24,10 @@ std::atomic<
 #include <chrono>
 #include <algorithm>
 #include <functional>
+#include "../../Common/CRingQueue.h"
 #include "CGlobals.h"
 #include <wincrypt.h>               //websocket
 #include <json.hpp>
-
-
 
 #pragma comment(lib, "Crypt32.lib") //websocket
 
@@ -134,7 +133,7 @@ private:
         std::string         m_buffer;
 
         //std::atomic<bool>           m_is_sending{ false };
-        CSimpleQueue<TPayLoad>        m_send_ringQ;
+        CRingQueue<TPayLoad>        m_send_ringQ;
 
         string                      m_symbol_wanted;
         int                         m_tf_wanted;
@@ -157,7 +156,7 @@ private:
         
 
         void enqueue_SendTask(const TPayLoad& p);
-        void handle_SendTask(TPayLoad& p);
+        void handle_SendTask(const TPayLoad& p);
         void PostSend(TPayLoad&& p);
         void OnSendCompleted(TSendCtx* ctx, DWORD /*bytes*/, DWORD wsagetlasterror);
         void OnRecvCompleted(DWORD bytes, DWORD wsagetlasterror);

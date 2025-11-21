@@ -5,6 +5,9 @@
 #include "../../Common/StringUtils.h"
 #include <atomic>
 #include "AppCommon.h"
+#include <deque>
+
+using namespace std;
 
 struct TApp {
 	char listen_ip		[32]{};
@@ -31,7 +34,9 @@ struct TAPITr {
 
 struct TDBInfoBase{
 	char dbms	[64]{};
-	char dsn	[64]{};
+	char ip		[64]{};
+	char port	[64]{};
+	char dbname [64]{};
 	char uid	[64]{};
 	char pwd	[64]{};
 	char ping_timeout[32]{};
@@ -41,7 +46,8 @@ struct TBOTDb
 {
 	char company[64]{};
 	char dbms[64]{};
-	char dsn[64]{};
+	char ip[64]{};
+	char port[64]{};
 	char uid[64]{};
 	char pwd[64]{};
 };
@@ -110,8 +116,10 @@ public:
 
 
 	//TDBInfoBase
-	char*	get_dsn_base(){ return m_cfg_db.dsn;}
-	char*	get_db_uid_base() { return m_cfg_db.uid;}
+	char*	get_db_ip_base() { return m_cfg_db.ip;}
+	char*	get_db_port_base() { return m_cfg_db.port; }
+	char*	get_db_dbname_base() { return m_cfg_db.dbname; }
+	char*	get_db_uid_base() { return m_cfg_db.uid; }
 	char*	get_db_pwd_base() { return m_cfg_db.pwd;}
 	char*	get_db_ping_timeout() { return m_cfg_db.ping_timeout;}
 
@@ -176,3 +184,26 @@ private:
 
 
 
+
+template<typename T>
+class CSimpleQueue
+{
+public:
+	void push(T& t) {
+		std::lock_guard<std::mutex>lock(_mtx);
+		_q.push_back(t);
+	}
+
+	T pop() {
+		std::lock_guard<std::mutex> lock(_mtx);
+		if (_q.empty()) return nullptr;
+
+		T t = _q.front();
+		_q.pop_front();
+		return t;
+	}
+
+private:
+	deque< T>	_q;
+	std::mutex	_mtx;
+};
